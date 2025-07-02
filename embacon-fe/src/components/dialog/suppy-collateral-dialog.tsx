@@ -287,7 +287,7 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
 
             <Button
               onClick={handleClose}
-              className="w-full h-12 text-base font-medium rounded-lg bg-gradient-to-r from-[#01ECBE] to-[#141beb] hover:from-[#141beb] hover:to-[#01ECBE] text-white font-medium shadow-md hover:shadow-lg transition-colors duration-300"
+              className="w-full h-12 text-base rounded-lg bg-gradient-to-r from-[#01ECBE] to-[#141beb] hover:from-[#141beb] hover:to-[#01ECBE] text-white font-medium shadow-md hover:shadow-lg transition-colors duration-300"
             >
               Close
             </Button>
