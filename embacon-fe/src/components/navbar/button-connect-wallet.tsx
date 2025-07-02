@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatAddress } from "@/lib/format-address";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function WalletButton() {
@@ -25,9 +25,10 @@ export function WalletButton() {
         <>
           {/* Chain Switcher */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 rounded-xl font-semibold border border-border bg-background text-foreground shadow-sm hover:bg-accent transition-colors">
+            <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 rounded-xl font-semibold border-2 border-blue-400 bg-background text-foreground shadow-md hover:bg-accent transition-colors backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse" />
               {chain?.name.split(" ").slice(0, 2).join(" ")}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 ml-1" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[150px]">
               {chains.map(
@@ -47,9 +48,10 @@ export function WalletButton() {
 
           {/* Wallet Address Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 px-5 py-2 rounded-xl font-semibold border border-border bg-background text-foreground shadow-sm hover:bg-accent transition-colors">
+            <DropdownMenuTrigger className="flex items-center gap-1 px-5 py-2 rounded-xl font-semibold border-2 border-blue-400 bg-background text-foreground shadow-md hover:bg-accent transition-colors backdrop-blur-md">
+              <Wallet className="w-4 h-4 mr-1 text-blue-400" />
               {formatAddress(address)}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 ml-1" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[150px]">
               <DropdownMenuItem
@@ -63,9 +65,10 @@ export function WalletButton() {
         </>
       ) : (
         <Button
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl px-6 py-2 shadow-lg transition-all"
+          className="relative bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 text-white font-semibold rounded-xl px-6 py-2 shadow-xl transition-all border-2 border-transparent hover:border-blue-400 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 before:absolute before:inset-0 before:rounded-xl before:animate-glow before:bg-gradient-to-r before:from-blue-500 before:via-blue-600 before:to-blue-800 before:opacity-40 before:z-[-1] overflow-hidden"
           onClick={() => connect({ connector })}
         >
+          <Wallet className="w-5 h-5 mr-2 animate-pulse text-blue-300" />
           Connect Wallet
         </Button>
       )}

@@ -1,6 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import {
+  useAccount,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import { toast } from "sonner";
 import { mockErc20Abi } from "@/lib/abis/mockErc20Abi";
 import { tokens } from "@/constants/token-address";
@@ -34,32 +38,23 @@ export const useFaucet = (chainId: number = 43113) => {
       const tokenAddress = token.addresses[chainId];
       return tokenAddress ? { ...token, address: tokenAddress } : null;
     })
-    .filter((token): token is Token & { address: `0x${string}` } => token !== null);
+    .filter(
+      (token): token is Token & { address: `0x${string}` } => token !== null
+    );
+
+  // Enhanced setAmount with debugging
+  const setAmountWithDebug = (newAmount: string) => {
+    setAmount(newAmount);
+  };
 
   const handleClaim = async () => {
     if (!selectedTokenAddress || !amount) {
-      toast.error("Please select a token and enter an amount", {
-        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
-        style: {
-          backgroundColor: "rgba(239,68,68,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(248, 113, 113, 0.3)",
-          color: "#fca5a5"
-        }
-      });
+      toast.error("Please select a token and enter an amount");
       return;
     }
 
     if (!address) {
-      toast.error("Please connect your wallet", {
-        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
-        style: {
-          backgroundColor: "rgba(239,68,68,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(248, 113, 113, 0.3)",
-          color: "#fca5a5"
-        }
-      });
+      toast.error("Please connect your wallet");
       return;
     }
 
@@ -68,15 +63,7 @@ export const useFaucet = (chainId: number = 43113) => {
     );
 
     if (!selectedToken) {
-      toast.error("Invalid token selected", {
-        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
-        style: {
-          backgroundColor: "rgba(239,68,68,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(248, 113, 113, 0.3)",
-          color: "#fca5a5"
-        }
-      });
+      toast.error("Invalid token selected");
       return;
     }
 
@@ -98,27 +85,10 @@ export const useFaucet = (chainId: number = 43113) => {
 
       if (tx) {
         setTxHash(tx);
-        toast.success("Transaction submitted. Waiting for confirmation...", {
-          className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
-          style: {
-            backgroundColor: "rgba(34,197,94,0.1)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(134, 239, 172, 0.3)",
-            color: "#86efac"
-          }
-        });
+        toast.success("Transaction submitted. Waiting for confirmation...");
       }
     } catch (error) {
-      console.error("Claim error:", error);
-      toast.error("Failed to submit transaction", {
-        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
-        style: {
-          backgroundColor: "rgba(239,68,68,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(248, 113, 113, 0.3)",
-          color: "#fca5a5"
-        }
-      });
+      toast.error("Failed to submit transaction");
       setIsClaiming(false);
     }
   };
@@ -126,15 +96,7 @@ export const useFaucet = (chainId: number = 43113) => {
   const copyTokenAddress = () => {
     if (selectedTokenAddress) {
       navigator.clipboard.writeText(selectedTokenAddress);
-      toast.success("Token address copied to clipboard", {
-        className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
-        style: {
-          backgroundColor: "rgba(34,197,94,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(134, 239, 172, 0.3)",
-          color: "#86efac"
-        }
-      });
+      toast.success("Token address copied to clipboard");
     }
   };
 
@@ -148,17 +110,17 @@ export const useFaucet = (chainId: number = 43113) => {
     }
   };
 
+  // Debug effect to track amount changes
+  useEffect(() => {
+  }, [amount]);
+
+  // Debug effect to track claiming state
+  useEffect(() => {
+  }, [isClaiming, isWritePending]);
+
   useEffect(() => {
     if (isSuccess && txHash) {
-      toast.success(`Successfully claimed tokens!`, {
-        className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
-        style: {
-          backgroundColor: "rgba(34,197,94,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(134, 239, 172, 0.3)",
-          color: "#86efac"
-        }
-      });
+      toast.success(`Successfully claimed tokens!`);
       setAmount("");
       setSelectedTokenAddress("");
       setIsClaiming(false);
@@ -167,19 +129,23 @@ export const useFaucet = (chainId: number = 43113) => {
 
   useEffect(() => {
     if (isError) {
-      const errorMessage = confirmError?.message || writeError?.message || "Transaction failed";
-      toast.error(`Transaction failed: ${errorMessage}`, {
-        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
-        style: {
-          backgroundColor: "rgba(239,68,68,0.1)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(248, 113, 113, 0.3)",
-          color: "#fca5a5"
-        }
-      });
+      const errorMessage =
+        confirmError?.message || writeError?.message || "Transaction failed";
+      toast.error(`Transaction failed: ${errorMessage}`);
       setIsClaiming(false);
     }
   }, [isError, confirmError, writeError]);
+
+  // Reset claiming state if it gets stuck
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isClaiming && !isWritePending && !isConfirming) {
+        setIsClaiming(false);
+      }
+    }, 30000); // Reset after 30 seconds if stuck
+
+    return () => clearTimeout(timeout);
+  }, [isClaiming, isWritePending, isConfirming]);
 
   return {
     selectedTokenAddress,
@@ -189,7 +155,7 @@ export const useFaucet = (chainId: number = 43113) => {
     txHash,
     filteredTokens,
     setSelectedTokenAddress,
-    setAmount,
+    setAmount: setAmountWithDebug, // Use the debug version
     handleClaim,
     copyTokenAddress,
     addTokenToWallet: handleAddTokenToWallet,
