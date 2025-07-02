@@ -64,7 +64,15 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == currentChainId) {
       addTokenToWallet();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     }
   };
 
@@ -72,7 +80,15 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == currentChainId) {
       copyTokenAddress();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     }
   };
 
@@ -84,12 +100,12 @@ const FaucetsCardForm = () => {
         onValueChange={setSelectedTokenAddress}
         disabled={isClaiming || isConfirming}
       >
-        <SelectTrigger className="w-full border-[#01ECBE]/30 text-[#07094d]">
+        <SelectTrigger className="w-full bg-slate-700/50 border-blue-400/30 text-gray-100 backdrop-blur-sm">
           <SelectValue placeholder="Select a token" />
         </SelectTrigger>
-        <SelectContent className="border-[#01ECBE]/30">
+        <SelectContent className="bg-slate-800/90 border-blue-400/30 backdrop-blur-md">
           <SelectGroup>
-            <SelectLabel className="text-[#07094d]">Available Tokens</SelectLabel>
+            <SelectLabel className="text-gray-200">Available Tokens</SelectLabel>
             <AnimatePresence>
               {filteredTokens.map((token, index) => (
                 <motion.div
@@ -100,7 +116,7 @@ const FaucetsCardForm = () => {
                   transition={{ duration: 0.2, delay: index * 0.1 }}
                 >
                   <SelectItem
-                    className="transition-colors duration-100 cursor-pointer text-[#07094d] hover:bg-[#01ECBE]/10"
+                    className="transition-colors duration-100 cursor-pointer text-gray-100 hover:bg-blue-500/20 focus:bg-blue-500/20"
                     value={token.address}
                   >
                     <div className="flex items-center gap-2">
@@ -120,7 +136,7 @@ const FaucetsCardForm = () => {
         value={amount}
         onChange={handleAmountChange}
         disabled={isClaiming || isConfirming}
-        className="w-full bg-white border-[#01ECBE]/30 text-[#07094d]"
+        className="w-full bg-slate-700/50 border-blue-400/30 text-gray-100 placeholder:text-gray-400 backdrop-blur-sm"
         placeholder="Enter amount (e.g., 100)"
         type="text"
       />
@@ -129,7 +145,7 @@ const FaucetsCardForm = () => {
       <Button
         onClick={handleClaim}
         disabled={isClaiming || isConfirming || !selectedTokenAddress || !amount}
-        className="w-full bg-[#141beb] text-white hover:bg-[#141beb]/80 transition-colors duration-300 flex items-center justify-center"
+        className="w-full bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-600/50 disabled:text-gray-400 transition-colors duration-300 flex items-center justify-center"
       >
         {getButtonIcon()}
         {getButtonText()}
@@ -139,48 +155,56 @@ const FaucetsCardForm = () => {
       {txHash && (
         <div className="space-y-3">
           {isConfirming && (
-            <div className="flex items-center gap-2 text-[#07094d] text-sm">
+            <div className="flex items-center gap-2 text-gray-300 text-sm">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Confirming transaction...</span>
             </div>
           )}
 
           {isSuccess && (
-            <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-2 text-green-700 text-sm font-medium mb-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="p-3 bg-green-900/20 border border-green-400/30 rounded-lg backdrop-blur-sm">
+              <div className="flex items-center gap-2 text-green-300 text-sm font-medium mb-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 Transaction Successful
               </div>
-              <div className="text-xs text-green-600">
+              <div className="text-xs text-green-400">
                 Your tokens have been successfully claimed!
               </div>
             </div>
           )}
 
           {isError && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <div className="flex items-center gap-2 text-red-700 text-sm font-medium mb-1">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="p-3 bg-red-900/20 border border-red-400/30 rounded-lg backdrop-blur-sm">
+              <div className="flex items-center gap-2 text-red-300 text-sm font-medium mb-1">
+                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
                 Transaction Failed
               </div>
-              <div className="text-xs text-red-600">
+              <div className="text-xs text-red-400">
                 Please try again or check your wallet connection.
               </div>
             </div>
           )}
 
-          <div className="text-[#07094d] text-sm">
+          <div className="text-gray-300 text-sm">
             <span className="font-medium">Transaction Hash:</span>
             <div className="flex items-center gap-2 mt-1">
-              <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">
+              <code className="text-xs bg-slate-700/50 border border-blue-400/20 px-2 py-1 rounded font-mono text-gray-200">
                 {txHash.slice(0, 6)}...{txHash.slice(-6)}
               </code>
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(txHash);
-                  toast.success("Transaction hash copied!");
+                  toast.success("Transaction hash copied!", {
+                    className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
+                    style: {
+                      backgroundColor: "rgba(34,197,94,0.1)",
+                      backdropFilter: "blur(12px)",
+                      border: "1px solid rgba(134, 239, 172, 0.3)",
+                      color: "#86efac"
+                    }
+                  });
                 }}
-                className="text-[#141beb] hover:text-[#141beb]/80 transition-colors"
+                className="text-blue-400 hover:text-blue-300 transition-colors"
               >
                 <Copy className="w-3 h-3" />
               </button>
@@ -188,7 +212,7 @@ const FaucetsCardForm = () => {
                 href={`https://testnet.snowtrace.io/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#141beb] hover:text-[#141beb]/80 transition-colors"
+                className="text-blue-400 hover:text-blue-300 transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
               </a>
@@ -199,22 +223,22 @@ const FaucetsCardForm = () => {
 
       {/* Token Address Info */}
       {selectedTokenAddress && (
-        <div className="text-[#07094d] text-sm">
+        <div className="text-gray-300 text-sm">
           <span className="font-medium">Add token to your wallet:</span>
           <div className="flex items-center gap-2 mt-1">
-            <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono flex-1">
+            <code className="text-xs bg-slate-700/50 border border-blue-400/20 px-2 py-1 rounded font-mono flex-1 text-gray-200">
               {selectedTokenAddress}
             </code>
             <button
               onClick={execCopyTokenAddress}
-              className="text-[#141beb] hover:text-[#141beb]/80 transition-colors cursor-pointer"
+              className="text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
               title="Copy token address"
             >
               <Copy className="w-3 h-3" />
             </button>
             <button
               onClick={execAddTokenToWallet}
-              className="text-[#141beb] hover:text-[#141beb]/80 transition-colors cursor-pointer"
+              className="text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
               title="Add token to wallet automatically"
             >
               <Wallet className="w-3 h-3" />

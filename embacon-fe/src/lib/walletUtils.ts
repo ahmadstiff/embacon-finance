@@ -6,7 +6,15 @@ export const addTokenToWallet = async (
   selectedToken: Token & { address: `0x${string}` }
 ) => {
   if (!tokenAddress) {
-    toast.error("Please select a token first");
+    toast.error("Please select a token first", {
+      className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+      style: {
+        backgroundColor: "rgba(239,68,68,0.1)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(248, 113, 113, 0.3)",
+        color: "#fca5a5"
+      }
+    });
     return;
   }
 
@@ -26,13 +34,37 @@ export const addTokenToWallet = async (
         },
       });
       console.log(`${window.location.origin}${selectedToken.logo}`)
-      toast.success(`${selectedToken.name} added to your wallet!`);
+      toast.success(`${selectedToken.name} added to your wallet!`, {
+        className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
+        style: {
+          backgroundColor: "rgba(34,197,94,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(134, 239, 172, 0.3)",
+          color: "#86efac"
+        }
+      });
     } catch (error) {
       console.log("Error adding token to wallet:", error);
-      toast.error("Failed to add token to wallet. Please add it manually.");
+      toast.error("Failed to add token to wallet. Please add it manually.", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     }
   } else {
-    toast.error("Wallet not found. Please connect your wallet first.");
+    toast.error("Wallet not found. Please connect your wallet first.", {
+      className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+      style: {
+        backgroundColor: "rgba(239,68,68,0.1)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(248, 113, 113, 0.3)",
+        color: "#fca5a5"
+      }
+    });
   }
 };
 
@@ -43,17 +75,41 @@ export const addTokenToWalletEnhanced = async (
   chainId?: number
 ) => {
   if (!tokenAddress) {
-    toast.error("Please select a token first");
+    toast.error("Please select a token first", {
+      className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+      style: {
+        backgroundColor: "rgba(239,68,68,0.1)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(248, 113, 113, 0.3)",
+        color: "#fca5a5"
+      }
+    });
     return false;
   }
 
   if (typeof window === "undefined") {
-    toast.error("This feature is only available in a browser environment");
+    toast.error("This feature is only available in a browser environment", {
+      className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+      style: {
+        backgroundColor: "rgba(239,68,68,0.1)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(248, 113, 113, 0.3)",
+        color: "#fca5a5"
+      }
+    });
     return false;
   }
 
   if (!window.ethereum) {
-    toast.error("No wallet detected. Please install MetaMask or another compatible wallet.");
+    toast.error("No wallet detected. Please install MetaMask or another compatible wallet.", {
+      className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+      style: {
+        backgroundColor: "rgba(239,68,68,0.1)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(248, 113, 113, 0.3)",
+        color: "#fca5a5"
+      }
+    });
     return false;
   }
 
@@ -77,10 +133,26 @@ export const addTokenToWalletEnhanced = async (
       });
 
       if (wasAdded) {
-        toast.success(`${selectedToken.name} added to your wallet!`);
+        toast.success(`${selectedToken.name} added to your wallet!`, {
+          className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
+          style: {
+            backgroundColor: "rgba(34,197,94,0.1)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(134, 239, 172, 0.3)",
+            color: "#86efac"
+          }
+        });
         return true;
       } else {
-        toast.info("Token was not added to your wallet");
+        toast.info("Token was not added to your wallet", {
+          className: "bg-blue-900/10 backdrop-blur-md border-blue-400/30 text-blue-300",
+          style: {
+            backgroundColor: "rgba(59,130,246,0.1)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(147, 197, 253, 0.3)",
+            color: "#93c5fd"
+          }
+        });
         return false;
       }
     } else {
@@ -99,10 +171,26 @@ export const addTokenToWalletEnhanced = async (
       });
 
       if (wasAdded) {
-        toast.success(`${selectedToken.name} added to your wallet!`);
+        toast.success(`${selectedToken.name} added to your wallet!`, {
+          className: "bg-green-900/10 backdrop-blur-md border-green-400/30 text-green-300",
+          style: {
+            backgroundColor: "rgba(34,197,94,0.1)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(134, 239, 172, 0.3)",
+            color: "#86efac"
+          }
+        });
         return true;
       } else {
-        toast.info("Token was not added to your wallet");
+        toast.info("Token was not added to your wallet", {
+          className: "bg-blue-900/10 backdrop-blur-md border-blue-400/30 text-blue-300",
+          style: {
+            backgroundColor: "rgba(59,130,246,0.1)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(147, 197, 253, 0.3)",
+            color: "#93c5fd"
+          }
+        });
         return false;
       }
     }
@@ -111,11 +199,35 @@ export const addTokenToWalletEnhanced = async (
     
     // Handle specific error cases
     if (error.code === 4001) {
-      toast.error("User rejected the token addition request");
+      toast.error("User rejected the token addition request", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     } else if (error.code === -32601) {
-      toast.error("This wallet doesn't support adding tokens automatically. Please add it manually.");
+      toast.error("This wallet doesn't support adding tokens automatically. Please add it manually.", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     } else {
-      toast.error("Failed to add token to wallet. Please add it manually.");
+      toast.error("Failed to add token to wallet. Please add it manually.", {
+        className: "bg-red-900/10 backdrop-blur-md border-red-400/30 text-red-300",
+        style: {
+          backgroundColor: "rgba(239,68,68,0.1)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(248, 113, 113, 0.3)",
+          color: "#fca5a5"
+        }
+      });
     }
     
     return false;
