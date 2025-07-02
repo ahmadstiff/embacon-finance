@@ -66,9 +66,9 @@ const PositionToken = ({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-3 items-center hover:bg-emerald-100 transition-colors rounded-lg">
+    <div className="grid grid-cols-3 gap-2 p-3 items-center hover:bg-slate-700/30 transition-colors rounded-lg">
       <div className="flex items-center gap-2 pl-2">
-        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold">
+        <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-bold">
           <Image
             src={logo as string}
             alt={name as string}
@@ -76,11 +76,11 @@ const PositionToken = ({
             height={32}
           />
         </div>
-        <span className="font-medium text-gray-800">${name}</span>
+        <span className="font-medium text-gray-100">${name}</span>
       </div>
 
       <div className="text-center">
-        <span className="text-gray-800 font-medium">{tokenBalance}</span>
+        <span className="text-gray-100 font-medium">{tokenBalance}</span>
       </div>
 
       <div className="flex justify-center gap-2">

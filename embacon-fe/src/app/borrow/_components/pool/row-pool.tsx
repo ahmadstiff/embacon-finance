@@ -65,7 +65,7 @@ const RowPool = ({
 
   return (
     <button
-      className="w-full px-6 py-4 hover:bg-gray-50 transition-colors cursor-pointer text-left"
+      className="w-full px-6 py-4 hover:bg-slate-700/50 transition-colors cursor-pointer text-left"
       onClick={() =>
         liquidityFormatted !== "70.00"
           ? handleRowClick({
@@ -83,7 +83,7 @@ const RowPool = ({
       <div className="grid grid-cols-5 gap-4 items-center justify-center text-center">
         {/* Collateral */}
         <div className="flex items-center justify-center gap-3">
-          <div className="w-8 h-8 rounded-full border border-blue-100 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center">
             <Image
               src={collateralInfo?.logo ?? "/placeholder.png"}
               alt={collateralInfo?.name ?? "Unknown"}
@@ -91,14 +91,14 @@ const RowPool = ({
               height={24}
             />
           </div>
-          <div className="font-medium text-gray-900">
+          <div className="font-medium text-gray-100">
             {collateralInfo?.name ?? "Unknown"}
           </div>
         </div>
 
         {/* Borrow */}
         <div className="flex items-center justify-center gap-3">
-          <div className="w-8 h-8 rounded-full border border-blue-100 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center">
             <Image
               src={borrowInfo?.logo ?? "/placeholder.png"}
               alt={borrowInfo?.name ?? "Unknown"}
@@ -106,21 +106,21 @@ const RowPool = ({
               height={24}
             />
           </div>
-          <div className="font-medium text-gray-900">
+          <div className="font-medium text-gray-100">
             {borrowInfo?.name ?? "Unknown"}
           </div>
         </div>
 
         {/* LTV */}
-        <div className="text-emerald-600">{convertLtv(ltv)}</div>
+        <div className="text-emerald-400">{convertLtv(ltv)}</div>
 
         {/* Liquidity */}
-        <div className="text-gray-900">
+        <div className="text-gray-100">
           {liquidityFormatted} ${borrowInfo?.name ?? ""}
         </div>
 
         {/* Fixed Rate */}
-        <div className="text-blue-600">{rate ?? "3%"}</div>
+        <div className="text-blue-400">{rate ?? "3%"}</div>
       </div>
     </button>
   );

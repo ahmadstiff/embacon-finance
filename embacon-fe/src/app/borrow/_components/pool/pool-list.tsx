@@ -45,7 +45,7 @@ const PoolList = () => {
     if (isLoading) {
       return (
         <div className="flex justify-center items-center h-full py-10">
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
         </div>
       );
     }
@@ -53,7 +53,7 @@ const PoolList = () => {
     if (lpData.length === 0) {
       return (
         <div className="flex justify-center items-center h-full py-10">
-          <p className="text-gray-500">No data available</p>
+          <p className="text-gray-400">No data available</p>
         </div>
       );
     }
@@ -74,18 +74,18 @@ const PoolList = () => {
 
   return (
     <div className="px-6 pb-6">
-      <div className="rounded-xl border border-gray-200 overflow-hidden">
-        <div className="bg-slate-100 px-6 py-3">
+      <div className="rounded-xl border border-blue-400/30 overflow-hidden bg-slate-800/30">
+        <div className="bg-slate-700/50 px-6 py-3">
           <div className="grid grid-cols-5 gap-4 items-center text-center">
-            <div className="text-sm font-medium text-gray-600">Collateral</div>
-            <div className="text-sm font-medium text-gray-600">Loan</div>
-            <div className="text-sm font-medium text-gray-600">LTV</div>
-            <div className="text-sm font-medium text-gray-600">Liquidity</div>
-            <div className="text-sm font-medium text-gray-600">Rate</div>
+            <div className="text-sm font-medium text-blue-300">Collateral</div>
+            <div className="text-sm font-medium text-blue-300">Loan</div>
+            <div className="text-sm font-medium text-blue-300">LTV</div>
+            <div className="text-sm font-medium text-blue-300">Liquidity</div>
+            <div className="text-sm font-medium text-blue-300">Rate</div>
           </div>
         </div>
 
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-blue-400/20">
           {renderContent()}
         </div>
       </div>

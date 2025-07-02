@@ -6,7 +6,7 @@ const PoolHeader = () => {
     <CardHeader className="pb-2 pt-6 px-6">
       <div className="flex items-center justify-between">
         <div>
-          <CardTitle className="text-2xl font-bold text-gray-800">
+          <CardTitle className="text-2xl font-bold text-gray-100">
             Available Pools
           </CardTitle>
         </div>

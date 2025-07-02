@@ -5,7 +5,7 @@ import PoolCard from "./pool/pool-card";
 
 const BorrowPage = () => {
   return (
-    <div className="p-4 md:p-8 text-white">
+    <div className="p-4 md:p-8 text-white min-h-screen bg-slate-900">
       <div className="mx-auto max-w-6xl space-y-8 mt-5">
         <PositionHeader />
         <PositionCard />

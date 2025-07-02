@@ -168,7 +168,7 @@ const PositionCard = () => {
   const formatTitle = () => {
     if (isLoading)
       return (
-        <div className="h-10 w-32 bg-gray-200 animate-pulse rounded-xl duration-1300" />
+        <div className="h-10 w-32 bg-slate-700 animate-pulse rounded-xl duration-1300" />
       );
     if (!lpAddress) return "Choose Your Lending Pool";
     return `${(
@@ -254,8 +254,8 @@ const PositionCard = () => {
     return `${rate}`;
   };
   return (
-    <Card className="border shadow-sm overflow-hidden">
-      <CardHeader className="pb-2 border-b py-2">
+    <Card className="border shadow-sm overflow-hidden bg-slate-800/50 border-blue-400/30">
+      <CardHeader className="pb-2 border-b py-2 border-blue-400/30">
         <div className="flex bg items-center justify-between">
           <CollateralSection
             lpAddress={lpAddress as string}
@@ -264,7 +264,7 @@ const PositionCard = () => {
           />
         </div>
         <div className="flex items-center gap-2 ml-7">
-          <h1 className="text-lg text-gray-500">{formatTitle()}</h1>
+          <h1 className="text-lg text-gray-300">{formatTitle()}</h1>
         </div>
       </CardHeader>
       <AnimatePresence initial={false}>
@@ -278,35 +278,35 @@ const PositionCard = () => {
           <CardContent className="px-4 md:px-6 pt-4">
             {lpAddress ? (
               <div className="space-y-6">
-                <div className="grid grid-cols-3 gap-4 p-4 border border-blue-100 rounded-lg shadow-sm">
+                <div className="grid grid-cols-3 gap-4 p-4 border border-blue-400/30 rounded-lg shadow-sm bg-slate-800/50">
                   <div className="space-y-2 text-center">
-                    <div className="text-xs md:text-sm text-blue-600 flex items-center justify-center gap-1 font-medium">
-                      <Wallet className="h-3.5 w-3.5 text-blue-600" />
+                    <div className="text-xs md:text-sm text-blue-300 flex items-center justify-center gap-1 font-medium">
+                      <Wallet className="h-3.5 w-3.5 text-blue-300" />
                       Total Collateral
                     </div>
-                    <div className="text-base md:text-lg font-medium text-gray-800">
-                      <span className="text-emerald-600">
+                    <div className="text-base md:text-lg font-medium text-gray-100">
+                      <span className="text-emerald-400">
                         {formatCollateralAmount()}
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2 text-center">
-                    <div className="text-xs md:text-sm text-blue-600 flex items-center justify-center gap-1 font-medium">
-                      <HandCoins className="h-3.5 w-3.5 text-rose-500" />
+                    <div className="text-xs md:text-sm text-blue-300 flex items-center justify-center gap-1 font-medium">
+                      <HandCoins className="h-3.5 w-3.5 text-rose-400" />
                       Your Debt
                     </div>
-                    <div className="text-base md:text-lg font-medium text-gray-800">
-                      <span className="text-emerald-600">
+                    <div className="text-base md:text-lg font-medium text-gray-100">
+                      <span className="text-emerald-400">
                         {formatBorrowAmount()}
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2 text-center">
-                    <div className="text-xs md:text-sm text-blue-600 flex items-center justify-center gap-1 font-medium">
-                      <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                    <div className="text-xs md:text-sm text-blue-300 flex items-center justify-center gap-1 font-medium">
+                      <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
                       Interest Rate
                     </div>
-                    <div className="text-base md:text-lg font-medium text-emerald-600">
+                    <div className="text-base md:text-lg font-medium text-emerald-400">
                       {formatRate()}
                     </div>
                   </div>
@@ -314,19 +314,19 @@ const PositionCard = () => {
                 <div className="flex justify-center text-2xl font-medium items-center gap-2">
                   <div>{formatAddressPosition()}</div>
                 </div>
-                <div className="overflow-x-auto rounded-lg border border-blue-100 shadow-sm">
+                <div className="overflow-x-auto rounded-lg border border-blue-400/30 shadow-sm bg-slate-800/30">
                   {addressPosition ===
                   "0x0000000000000000000000000000000000000000" ? (
                     <div className="flex flex-col items-center justify-center gap-4 p-8 text-center">
-                      <div className="bg-blue-100 p-4 rounded-full">
-                        <Wallet className="h-10 w-10 text-blue-600" />
+                      <div className="bg-blue-500/20 p-4 rounded-full">
+                        <Wallet className="h-10 w-10 text-blue-300" />
                       </div>
-                      <span className="text-xl md:text-2xl text-gray-800">
+                      <span className="text-xl md:text-2xl text-gray-100">
                         {positionLength === 0
                           ? "Ready to Start Lending?"
                           : "Connect Your Position"}
                       </span>
-                      <p className="text-sm text-gray-500 max-w-md">
+                      <p className="text-sm text-gray-400 max-w-md">
                         {positionLength === 0
                           ? "Begin your DeFi journey by creating your first lending position. Supply collateral and start earning while borrowing assets."
                           : "Select your position to manage your lending portfolio and track your assets."}
@@ -334,12 +334,12 @@ const PositionCard = () => {
                     </div>
                   ) : (
                     <div>
-                      <div className="grid grid-cols-3 gap-2 p-3 text-sm font-medium text-blue-700">
+                      <div className="grid grid-cols-3 gap-2 p-3 text-sm font-medium text-blue-300">
                         <div className="pl-4">Assets</div>
                         <div className="text-center">Current Balance</div>
                         <div className="text-center">Quick Actions</div>
                       </div>
-                      <div className="divide-y divide-blue-100">
+                      <div className="divide-y divide-blue-400/20">
                         {tokens.map((token) => (
                           <PositionToken
                             key={token.addresses[43113]}
@@ -359,13 +359,13 @@ const PositionCard = () => {
             ) : (
               <div className="flex justify-center items-center h-full">
                 <div className="flex flex-col items-center justify-center gap-4 p-8 text-center">
-                  <div className="bg-blue-100 p-4 rounded-full">
-                    <Wallet className="h-10 w-10 text-blue-600" />
+                  <div className="bg-blue-500/20 p-4 rounded-full">
+                    <Wallet className="h-10 w-10 text-blue-300" />
                   </div>
-                  <span className="text-xl md:text-2xl text-gray-800">
+                  <span className="text-xl md:text-2xl text-gray-100">
                     Select Your Lending Pool
                   </span>
-                  <p className="text-sm text-gray-500 max-w-md">
+                  <p className="text-sm text-gray-400 max-w-md">
                     Choose a lending pool to view your positions and manage your
                     DeFi portfolio
                   </p>
