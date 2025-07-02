@@ -5,13 +5,15 @@ import { useReadSupplyLiquidity } from "@/hooks/read/useReadSupplyLiquidity";
 import Image from "next/image";
 import React from "react";
 import { toast } from "sonner";
+import { useReadRate } from "@/hooks/read/useReadRate";
+import { Address } from "viem";
 
 interface RowPoolProps {
   collateralToken: string;
   borrowToken: string;
   ltv: string;
   lpAddress: string;
-  rate: string;
+  
   borrowAddress: string;
   handleRowClick: (pool: {
     collateralToken: string;
@@ -32,7 +34,7 @@ const RowPool = ({
   borrowToken,
   ltv,
   lpAddress,
-  rate,
+  
   borrowAddress,
   handleRowClick,
 }: RowPoolProps) => {
@@ -63,6 +65,13 @@ const RowPool = ({
       ? formatCurrency(supplyLiquidity)
       : supplyLiquidity;
 
+  const { rate, isLoading: isLoadingRate } = useReadRate(lpAddress as Address);
+
+  const formatRate = (rate: number) => {
+    const percentage = 120 / 100;
+    return (rate * percentage).toFixed(2);
+  };
+
   return (
     <button
       className="w-full px-6 py-4 hover:bg-slate-700/50 transition-colors cursor-pointer text-left"
@@ -73,7 +82,7 @@ const RowPool = ({
               loanToken: borrowInfo?.name ?? "",
               ltv: convertLtv(ltv).toString(),
               liquidity: liquidityFormatted,
-              rate,
+              rate: rate.toString(),
               lpAddress,
               borrowAddress,
             })
@@ -119,8 +128,7 @@ const RowPool = ({
           {liquidityFormatted} ${borrowInfo?.name ?? ""}
         </div>
 
-        {/* Fixed Rate */}
-        <div className="text-blue-400">{rate ?? "3%"}</div>
+        <div className="text-blue-600">{isLoadingRate ? "Loading..." : formatRate(rate)}%</div>
       </div>
     </button>
   );

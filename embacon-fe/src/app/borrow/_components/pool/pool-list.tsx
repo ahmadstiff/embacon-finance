@@ -65,7 +65,6 @@ const PoolList = () => {
         borrowToken={pool.borrowToken}
         ltv={pool.ltv}
         lpAddress={pool.lpAddress}
-        rate={pool.rate}
         handleRowClick={handleRowClick}
         borrowAddress={pool.borrowAddress}
       />

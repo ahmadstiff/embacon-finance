@@ -6,6 +6,8 @@ import DialogWithdraw from "./dialog-withdraw";
 import Image from "next/image";
 import { getTokenInfo } from "@/lib/tokenUtils";
 import { useReadSupplyLiquidity } from "@/hooks/read/useReadSupplyLiquidity";
+import { useReadAPY } from "@/hooks/read/useReadAPY";
+import { Address } from "viem";
 
 interface RowTableProps {
   lpAddress: string;
@@ -25,12 +27,14 @@ const RowTable = ({
   const collateralData = getTokenInfo(collateralToken, TARGET_CHAIN_ID);
 
   const formatCurrency = (amount: number) => {
-    const formattedNumber = new Intl.NumberFormat('en-US', {
+    const formattedNumber = new Intl.NumberFormat("en-US", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 5,
     }).format(amount);
     return formattedNumber;
   };
+
+  const { isLoading: isLoadingAPY, apy } = useReadAPY(lpAddress as Address);
 
   const { supplyLiquidity } = useReadSupplyLiquidity({
     tokenAddress: borrowToken,
@@ -47,6 +51,11 @@ const RowTable = ({
     );
     return null;
   }
+
+  const formatAPY = (apy: number) => {
+    const percentage = 150 / 100;
+    return ((apy * percentage) + 3).toFixed(2);
+  };
 
   return (
     <tr className="border-b border-[#9EC6F3]">
@@ -83,7 +92,9 @@ const RowTable = ({
       </td>
 
       <td className="p-4 text-left">
-        <div className="font-medium text-green-500">5.62%</div>
+        <div className="font-medium text-green-500">
+          {isLoadingAPY ? "Loading..." : formatAPY(apy)}%
+        </div>
       </td>
 
       <td className="p-4 text-center">
