@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model LP_Factory {
+  id String @id @default(uuid())
+  sender String
+  collateralToken String
+  borrowToken String
+  ltv String
+  poolIndex String
+  lpAddress String
+  chain_id String
+  createdAt DateTime @default(now())
+}
+
+model Position {
+  id String @id @default(uuid())
+  collateralToken String
+  borrowToken String
+  poolIndex String
+  positionIndex String
+  lpAddress String
+  positionAddress String
+  owner String
+  chain_id String
+  createdAt DateTime @default(now())
+}
+model TransactionHistory {
+  id                String   @id @default(uuid())
+  user_address      String
+  collateral_token  String
+  collateral_chain  String
+  borrow_token      String
+  borrow_chain      String
+  borrow_amount     String
+  gas_fee_estimate  String
+  collateral_price  String
+  borrow_price      String
+  ltv_ratio         String
+  status            String   // e.g. "pending", "confirmed", "failed"
+  tx_hash           String?  // Optional, only if confirmed
+  error_message     String?  // Optional, only if failed
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+}
