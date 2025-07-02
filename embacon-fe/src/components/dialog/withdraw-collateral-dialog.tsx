@@ -177,19 +177,55 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
     const parsed = Number.parseFloat(amountInput)
 
     if (parsed <= 0) {
-      return toast.error("Amount must be greater than zero")
+      return toast.error("Amount must be greater than zero", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      })
     }
 
     if (parsed > collateralBalanceNumber) {
-      return toast.error("Amount exceeds available collateral")
+      return toast.error("Amount exceeds available collateral", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      })
     }
 
     if (!userPostitionAddress) {
-      return toast.error("Position not found. Please create a position first.")
+      return toast.error("Position not found. Please create a position first.", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      })
     }
 
     if (!lpAddress) {
-      return toast.error("Lending pool address not available")
+      return toast.error("Lending pool address not available", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      })
     }
 
     const amount = BigInt(Math.floor(parsed * 10 ** tokenDecimals))

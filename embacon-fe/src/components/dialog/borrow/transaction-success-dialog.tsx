@@ -81,7 +81,16 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(transactionHash);
-    toast.success("Transaction hash copied to clipboard");
+    toast.success("Transaction hash copied to clipboard", {
+      style: {
+        background: 'rgba(34, 197, 94, 0.1)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(34, 197, 94, 0.3)',
+        color: '#86efac',
+        borderRadius: '12px',
+        boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+      }
+    });
   };
 
   const openExplorer = () => {

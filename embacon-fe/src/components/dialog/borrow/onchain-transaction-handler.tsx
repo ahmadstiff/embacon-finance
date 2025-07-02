@@ -111,7 +111,16 @@ export default function useOnChainTransactionHandler({
         updateStepStatus("completion", "completed");
         
         // Display success message
-        toast.success(`Successfully borrowed ${amount} ${token} on ${fromChain.name}`);
+        toast.success(`Successfully borrowed ${amount} ${token} on ${fromChain.name}`, {
+          style: {
+            background: 'rgba(34, 197, 94, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(34, 197, 94, 0.3)',
+            color: '#86efac',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+          }
+        });
         
         // Close the modal after success
         setTimeout(() => {
@@ -129,7 +138,16 @@ export default function useOnChainTransactionHandler({
     if (writeError && !errorHandled.current) {
       errorHandled.current = true; // Mark as handled
       console.error("Transaction write error:", writeError);
-      toast.error(`Transaction failed: ${writeError.message}`);
+      toast.error(`Transaction failed: ${writeError.message}`, {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       
       setTransactionSteps((prev) =>
         prev.map((step) =>
@@ -156,12 +174,30 @@ export default function useOnChainTransactionHandler({
     try {
       // Validation checks
       if (!amount || Number.parseFloat(amount) <= 0) {
-        toast.error("Please enter a valid amount to borrow.");
+        toast.error("Please enter a valid amount to borrow.", {
+          style: {
+            background: 'rgba(239, 68, 68, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            color: '#fca5a5',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+          }
+        });
         return;
       }
 
       if (!address) {
-        toast.error("Please connect your wallet before proceeding.");
+        toast.error("Please connect your wallet before proceeding.", {
+          style: {
+            background: 'rgba(239, 68, 68, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            color: '#fca5a5',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+          }
+        });
         return;
       }
 
@@ -228,7 +264,16 @@ export default function useOnChainTransactionHandler({
         );
 
         console.error("Transaction failed:", errorMessage);
-        toast.error(`Transaction failed: ${errorMessage}`);
+        toast.error(`Transaction failed: ${errorMessage}`, {
+          style: {
+            background: 'rgba(239, 68, 68, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            color: '#fca5a5',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+          }
+        });
         setTxInProgress(false);
         onLoading(false);
       }
@@ -239,7 +284,16 @@ export default function useOnChainTransactionHandler({
     if (!txInProgress) {
       setIsModalOpen(false);
     } else {
-      toast.warning("Please wait for the transaction to complete");
+      toast.warning("Please wait for the transaction to complete", {
+        style: {
+          background: 'rgba(245, 158, 11, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(245, 158, 11, 0.3)',
+          color: '#fcd34d',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(245, 158, 11, 0.1)'
+        }
+      });
     }
   };
 

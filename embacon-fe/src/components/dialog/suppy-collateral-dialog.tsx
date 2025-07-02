@@ -117,7 +117,16 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
     const error = validateAmount(amount);
     if (error) {
       setInputError(error);
-      toast.error(error);
+      toast.error(error, {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
@@ -141,14 +150,32 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
 
   const copyTxHash = (hash: string) => {
     navigator.clipboard.writeText(hash);
-    toast.success("Transaction hash copied!");
+    toast.success("Transaction hash copied!", {
+      style: {
+        background: 'rgba(34, 197, 94, 0.1)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(34, 197, 94, 0.3)',
+        color: '#86efac',
+        borderRadius: '12px',
+        boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+      }
+    });
   };
 
   // Handle success state
   useEffect(() => {
     if (isSupplySuccess) {
       onSuccess?.();
-      toast.success("Supply collateral successful!");
+      toast.success("Supply collateral successful!", {
+        style: {
+          background: 'rgba(34, 197, 94, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(34, 197, 94, 0.3)',
+          color: '#86efac',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+        }
+      });
     }
   }, [isSupplySuccess, onSuccess]);
 
