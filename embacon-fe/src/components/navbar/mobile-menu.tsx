@@ -3,7 +3,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import NavLink from "./navbar-link";
-import ButtonConnectWallet from "./button-connect-wallet";
+import { WalletButton } from "./button-connect-wallet";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -69,7 +69,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
           <div className="px-6 pt-6 mt-4 border-t border-gray-200 dark:border-white/10">
             <div className="w-full">
-              <ButtonConnectWallet />
+              <WalletButton />
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { WalletButton } from "@/components/navbar/button-connect-wallet";
 
 export default function LendingHeader() {
   return (
@@ -82,6 +83,7 @@ export default function LendingHeader() {
               <div className="flex justify-between items-center">
                 <CardTitle className="text-[#1857ea] text-lg font-medium">
                   Total Borrowed
+                  <WalletButton />
                 </CardTitle>
                 <div className="border border-[#9EC6F3] p-2 rounded-lg text-[#1192FC]">
                   <Wallet className="h-5 w-5" />
