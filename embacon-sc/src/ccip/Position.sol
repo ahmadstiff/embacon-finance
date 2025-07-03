@@ -11,11 +11,11 @@ import {IFactory} from "./interfaces/IFactory.sol";
 
 /**
  * @title Position
- * @author Caer Protocol
+ * @author Embacon Protocol
  * @notice A contract that manages lending positions with collateral and borrow assets
  * @dev This contract handles position management, token swapping, and collateral operations
  * 
- * The Position contract represents a user's lending position in the Caer protocol.
+ * The Position contract represents a user's lending position in the Embacon protocol.
  * It manages collateral assets, borrow assets, and provides functionality for:
  * - Withdrawing collateral
  * - Swapping tokens within the position

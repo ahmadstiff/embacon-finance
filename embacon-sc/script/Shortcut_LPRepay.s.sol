@@ -5,17 +5,18 @@ import {Script, console} from "forge-std/Script.sol";
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {Helper} from "./Helper.sol";
-import {ILendingPool} from "../src/interfaces/ILendingPool.sol";
+import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 
 contract LPRepayScript is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = 0x024F057D80a37416D4997f1Da2dA1Bf07cb9980E;
-    address public yourWallet = 0x597c129eE29d761f4Add79aF124593Be5E0EB77e;
+    address public lpAddress = address(0);
+    address public yourWallet = address(0);
     uint256 public amount = 100;
     // ----------------------------
 
     function setUp() public {
-        vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
+        vm.createSelectFork(vm.rpcUrl("arb_sepolia"));
+        // vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
     }
 
     function run() public {

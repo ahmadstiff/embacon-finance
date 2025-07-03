@@ -11,12 +11,12 @@ contract Protocol is ReentrancyGuard, Ownable {
 
     error InsufficientBalance(address token, uint256 amount);
 
-    constructor(address _owner) Ownable(_owner) {}
+    constructor() Ownable(msg.sender) {}
 
     function withdraw(address token, uint256 amount) public nonReentrant onlyOwner {
         if (IERC20(token).balanceOf(address(this)) < amount) {
             revert InsufficientBalance(token, amount);
-        }
+        }   
         IERC20(token).safeTransfer(msg.sender, amount);
     }
 }

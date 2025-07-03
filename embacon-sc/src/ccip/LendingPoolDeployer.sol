@@ -5,7 +5,7 @@ import {LendingPool} from "./LendingPool.sol";
 
 /**
  * @title LendingPoolDeployer
- * @author Caer Protocol
+ * @author Embacon Protocol
  * @notice A factory contract for deploying new LendingPool instances
  * @dev This contract is responsible for creating new lending pools with specified parameters
  *
@@ -22,8 +22,8 @@ contract LendingPoolDeployer {
     address public factory;
     address public owner;
 
-    constructor(address _owner) {
-        owner = _owner;
+    constructor() {
+        owner = msg.sender;
     }
 
     modifier onlyFactory() {

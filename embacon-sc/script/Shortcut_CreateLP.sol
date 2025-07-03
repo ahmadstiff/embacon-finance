@@ -3,19 +3,20 @@ pragma solidity ^0.8.13;
 
 import {Script} from "forge-std/Script.sol";
 import {Helper} from "./Helper.sol";
-import {IFactory} from "../src/interfaces/IFactory.sol";
+import {IFactory} from "../src/ccip/interfaces/IFactory.sol";
 
 contract CreateLPScript is Script, Helper {
     // --------- FILL THIS ----------
-    address collateralToken = AVAX_WBTC;
-    address borrowToken = AVAX_WAVAX;
+    address collateralToken = address(0);
+    address borrowToken = address(0);
     uint256 ltv = 7.5e17;
     // ----------------------------
 
-    address factory = 0x694B5A70f83062308aa60ecf12074Bc8f694612d;
+    address factory = address(0);
 
     function setUp() public {
-        vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
+        vm.createSelectFork(vm.rpcUrl("arb_sepolia"));
+        // vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
     }
 
     function run() public {

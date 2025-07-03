@@ -5,7 +5,7 @@ import {ILPDeployer} from "./interfaces/ILPDeployer.sol";
 
 /**
  * @title LendingPoolFactory
- * @author Caer Protocol
+ * @author Embacon Protocol
  * @notice Factory contract for creating and managing lending pools
  * @dev This contract serves as the main entry point for creating new lending pools.
  * It maintains a registry of all created pools and manages token data streams

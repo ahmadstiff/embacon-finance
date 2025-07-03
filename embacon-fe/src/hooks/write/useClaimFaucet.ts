@@ -80,7 +80,7 @@ export const useFaucet = (chainId: number = defaultChain) => {
       const tx = await writeContractAsync({
         address: selectedTokenAddress as `0x${string}`,
         abi: mockErc20Abi,
-        functionName: "mint_mock",
+        functionName: "mintMock",
         args: [address as `0x${string}`, amountBigInt],
       });
 
@@ -112,12 +112,10 @@ export const useFaucet = (chainId: number = defaultChain) => {
   };
 
   // Debug effect to track amount changes
-  useEffect(() => {
-  }, [amount]);
+  useEffect(() => {}, [amount]);
 
   // Debug effect to track claiming state
-  useEffect(() => {
-  }, [isClaiming, isWritePending]);
+  useEffect(() => {}, [isClaiming, isWritePending]);
 
   useEffect(() => {
     if (isSuccess && txHash) {

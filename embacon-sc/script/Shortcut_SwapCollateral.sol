@@ -2,19 +2,19 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {ILendingPool} from "../src/interfaces/ILendingPool.sol";
+import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 import {Helper} from "./Helper.sol";
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import {IFactory} from "../src/interfaces/IFactory.sol";
+import {IFactory} from "../src/ccip/interfaces/IFactory.sol";
 
 contract Shortcut_SwapCollateral is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = 0x94bb056b417043D7A7087CCF09DBdB77B19a5C90;
-    address public yourWallet = 0x597c129eE29d761f4Add79aF124593Be5E0EB77e;
-    address public factory = 0xbAeb98c34ff0C165dBb0C81489f485a4416563e2;
+    address public lpAddress = address(0);
+    address public yourWallet = address(0);
+    address public factory = address(0);
     uint256 public amount = 1;
-    address public tokenIn = AVAX_WETH;
-    address public tokenOut = AVAX_USDC;
+    address public tokenIn = address(0);
+    address public tokenOut = address(0);
     // ----------------------------
 
     address public AVAX_BtcUsd = 0x31CF013A08c6Ac228C94551d535d5BAfE19c602a;
@@ -26,8 +26,8 @@ contract Shortcut_SwapCollateral is Script, Helper {
     function setUp() public {
         // vm.createSelectFork(vm.rpcUrl("rise_sepolia"));
         // vm.createSelectFork(vm.rpcUrl("op_sepolia"));
-        // vm.createSelectFork(vm.rpcUrl("arb_sepolia"));
-        vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
+        vm.createSelectFork(vm.rpcUrl("arb_sepolia"));
+        // vm.createSelectFork(vm.rpcUrl("avalanche_fuji"));
         // vm.createSelectFork(vm.rpcUrl("cachain_sepolia"));
         // vm.createSelectFork(vm.rpcUrl("educhain"));
         // vm.createSelectFork(vm.rpcUrl("pharos_devnet"));
