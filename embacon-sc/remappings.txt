@@ -1,5 +1,5 @@
 
 @openzeppelin/=lib/openzeppelin-contracts/
-@chainlink-evm/=lib/chainlink/
+@chainlink-evm/=lib/chainlink-evm/
 @chainlink-ccip/=lib/chainlink-ccip/
 forge-std/=lib/forge-std/src/

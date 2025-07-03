@@ -66,8 +66,8 @@ contract LendingPoolFactoryTest is Test {
         vm.createSelectFork("https://api.avax-test.network/ext/bc/C/rpc");
 
         isHealthy = new IsHealthy();
-        protocol = new Protocol(address(alice));
-        lendingPoolDeployer = new LendingPoolDeployer(address(alice));
+        protocol = new Protocol();
+        lendingPoolDeployer = new LendingPoolDeployer();
         lendingPoolFactory = new LendingPoolFactory(address(isHealthy), address(lendingPoolDeployer), address(protocol));
         lendingPool = new LendingPool(address(weth), address(usdc), address(lendingPoolFactory), 7e17);
         position = new Position(address(weth), address(usdc), address(lendingPool), address(lendingPoolFactory));

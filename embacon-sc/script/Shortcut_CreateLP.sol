@@ -7,12 +7,12 @@ import {IFactory} from "../src/ccip/interfaces/IFactory.sol";
 
 contract CreateLPScript is Script, Helper {
     // --------- FILL THIS ----------
-    address collateralToken = address(0);
-    address borrowToken = address(0);
+    address collateralToken = ARB_WBTC;
+    address borrowToken = ARB_USDC;
     uint256 ltv = 7.5e17;
     // ----------------------------
 
-    address factory = address(0);
+    address factory = ARB_factory;
 
     function setUp() public {
         vm.createSelectFork(vm.rpcUrl("arb_sepolia"));

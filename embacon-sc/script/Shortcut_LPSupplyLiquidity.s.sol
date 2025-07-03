@@ -9,9 +9,8 @@ import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 
 contract LPSupplyLiquidityScript is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = address(0);
-    address public yourWallet = address(0);
-    uint256 public amount = 1;
+    address public yourWallet = vm.envAddress("ADDRESS");
+    uint256 public amount = 100_000;
     // ----------------------------
 
     function setUp() public {
@@ -28,7 +27,7 @@ contract LPSupplyLiquidityScript is Script, Helper {
     // Make sure you have enough collateral in the wallet
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
-        address borrowToken = ILendingPool(lpAddress).borrowToken();
+        address borrowToken = ILendingPool(ARB_lp).borrowToken();
         uint256 decimal = IERC20Metadata(borrowToken).decimals();
 
         vm.startBroadcast(privateKey);
@@ -43,8 +42,8 @@ contract LPSupplyLiquidityScript is Script, Helper {
             return;
         } else {
             console.log("Your balance before supply liquidity", balance);
-            IERC20(borrowToken).approve(lpAddress, amountSupplyLiquidity);
-            ILendingPool(lpAddress).supplyLiquidity(amountSupplyLiquidity);
+            IERC20(borrowToken).approve(ARB_lp, amountSupplyLiquidity);
+            ILendingPool(ARB_lp).supplyLiquidity(amountSupplyLiquidity);
             console.log("success");
             console.log("Your balance after supply liquidity", IERC20(borrowToken).balanceOf(yourWallet));
         }

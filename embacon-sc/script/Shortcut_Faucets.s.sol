@@ -8,9 +8,8 @@ import {ITokenSwap} from "../src/ccip/interfaces/ITokenSwap.sol";
 
 contract FaucetsScript is Script, Helper {
     // ------- FILL THIS ----------
-    address public claimToken = address(0);
-    address public claimAddress = address(0);
-    uint256 public amount = 10;
+    address public claimToken = ARB_USDC;
+    uint256 public amount = 1_000_000;
     // ----------------------------
 
     function setUp() public {
