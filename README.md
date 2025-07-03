@@ -1,4 +1,4 @@
-# Embacon Finance
+F# Embacon Finance
 
 ## Project Demo
 [Go to site](https://caerfi.vercel.app/)
@@ -49,25 +49,25 @@ In building a permissionless cross-chain lending protocol, we identified the mos
 
 **Problem**: DeFi users are often constrained by isolated liquidity pools on individual blockchains, limiting access to optimal borrowing or lending opportunities.
 
-**Caér Finance's Solution**: Embacon Finance solves this through secure cross-chain functionality powered by Chainlink CCIP, enabling users to deposit collateral on one chain and borrow on another without relying on centralized bridges or wrapped assets. This unlocks multichain capital access and improves capital efficiency across ecosystems.
+**Embacon Finance's Solution**: Embacon Finance solves this through secure cross-chain functionality powered by Chainlink CCIP, enabling users to deposit collateral on one chain and borrow on another without relying on centralized bridges or wrapped assets. This unlocks multichain capital access and improves capital efficiency across ecosystems.
 
 ## Delayed Price Feeds
 
 **Problem**: Traditional oracles often suffer from latency or low update frequency, resulting in outdated collateral pricing, miscalculated LTV ratios, and increased exposure to market volatility.
 
-**Caér Finance's Solution**: By integrating Chainlink Data Streams, Embacon accesses sub-second, real-time price data on-chain. This ensures up-to-date collateral valuations and dynamic loan tracking, empowering users with accurate, real-time position insights.
+**Embacon Finance's Solution**: By integrating Chainlink Data Streams, Embacon accesses sub-second, real-time price data on-chain. This ensures up-to-date collateral valuations and dynamic loan tracking, empowering users with accurate, real-time position insights.
 
 ## Closed and Restrictive Protocols Hinder Broader Participation
 
 **Problem**: A significant number of lending platforms operate within closed ecosystems, relying on mechanisms such as whitelisting, centralized governance, or limited collateral support. These restrictions reduce accessibility, limit user autonomy, and compromise the principles of transparency and decentralization.
 
-**Caér Finance's Solution**: Embacon Finance is designed as a fully permissionless protocol, enabling any user to engage in lending or borrowing activities without the need for prior approval or reliance on centralized intermediaries. This open-access architecture fosters inclusivity, enhances transparency, and aligns with the core ethos of decentralized finance by supporting unrestricted global participation.
+**Embacon Finance's Solution**: Embacon Finance is designed as a fully permissionless protocol, enabling any user to engage in lending or borrowing activities without the need for prior approval or reliance on centralized intermediaries. This open-access architecture fosters inclusivity, enhances transparency, and aligns with the core ethos of decentralized finance by supporting unrestricted global participation.
 
 ## Collateral Management is Inflexible
 
 **Problem**: Other lending protocols require users to exit positions to adjust their collateral, incurring costs and friction during portfolio adjustments.
 
-**Caér Finance's Solution**: Embacon introduces a native in-protocol collateral swap mechanism, allowing users to seamlessly change their collateral type without closing positions. This feature is supported by Chainlink Data Streams, ensuring accurate pricing during swaps and enabling more agile, responsive portfolio management.
+**Embacon Finance's Solution**: Embacon introduces a native in-protocol collateral swap mechanism, allowing users to seamlessly change their collateral type without closing positions. This feature is supported by Chainlink Data Streams, ensuring accurate pricing during swaps and enabling more agile, responsive portfolio management.
 
 ---
 
@@ -77,7 +77,7 @@ In building a permissionless cross-chain lending protocol, we identified the mos
 
 ### Secure Cross-Chain Messaging Without Centralization
 
-**Challenge**: Implementing cross-chain functionality in DeFi often relies on custodial bridges or wrapped assets, which introduce significant security risks and systemic vulnerabilities. Embacon’s challenge was to deliver secure and verifiable cross-chain communication without compromising decentralization. By integrating Chainlink CCIP, Caér had to ensure not only the integrity of cross-chain token transfers but also the safe orchestration of protocol logic across multiple blockchain environments. This required careful handling of message validation, failure recovery, and trust minimization throughout the system.
+**Challenge**: Implementing cross-chain functionality in DeFi often relies on custodial bridges or wrapped assets, which introduce significant security risks and systemic vulnerabilities. Embacon’s challenge was to deliver secure and verifiable cross-chain communication without compromising decentralization. By integrating Chainlink CCIP, Embacon had to ensure not only the integrity of cross-chain token transfers but also the safe orchestration of protocol logic across multiple blockchain environments. This required careful handling of message validation, failure recovery, and trust minimization throughout the system.
 
 ### Real-Time Price Delivery and On-Chain Integration
 
