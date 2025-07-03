@@ -50,12 +50,30 @@ export const useFaucet = (chainId: number = defaultChain) => {
 
   const handleClaim = async () => {
     if (!selectedTokenAddress || !amount) {
-      toast.error("Please select a token and enter an amount");
+      toast.error("Please select a token and enter an amount", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
     if (!address) {
-      toast.error("Please connect your wallet");
+      toast.error("Please connect your wallet", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
@@ -64,7 +82,16 @@ export const useFaucet = (chainId: number = defaultChain) => {
     );
 
     if (!selectedToken) {
-      toast.error("Invalid token selected");
+      toast.error("Invalid token selected", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
@@ -86,10 +113,28 @@ export const useFaucet = (chainId: number = defaultChain) => {
 
       if (tx) {
         setTxHash(tx);
-        toast.success("Transaction submitted. Waiting for confirmation...");
+        toast.success("Transaction submitted. Waiting for confirmation...", {
+          style: {
+            background: 'rgba(59, 130, 246, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(59, 130, 246, 0.3)',
+            color: '#93c5fd',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(59, 130, 246, 0.1)'
+          }
+        });
       }
     } catch (error) {
-      toast.error("Failed to submit transaction");
+      toast.error("Failed to submit transaction", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       setIsClaiming(false);
     }
   };
@@ -97,7 +142,16 @@ export const useFaucet = (chainId: number = defaultChain) => {
   const copyTokenAddress = () => {
     if (selectedTokenAddress) {
       navigator.clipboard.writeText(selectedTokenAddress);
-      toast.success("Token address copied to clipboard");
+      toast.success("Token address copied to clipboard", {
+        style: {
+          background: 'rgba(34, 197, 94, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(34, 197, 94, 0.3)',
+          color: '#86efac',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+        }
+      });
     }
   };
 
@@ -119,7 +173,16 @@ export const useFaucet = (chainId: number = defaultChain) => {
 
   useEffect(() => {
     if (isSuccess && txHash) {
-      toast.success(`Successfully claimed tokens!`);
+      toast.success(`Successfully claimed tokens!`, {
+        style: {
+          background: 'rgba(34, 197, 94, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(34, 197, 94, 0.3)',
+          color: '#86efac',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+        }
+      });
       setAmount("");
       setSelectedTokenAddress("");
       setIsClaiming(false);
@@ -130,7 +193,16 @@ export const useFaucet = (chainId: number = defaultChain) => {
     if (isError) {
       const errorMessage =
         confirmError?.message || writeError?.message || "Transaction failed";
-      toast.error(`Transaction failed: ${errorMessage}`);
+      toast.error(`Transaction failed: ${errorMessage}`, {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       setIsClaiming(false);
     }
   }, [isError, confirmError, writeError]);

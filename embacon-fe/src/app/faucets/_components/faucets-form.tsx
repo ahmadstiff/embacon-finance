@@ -65,7 +65,16 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == defaultChain) {
       addTokenToWallet();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
     }
   };
 
@@ -73,7 +82,16 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == defaultChain) {
       copyTokenAddress();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
     }
   };
 
@@ -85,12 +103,12 @@ const FaucetsCardForm = () => {
         onValueChange={setSelectedTokenAddress}
         disabled={isClaiming || isConfirming}
       >
-        <SelectTrigger className="w-full bg-white border-[#01ECBE]/30 text-[#07094d]">
+        <SelectTrigger className="w-full bg-slate-700/50 border-slate-600/50 text-white hover:bg-slate-700/70 transition-colors">
           <SelectValue placeholder="Select a token" />
         </SelectTrigger>
-        <SelectContent className="bg-white border-[#01ECBE]/30">
+        <SelectContent className="bg-slate-800 border-slate-700/50 backdrop-blur-sm">
           <SelectGroup>
-            <SelectLabel className="text-[#07094d]">
+            <SelectLabel className="text-slate-300">
               Available Tokens
             </SelectLabel>
             <AnimatePresence>
@@ -103,7 +121,7 @@ const FaucetsCardForm = () => {
                   transition={{ duration: 0.2, delay: index * 0.1 }}
                 >
                   <SelectItem
-                    className="transition-colors duration-100 cursor-pointer text-[#07094d] hover:bg-[#01ECBE]/10"
+                    className="transition-colors duration-100 cursor-pointer text-white hover:bg-[#2986cc]/20 focus:bg-[#2986cc]/20"
                     value={token.address}
                   >
                     <div className="flex items-center gap-2">
@@ -112,6 +130,7 @@ const FaucetsCardForm = () => {
                         alt={token.name}
                         width={20}
                         height={20}
+                        className="rounded-full"
                       />
                       <span>{token.name}</span>
                     </div>
@@ -129,7 +148,7 @@ const FaucetsCardForm = () => {
           value={amount}
           onChange={handleAmountChange}
           disabled={isClaiming || isConfirming}
-          className="w-full px-3 py-2 bg-white border border-[#01ECBE]/30 text-[#07094d] rounded-md focus:outline-none focus:ring-2 focus:ring-[#01ECBE]/50 focus:border-[#01ECBE] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#2986cc]/50 focus:border-[#265287] disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-slate-400"
           placeholder="Enter amount (e.g., 100)"
           type="text"
           style={{
@@ -140,8 +159,8 @@ const FaucetsCardForm = () => {
           }}
         />
         {(isClaiming || isConfirming) && (
-          <div className="absolute inset-0 bg-gray-100/50 rounded-md flex items-center justify-center">
-            <span className="text-sm text-gray-500">Processing...</span>
+          <div className="absolute inset-0 bg-slate-800/50 rounded-md flex items-center justify-center">
+            <span className="text-sm text-slate-400">Processing...</span>
           </div>
         )}
       </div>
@@ -152,7 +171,7 @@ const FaucetsCardForm = () => {
         disabled={
           isClaiming || isConfirming || !selectedTokenAddress || !amount
         }
-        className="w-full bg-[#141beb] text-white hover:bg-[#141beb]/80 transition-colors duration-300 flex items-center justify-center"
+        className="w-full bg-gradient-to-r from-[#01ECBE] to-[#141beb] text-white hover:from-[#01ECBE]/90 hover:to-[#141beb]/90 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl disabled:from-slate-600 disabled:to-slate-600"
       >
         {getButtonIcon()}
         {getButtonText()}
@@ -162,48 +181,57 @@ const FaucetsCardForm = () => {
       {txHash && (
         <div className="space-y-3">
           {isConfirming && (
-            <div className="flex items-center gap-2 text-[#07094d] text-sm">
+            <div className="flex items-center gap-2 text-slate-300 text-sm">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Confirming transaction...</span>
             </div>
           )}
 
           {isSuccess && (
-            <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center gap-2 text-green-700 text-sm font-medium mb-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="p-3 bg-green-900/30 border border-green-500/30 rounded-lg backdrop-blur-sm">
+              <div className="flex items-center gap-2 text-green-400 text-sm font-medium mb-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 Transaction Successful
               </div>
-              <div className="text-xs text-green-600">
+              <div className="text-xs text-green-300">
                 Your tokens have been successfully claimed!
               </div>
             </div>
           )}
 
           {isError && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <div className="flex items-center gap-2 text-red-700 text-sm font-medium mb-1">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="p-3 bg-red-900/30 border border-red-500/30 rounded-lg backdrop-blur-sm">
+              <div className="flex items-center gap-2 text-red-400 text-sm font-medium mb-1">
+                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
                 Transaction Failed
               </div>
-              <div className="text-xs text-red-600">
+              <div className="text-xs text-red-300">
                 Please try again or check your wallet connection.
               </div>
             </div>
           )}
 
-          <div className="text-[#07094d] text-sm">
+          <div className="text-slate-300 text-sm">
             <span className="font-medium">Transaction Hash:</span>
             <div className="flex items-center gap-2 mt-1">
-              <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">
+              <code className="text-xs bg-slate-700/50 px-2 py-1 rounded font-mono text-slate-200">
                 {txHash.slice(0, 6)}...{txHash.slice(-6)}
               </code>
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(txHash);
-                  toast.success("Transaction hash copied!");
+                  toast.success("Transaction hash copied!", {
+                    style: {
+                      background: 'rgba(34, 197, 94, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(34, 197, 94, 0.3)',
+                      color: '#86efac',
+                      borderRadius: '12px',
+                      boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+                    }
+                  });
                 }}
-                className="text-[#141beb] hover:text-[#141beb]/80 transition-colors"
+                className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors"
               >
                 <Copy className="w-3 h-3" />
               </button>
@@ -211,7 +239,7 @@ const FaucetsCardForm = () => {
                 href={`https://testnet.snowtrace.io/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#141beb] hover:text-[#141beb]/80 transition-colors"
+                className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
               </a>
@@ -222,22 +250,22 @@ const FaucetsCardForm = () => {
 
       {/* Token Address Info */}
       {selectedTokenAddress && (
-        <div className="text-[#07094d] text-sm">
+        <div className="text-slate-300 text-sm">
           <span className="font-medium">Add token to your wallet:</span>
           <div className="flex items-center gap-2 mt-1">
-            <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono flex-1">
+            <code className="text-xs bg-slate-700/50 px-2 py-1 rounded font-mono flex-1 text-slate-200">
               {selectedTokenAddress}
             </code>
             <button
               onClick={execCopyTokenAddress}
-              className="text-[#141beb] hover:text-[#141beb]/80 transition-colors cursor-pointer"
+              className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors cursor-pointer"
               title="Copy token address"
             >
               <Copy className="w-3 h-3" />
             </button>
             <button
               onClick={execAddTokenToWallet}
-              className="text-[#141beb] hover:text-[#141beb]/80 transition-colors cursor-pointer"
+              className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors cursor-pointer"
               title="Add token to wallet automatically"
             >
               <Wallet className="w-3 h-3" />

@@ -141,7 +141,7 @@ export const RepaySelectedToken = (props: any) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-emerald-500 hover:bg-emerald-600 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 rounded-lg cursor-pointer">
+        <Button className="w-full bg-blue-800 hover:bg-blue-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 rounded-lg cursor-pointer">
           <ArrowDown className="mr-2 h-4 w-4" />
           Repay
         </Button>

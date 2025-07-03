@@ -286,7 +286,7 @@ const WithdrawCollateralDialog = ({
       );
     }
 
-    if (!userPostitionAddress) return "Create Position First";
+    if (!userPostitionAddress) return "Create Pool First";
     if (collateralBalanceNumber <= 0) return "No Collateral Available";
     if (!amountInput || Number.parseFloat(amountInput) <= 0)
       return "Enter Amount";

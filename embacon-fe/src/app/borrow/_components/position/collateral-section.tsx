@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CircleDollarSign } from "lucide-react";
+import { ArrowBigLeftDash, ArrowRight, CircleDollarSign } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { getTokenInfo } from "@/lib/tokenUtils";
@@ -62,25 +62,28 @@ const CollateralSection = ({
                     const borrow = getTokenInfo(lp.borrowToken, defaultChain);
 
                     return (
+
                       <SelectItem
                         key={lp.id}
                         value={String(lp.lpAddress)}
                         className="cursor-pointer px-3 py-2 text-sm text-gray-100 hover:bg-slate-700/50 transition-colors flex items-center gap-2"
                       >
+                        <div className=""></div>
                         <Image
                           src={collateral?.logo ?? "/placeholder.png"}
                           alt={collateral?.name ?? "Unknown"}
                           width={20}
                           height={20}
+                          className="rounded-full"
                         />
-                        {collateral?.name ?? "Unknown"} -
+                        <ArrowRight />
                         <Image
                           src={borrow?.logo ?? "/placeholder.png"}
                           alt={borrow?.name ?? "Unknown"}
                           width={20}
                           height={20}
+                          className="rounded-full"
                         />
-                        {borrow?.name ?? "Unknown"}
                       </SelectItem>
                     );
                   })}

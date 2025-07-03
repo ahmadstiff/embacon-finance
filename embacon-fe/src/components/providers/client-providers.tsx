@@ -44,7 +44,20 @@ export default function ClientProviders({
             <div className={`relative z-10 ${shouldShowNavbar ? "mt-5" : ""}`}>
               <Providers>{children}</Providers>
             </div>
-            <Toaster />
+            <Toaster 
+              position="bottom-right" 
+              expand={true}
+              richColors 
+              closeButton
+              toastOptions={{
+                style: {
+                  background: 'rgba(30, 41, 59, 0.9)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(148, 163, 184, 0.3)',
+                  color: '#e2e8f0',
+                },
+              }}
+            />
           </div>
         </RainbowKitProvider>
       </QueryClientProvider>

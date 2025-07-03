@@ -74,7 +74,7 @@ const PoolList = () => {
   return (
     <div className="px-6 ">
       <div className="rounded-xl border border-blue-400/30 overflow-hidden bg-slate-800/30">
-        <div className="bg-slate-700/50 px-6 py-3">
+        <div className="bg-slate-700/50 px-6 py-3 hidden sm:block">
           <div className="grid grid-cols-5 gap-4 items-center text-center">
             <div className="text-sm font-medium text-blue-300">Collateral</div>
             <div className="text-sm font-medium text-blue-300">Loan</div>

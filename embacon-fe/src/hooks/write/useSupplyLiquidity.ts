@@ -26,7 +26,7 @@ export const useSupply = (borrowToken?: string, lpAddress?: string) => {
   });
 
   const supply = async (amount: string) => {
-    console.log("🚀 Starting supply transaction:", { amount, borrowToken, lpAddress });
+
     setError(null);
     if (!lpAddress) {
       const error = new Error("Missing pool address");

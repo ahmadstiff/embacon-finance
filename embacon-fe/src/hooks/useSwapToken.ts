@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useAccount, useWriteContract } from "wagmi";
+import { useState, useEffect } from "react";
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { erc20Abi, parseUnits, Address } from "viem";
 import { poolAbi } from "@/lib/abis/poolAbi";
 import { toast } from "sonner";
@@ -36,9 +36,41 @@ export const useSwapToken = ({
   lpAddress,
 }: SwapTokenParams) => {
   const { address } = useAccount();
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { writeContract } = useWriteContract();
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+
+  const {
+    writeContractAsync,
+    error: writeError,
+    isPending: isWritePending,
+  } = useWriteContract();
+
+  const {
+    isLoading: isConfirming,
+    isSuccess,
+    isError,
+    error: confirmError,
+  } = useWaitForTransactionReceipt({
+    hash: txHash,
+  });
+
+  // Handle success
+  useEffect(() => {
+    if (isSuccess && txHash) {
+      if (onSuccess) {
+        onSuccess();
+      }
+    }
+  }, [isSuccess, txHash]); // Remove onSuccess from dependencies
+
+  // Handle error
+  useEffect(() => {
+    if (isError && confirmError) {
+      if (onError) {
+        onError(confirmError);
+      }
+    }
+  }, [isError, confirmError]); // Remove onError from dependencies
 
   const swapToken = async () => {
     if (!address) {
@@ -53,38 +85,43 @@ export const useSwapToken = ({
 
     try {
       setError("");
-      setIsLoading(true);
+      setTxHash(undefined);
 
       // Calculate the amount with proper decimals
       const amountIn = parseUnits(fromAmount, fromToken.decimals);
 
-      // Then perform the swap
-      writeContract({
+      // Submit the swap transaction
+      const tx = await writeContractAsync({
         address: lpAddress,
         abi: poolAbi,
         functionName: "swapTokenByPosition",
         args: [fromToken.address, toToken.address, BigInt(amountIn)],
       });
 
-      if (onSuccess) {
-        onSuccess();
+      if (tx) {
+        setTxHash(tx);
+        // Don't call onSuccess here, wait for transaction confirmation
       }
     } catch (err) {
       console.error("Error during swap:", err);
-      setError("Failed to execute swap. Please try again.");
-      toast.error("Swap failed");
+      const errorMessage = err instanceof Error ? err.message : "Failed to execute swap. Please try again.";
+      setError(errorMessage);
 
       if (onError && err instanceof Error) {
         onError(err);
       }
-    } finally {
-      setIsLoading(false);
+      
+      throw err; // Re-throw to let the component handle the error
     }
   };
 
   return {
     swapToken,
-    isLoading,
+    isLoading: isWritePending,
+    isConfirming,
+    isSuccess,
+    isError,
+    txHash,
     error,
     setError,
   };

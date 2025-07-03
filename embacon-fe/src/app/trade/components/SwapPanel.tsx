@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@/constants/token-address";
 import { useAccount } from "wagmi";
@@ -9,8 +9,7 @@ import { useBalance } from "@/hooks/useBalance";
 import { useSwapToken } from "@/hooks/useSwapToken";
 import { useTokenPrice } from "@/hooks/useTokenPrice";
 import { useReadLendingData } from "@/hooks/read/useReadLendingData";
-import { MoveRight, ShieldAlert, Wallet2 } from "lucide-react";
-import { ArrowDownUp } from "lucide-react";
+import { ArrowDownUp, ShieldAlert, Wallet2, MoveRight, History  } from "lucide-react";
 import SelectPosition from "@/app/borrow/_components/position/selectPosition";
 import {
   getAllLPFactoryData,
@@ -43,6 +42,7 @@ export default function SwapPanel() {
   const [toAmount, setToAmount] = useState("");
   const [slippage, setSlippage] = useState("0.5");
   const [isMounted, setIsMounted] = useState(false);
+  const [loadingToastId, setLoadingToastId] = useState<string | number | null>(null);
   const [positionAddress, setPositionAddress] = useState<string | undefined>(
     undefined
   );
@@ -97,7 +97,17 @@ export default function SwapPanel() {
     addressPosition as Address
   );
 
-  const { swapToken, isLoading, error, setError } = useSwapToken({
+  const onSwapSuccess = useCallback(() => {
+    // Reset form after successful swap
+    setFromAmount("");
+    setToAmount("");
+  }, []);
+
+  const onSwapError = useCallback((error: Error) => {
+    console.error("Swap error:", error);
+  }, []);
+
+  const { swapToken, isLoading, isConfirming, isSuccess, isError, txHash, error, setError } = useSwapToken({
     fromToken: {
       address: fromToken.addresses[defaultChain] as Address,
       name: fromToken.name,
@@ -110,17 +120,71 @@ export default function SwapPanel() {
     },
     fromAmount,
     toAmount,
-    onSuccess: () => {
-      // Reset form after successful swap
-      setFromAmount("");
-      setToAmount("");
-    },
-    onError: (error) => {
-      console.error("Swap error:", error);
-    },
+    onSuccess: onSwapSuccess,
+    onError: onSwapError,
     positionAddress: addressPosition as `0x${string}`,
     lpAddress: lpAddressSelected as Address,
   });
+
+  useEffect(() => {
+    if (txHash && !loadingToastId) {
+      const toastId = toast.loading("Transaction submitted. Waiting for confirmation...", {
+        style: {
+          background: 'rgba(59, 130, 246, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(59, 130, 246, 0.3)',
+          color: '#93c5fd',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(59, 130, 246, 0.1)'
+        }
+      });
+      setLoadingToastId(toastId);
+    }
+  }, [txHash]); // Remove loadingToastId from dependencies
+
+  useEffect(() => {
+    if (isSuccess && txHash) {
+      if (loadingToastId) {
+        toast.dismiss(loadingToastId);
+        setLoadingToastId(null);
+      }
+      
+      toast.success("Swap completed successfully!", {
+        style: {
+          background: 'rgba(34, 197, 94, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(34, 197, 94, 0.3)',
+          color: '#86efac',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+        }
+      });
+      // Reset form after successful swap
+      setFromAmount("");
+      setToAmount("");
+    }
+  }, [isSuccess, txHash]); // Remove loadingToastId from dependencies
+
+  useEffect(() => {
+    if (isError) {
+      if (loadingToastId) {
+        toast.dismiss(loadingToastId);
+        setLoadingToastId(null);
+      }
+      
+      const errorMessage = "Transaction failed. Please try again.";
+      toast.error(errorMessage, {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
+    }
+  }, [isError]); // Remove loadingToastId from dependencies
 
   // Set mounted state to true after hydration
   useEffect(() => {
@@ -154,7 +218,6 @@ export default function SwapPanel() {
       }
     } else {
       setToAmount("");
-      setError("");
     }
   }, [
     fromAmount,
@@ -216,6 +279,7 @@ export default function SwapPanel() {
       fromToken.name === tokenName(selectedCollateralToken)
         ? Number(userCollateral?.toString() ?? "0")
         : Number(fromTokenBalance) * 10 ** fromToken.decimals;
+    
     if (!address) {
       setError("Please connect your wallet");
       return;
@@ -233,36 +297,9 @@ export default function SwapPanel() {
 
     try {
       await swapToken();
-      // Success toast with green glass effect
-      toast.success("Swap completed successfully!", {
-        style: {
-          background: 'rgba(34, 197, 94, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(34, 197, 94, 0.3)',
-          color: '#86efac',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
-        }
-      });
     } catch (err) {
       console.error("Swap error:", err);
-      const errorMessage = err instanceof Error
-        ? err.message
-        : "Failed to execute swap. Please try again.";
-      
-      setError(errorMessage);
-      
-      // Error toast with red glass effect
-      toast.error(errorMessage, {
-        style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
-        }
-      });
+      // Error handling is done in useEffect
     }
   };
 
@@ -271,9 +308,10 @@ export default function SwapPanel() {
     if (!isMounted) return "Swap"; // Default text for SSR
     if (!address) return "Connect Wallet";
     if (!addressPosition || addressPosition === "0x0000000000000000000000000000000000000000") {
-      return "Create Position First";
+      return "Create Pool First";
     }
-    if (isLoading) return "Processing...";
+    if (isLoading && !isConfirming) return "Submitting...";
+    if (isConfirming) return "Confirming...";
     return "Swap";
   };
 
@@ -304,11 +342,13 @@ export default function SwapPanel() {
   };
 
   const formatButtonClick = () => {
+    console.log("Button clicked!"); // Debug log
+    
     if (
       addressPosition === "0x0000000000000000000000000000000000000000" ||
       addressPosition === undefined
     ) {
-      toast.error("You don't have any active positions. Visit the Borrow page to create a position first.", {
+      toast.error("You don't have any active positions. Visit the Borrow page to create a pool first.", {
         duration: 5000,
         style: {
           background: 'rgba(239, 68, 68, 0.1)',
@@ -345,6 +385,7 @@ export default function SwapPanel() {
   const formatButtonClassName = () => {
     return `w-full py-3.5 rounded-xl font-bold transition-colors ${
       isLoading ||
+      isConfirming ||
       !fromAmount ||
       !toAmount ||
       !address ||
@@ -429,13 +470,13 @@ export default function SwapPanel() {
               href={`https://testnet.snowtrace.io/address/${addressPosition}`}
               target="_blank"
             >
-              <Wallet2 className="size-4" />
-              View Position
+              <History className="size-4" />
+              View History
             </Link>
           ) : (
             <div className="text-red-400 text-base text-center flex flex-row gap-2 items-center justify-center">
               <ShieldAlert className="size-4" />
-              Please Select Position
+              Please Select Pool
             </div>
           )}
         </div>

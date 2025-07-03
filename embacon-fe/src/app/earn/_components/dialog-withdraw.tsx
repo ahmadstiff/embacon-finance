@@ -27,13 +27,16 @@ import { useAccount, useChainId } from "wagmi";
 import { useReadUserShares } from "@/hooks/read/useReadUserShares";
 import { useWithdrawLiquidity } from "@/hooks/write/useWithdrawLiquidity";
 import { chains } from "@/constants/chain-address";
+import { getTokenInfo } from "@/lib/tokenUtils";
 
 export default function DialogWithdraw({
   lpAddress,
   onSuccess,
+  borrowToken,
 }: {
   lpAddress?: string;
   onSuccess?: () => void;
+  borrowToken?: string;
 }) {
   const { address } = useAccount();
   const chainId = useChainId();
@@ -47,7 +50,7 @@ export default function DialogWithdraw({
     isReceiptSuccess,
     error: withdrawError,
     reset,
-  } = useWithdrawLiquidity(lpAddress);
+  } = useWithdrawLiquidity(lpAddress, borrowToken);
 
   /* ── UI state ─────────────────────────────────────────────────────────── */
   const [isOpen, setIsOpen] = useState(false);
@@ -58,10 +61,11 @@ export default function DialogWithdraw({
     .blockExplorer;
   const maxBalance = userSupplySharesAmountParsed ?? 0;
 
+  const tokenInfo = getTokenInfo(borrowToken ?? "", chainId);
+  const tokenSymbol = tokenInfo?.symbol ?? "";
+
   const validateAmount = (value: string): string => {
-    if (!value || value === "0") return "Amount is required";
     const numValue = Number.parseFloat(value);
-    if (isNaN(numValue) || numValue <= 0) return "Invalid amount";
     if (numValue > maxBalance) return "Insufficient balance";
     return "";
   };
@@ -129,12 +133,12 @@ export default function DialogWithdraw({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md bg-gradient-to-b from-white to-slate-50 border-0 shadow-xl rounded-xl">
+      <DialogContent className="sm:max-w-md bg-slate-800 border-0 shadow-xl rounded-xl">
         <DialogHeader className="pb-2 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <Wallet className="h-6 w-6 text-red-500" />
-            <DialogTitle className="text-xl font-bold text-slate-800">
-              {isReceiptSuccess ? "Withdrawal Successful!" : "Withdraw USDC"}
+            <Wallet className="h-6 w-6 text-blue-500" />
+            <DialogTitle className="text-xl font-bold text-gray-200">
+             Withdraw {tokenSymbol}
             </DialogTitle>
           </div>
         </DialogHeader>
@@ -148,7 +152,7 @@ export default function DialogWithdraw({
               </div>
             </div>
             <p className="text-slate-600">
-              Your {amount} USDC has been withdrawn successfully.
+              Your {amount} {tokenSymbol} has been withdrawn successfully.
             </p>
             {txHash && (
               <Card className="border border-slate-200 shadow-sm">
@@ -189,24 +193,24 @@ export default function DialogWithdraw({
           /* Input State */
           <>
             <div className="space-y-6 py-4">
-              <Card className="border border-slate-200 shadow-sm">
+              <Card className="border shadow-sm">
                 <CardContent className="px-4">
                   <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-sm font-medium text-slate-700">
+                    <h3 className="text-sm font-medium text-gray-300">
                       Withdrawal Amount
                     </h3>
                   </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg border border-slate-200">
+                  <div className="flex items-center space-x-2 py-2 rounded-lg ">
                     <Input
-                      placeholder="Enter amount of USDC"
+                      placeholder={`Enter amount of ${tokenSymbol}`}
                       value={amount}
                       onChange={(e) => handleAmountChange(e.target.value)}
                       disabled={isProcessing}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium"
+                      className={`border ${amount ? "border-blue-500" : "border-slate-200"} bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium`}
                     />
-                    <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
-                      <DollarSign className="h-4 w-4 text-slate-700" />
-                      <span className="font-semibold text-slate-700">USDC</span>
+                    <div className="flex items-center gap-1 bg-blue-600 px-3 py-1 rounded-md">
+                      <DollarSign className="h-4 w-4 text-gray-200" />
+                      <span className="font-semibold text-gray-200 read-only:not-only:">{tokenSymbol}</span>
                     </div>
                   </div>
 
@@ -217,7 +221,7 @@ export default function DialogWithdraw({
                     </div>
                   )}
 
-                  <div className="flex justify-between items-center text-xs mt-2">
+                  <div className="flex justify-between items-center text-xs px-1 mt-2">
                     <span className="text-gray-400">Available Balance:</span>
                     <div className="flex items-center gap-2 mt-1">
                       {sharesLoading ? (
@@ -233,11 +237,11 @@ export default function DialogWithdraw({
                           <button
                             onClick={handleMaxClick}
                             disabled={maxBalance === 0 || isProcessing}
-                            className="text-xs px-2 p-0.5 border border-red-500 rounded-md text-red-500 hover:bg-red-200 cursor-pointer duration-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="text-xs px-2 p-0.5 border border-blue-500 rounded-sm text-blue-500 hover:bg-blue-500 hover:text-gray-200 cursor-pointer duration-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             Max
                           </button>
-                        </>
+                        </> 
                       )}
                     </div>
                   </div>
@@ -296,7 +300,7 @@ export default function DialogWithdraw({
                 className={`w-full h-12 text-base font-medium rounded-lg ${
                   !isAmountValid || isProcessing || sharesLoading
                     ? "bg-slate-200 text-slate-500 cursor-not-allowed"
-                    : "bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 text-white shadow-md hover:shadow-lg"
+                    : "bg-blue-700 text-gray-200 hover:bg-blue-600 hover:text-gray-200 shadow-md hover:shadow-lg"
                 }`}
               >
                 {isProcessing ? (
@@ -309,7 +313,7 @@ export default function DialogWithdraw({
                     </span>
                   </div>
                 ) : (
-                  <span>Withdraw USDC</span>
+                  <span>Withdraw {tokenSymbol}</span>
                 )}
               </Button>
             </DialogFooter>
