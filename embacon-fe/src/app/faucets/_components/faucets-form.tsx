@@ -130,6 +130,7 @@ const FaucetsCardForm = () => {
                         alt={token.name}
                         width={20}
                         height={20}
+                        className="rounded-full"
                       />
                       <span>{token.name}</span>
                     </div>

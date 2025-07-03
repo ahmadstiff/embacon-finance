@@ -6,7 +6,7 @@ import FaucetsCard from "./_components/faucets-card";
 const page = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 mt-20">
-      <div className="mx-auto max-w-3xl space-y-8 mt-5">
+      <div className="mx-auto max-w-xl space-y-8 mt-5">
         <PositionHeader />
         <FaucetsCard />
       </div>
