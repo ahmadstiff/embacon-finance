@@ -9,12 +9,10 @@ import {IFactory} from "../src/ccip/interfaces/IFactory.sol";
 
 contract Shortcut_SwapCollateral is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = address(0);
-    address public yourWallet = address(0);
-    address public factory = address(0);
+    address public yourWallet = vm.envAddress("ADDRESS");
     uint256 public amount = 1;
-    address public tokenIn = address(0);
-    address public tokenOut = address(0);
+    address public tokenIn = ARB_WETH;
+    address public tokenOut = ARB_USDC;
     // ----------------------------
 
     address public AVAX_BtcUsd = 0x31CF013A08c6Ac228C94551d535d5BAfE19c602a;
@@ -36,38 +34,38 @@ contract Shortcut_SwapCollateral is Script, Helper {
 
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
-        address userPosition = ILendingPool(lpAddress).addressPositions(yourWallet);
+        address userPosition = ILendingPool(ARB_lp).addressPositions(yourWallet);
 
         vm.startBroadcast(privateKey);
         uint256 tokenInBefore = IERC20(tokenIn).balanceOf(userPosition);
         uint256 tokenOutBefore = IERC20(tokenOut).balanceOf(userPosition);
         console.log("tokenInBefore", tokenInBefore);
         console.log("tokenOutBefore", tokenOutBefore);
-        // ILendingPool(lpAddress).swapTokenByPosition(tokenIn, tokenOut, amount * 1e17);
+        ILendingPool(ARB_lp).swapTokenByPosition(tokenIn, tokenOut, amount * 1e17);
         uint256 tokenInAfter = IERC20(tokenIn).balanceOf(userPosition);
         uint256 tokenOutAfter = IERC20(tokenOut).balanceOf(userPosition);
         console.log("tokenInAfter", tokenInAfter);
         console.log("tokenOutAfter", tokenOutAfter);
 
-        console.log("weth token data stream", IFactory(factory).tokenDataStream(AVAX_WETH));
-        console.log("wbtc token data stream", IFactory(factory).tokenDataStream(AVAX_WBTC));
-        console.log("usdc token data stream", IFactory(factory).tokenDataStream(AVAX_USDC));
-        console.log("usdt token data stream", IFactory(factory).tokenDataStream(AVAX_USDT));
-        console.log("avax token data stream", IFactory(factory).tokenDataStream(AVAX_WAVAX));
+        console.log("weth token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WETH));
+        console.log("wbtc token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WBTC));
+        console.log("usdc token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_USDC));
+        console.log("usdt token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_USDT));
+        console.log("avax token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WAVAX));
 
         console.log("--------------------------------");
 
-        IFactory(factory).addTokenDataStream(AVAX_WETH, AVAX_EthUsd);
-        IFactory(factory).addTokenDataStream(AVAX_WBTC, AVAX_BtcUsd);
-        IFactory(factory).addTokenDataStream(AVAX_USDC, AVAX_UsdcUsd);
-        IFactory(factory).addTokenDataStream(AVAX_USDT, AVAX_UsdtUsd);
-        IFactory(factory).addTokenDataStream(AVAX_WAVAX, AVAX_AvaxUsd);
+        // IFactory(ARB_factory).addTokenDataStream(AVAX_WETH, AVAX_EthUsd);
+        // IFactory(ARB_factory).addTokenDataStream(AVAX_WBTC, AVAX_BtcUsd);
+        // IFactory(ARB_factory).addTokenDataStream(AVAX_USDC, AVAX_UsdcUsd);
+        // IFactory(ARB_factory).addTokenDataStream(AVAX_USDT, AVAX_UsdtUsd);
+        // IFactory(ARB_factory).addTokenDataStream(AVAX_WAVAX, AVAX_AvaxUsd);
 
-        console.log("weth token data stream", IFactory(factory).tokenDataStream(AVAX_WETH));
-        console.log("wbtc token data stream", IFactory(factory).tokenDataStream(AVAX_WBTC));
-        console.log("usdc token data stream", IFactory(factory).tokenDataStream(AVAX_USDC));
-        console.log("usdt token data stream", IFactory(factory).tokenDataStream(AVAX_USDT));
-        console.log("avax token data stream", IFactory(factory).tokenDataStream(AVAX_WAVAX));
+        console.log("weth token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WETH));
+        console.log("wbtc token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WBTC));
+        console.log("usdc token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_USDC));
+        console.log("usdt token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_USDT));
+        console.log("avax token data stream", IFactory(ARB_factory).tokenDataStream(AVAX_WAVAX));
 
         vm.stopBroadcast();
     }

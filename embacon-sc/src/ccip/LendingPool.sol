@@ -235,7 +235,7 @@ contract LendingPool is ReentrancyGuard, Helper {
             totalBorrowShares,
             userBorrowShares[msg.sender]
         );
-        if (destination != SupportedNetworks.AVALANCHE_FUJI) {
+        if (destination != SupportedNetworks.ARBITRUM_SEPOLIA) {
             address basicTokenSenderAddress = IFactory(factory).basicTokenSender(_chainId);
             IERC20(borrowToken).approve(basicTokenSenderAddress, amount);
             (,,, uint64 destinationChainId) = getConfigFromNetwork(destination);

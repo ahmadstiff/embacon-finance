@@ -9,8 +9,7 @@ import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 
 contract LPSupplyCollateralScript is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = address(0);
-    address public yourWallet = address(0);
+    address public yourWallet = vm.envAddress("ADDRESS");
     uint256 public amount = 2;
     // ----------------------------
 
@@ -28,7 +27,7 @@ contract LPSupplyCollateralScript is Script, Helper {
     // Make sure you have enough collateral in the wallet
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
-        address collateralToken = ILendingPool(lpAddress).collateralToken();
+        address collateralToken = ILendingPool(ARB_lp).collateralToken();
         uint256 decimal = IERC20Metadata(collateralToken).decimals();
 
         vm.startBroadcast(privateKey);
@@ -42,8 +41,8 @@ contract LPSupplyCollateralScript is Script, Helper {
             return;
         } else {
             console.log("Your balance before supply collateral", balance);
-            IERC20(collateralToken).approve(lpAddress, amountSupplyCollateral);
-            ILendingPool(lpAddress).supplyCollateral(amountSupplyCollateral);
+            IERC20(collateralToken).approve(ARB_lp, amountSupplyCollateral);
+            ILendingPool(ARB_lp).supplyCollateral(amountSupplyCollateral);
             console.log("success");
             console.log("Your balance after supply collateral", IERC20(collateralToken).balanceOf(yourWallet));
         }

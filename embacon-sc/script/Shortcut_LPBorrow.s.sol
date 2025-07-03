@@ -9,8 +9,7 @@ import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 
 contract LPBorrowScript is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = address(0);
-    address public yourWallet = address(0);
+    address public yourWallet = vm.envAddress("ADDRESS");
     uint256 public amount = 1;
     // ----------------------------
 
@@ -30,8 +29,8 @@ contract LPBorrowScript is Script, Helper {
 
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
-        address borrowToken = ILendingPool(lpAddress).borrowToken();
-        uint256 lpBorrowBalance = IERC20(borrowToken).balanceOf(lpAddress);
+        address borrowToken = ILendingPool(ARB_lp).borrowToken();
+        uint256 lpBorrowBalance = IERC20(borrowToken).balanceOf(ARB_lp);
         uint256 decimal = IERC20Metadata(borrowToken).decimals();
         uint256 amountBorrow = amount * (10 ** decimal);
 
@@ -44,9 +43,9 @@ contract LPBorrowScript is Script, Helper {
         } else {
             console.log("Your balance before borrow", lpBorrowBalance);
             console.log("borrow token address", borrowToken);
-            ILendingPool(lpAddress).borrowDebt(amountBorrow, Avalanche_Fuji, ILendingPool.SupportedNetworks.BASE_SEPOLIA);
+            ILendingPool(ARB_lp).borrowDebt(amountBorrow, Arb_Sepolia, ILendingPool.SupportedNetworks.BASE_SEPOLIA);
             console.log("success");
-            console.log("Your balance after borrow", IERC20(borrowToken).balanceOf(lpAddress));
+            console.log("Your balance after borrow", IERC20(borrowToken).balanceOf(ARB_lp));
         }
         vm.stopBroadcast();
     }

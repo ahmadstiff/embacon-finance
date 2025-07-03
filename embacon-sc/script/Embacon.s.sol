@@ -17,11 +17,11 @@ import {LendingPoolDeployer} from "../src/ccip/LendingPoolDeployer.sol";
 import {Protocol} from "../src/ccip/Protocol.sol";
 
 contract EmbaconScript is Script {
-    MockWETH public mockWETH;
-    MockWBTC public mockWBTC;
-    MockUSDC public mockUSDC;
-    MockUSDT public mockUSDT;
-    MockWAVAX public mockWAVAX;
+    // MockWETH public mockWETH;
+    // MockWBTC public mockWBTC;
+    // MockUSDC public mockUSDC;
+    // MockUSDT public mockUSDT;
+    // MockWAVAX public mockWAVAX;
 
     Protocol public protocol;
     IsHealthy public isHealthy;
@@ -41,6 +41,12 @@ contract EmbaconScript is Script {
     address public basicTokenSenderARBSEPOLIA = 0xf38E89B07eBFAe0fC59647D198Dd077267E8CA7E;
     address public basicTokenSenderBASESEPOLIA = 0x8751aF34d18d195DF87f7dF710662eD53d49222E;
 
+    address public mockWETH = 0xCC1A31502Bd096d7AAdEBE25670ebe634671aD31;
+    address public mockWBTC = 0x773D46F1Ad10110459D84535A664B59Ae98CAC7E;
+    address public mockWAVAX = 0x9b9d709ACAB5c4C784a7ADce5530ce8b98FcD662;
+    address public mockUSDC = 0xEB7262b444F450178D25A5690F49bE8E2Fe5A178;
+    address public mockUSDT = 0x02d811A7959994e4861781bC65c58813D4678949;
+
     function setUp() public {
         // vm.createSelectFork(vm.rpcUrl("rise_sepolia"));
         // vm.createSelectFork(vm.rpcUrl("op_sepolia"));
@@ -56,18 +62,19 @@ contract EmbaconScript is Script {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(privateKey);
 
-        mockWETH = new MockWETH();
-        mockWBTC = new MockWBTC();
-        mockWAVAX = new MockWAVAX();
-        mockUSDC = new MockUSDC();
-        mockUSDT = new MockUSDT();
+        // mockWETH = new MockWETH();
+        // mockWBTC = new MockWBTC();
+        // mockWAVAX = new MockWAVAX();
+        // mockUSDC = new MockUSDC();
+        // mockUSDT = new MockUSDT();
 
         if (block.chainid == 421614) {
             protocol = new Protocol();
             isHealthy = new IsHealthy();
 
             lendingPoolDeployer = new LendingPoolDeployer();
-            lendingPoolFactory = new LendingPoolFactory(address(isHealthy), address(lendingPoolDeployer), address(protocol));
+            lendingPoolFactory =
+                new LendingPoolFactory(address(isHealthy), address(lendingPoolDeployer), address(protocol));
             lendingPool = new LendingPool(address(mockWETH), address(mockUSDC), address(lendingPoolFactory), 7e17);
             position =
                 new Position(address(mockWETH), address(mockUSDC), address(lendingPool), address(lendingPoolFactory));
@@ -81,7 +88,7 @@ contract EmbaconScript is Script {
             lendingPoolFactory.addTokenDataStream(address(mockUSDT), ARB_UsdtUsd);
 
             lendingPoolFactory.addBasicTokenSender(11155111, basicTokenSenderETHSEPOLIA);
-            lendingPoolFactory.addBasicTokenSender(421614, basicTokenSenderAVAXFUJI);
+            lendingPoolFactory.addBasicTokenSender(43113, basicTokenSenderAVAXFUJI);
             lendingPoolFactory.addBasicTokenSender(421614, basicTokenSenderARBSEPOLIA);
             lendingPoolFactory.addBasicTokenSender(84532, basicTokenSenderBASESEPOLIA);
         }

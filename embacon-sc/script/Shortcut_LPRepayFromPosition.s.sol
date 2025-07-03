@@ -9,9 +9,8 @@ import {ILendingPool} from "../src/ccip/interfaces/ILendingPool.sol";
 
 contract LPRepayFromPositionScript is Script, Helper {
     // --------- FILL THIS ----------
-    address public lpAddress = address(0);
-    address public yourWallet = address(0);
-    uint256 public amount = 100;
+    address public yourWallet = vm.envAddress("ADDRESS");
+    uint256 public amount = 1;
     // ----------------------------
 
     function setUp() public {
@@ -21,18 +20,18 @@ contract LPRepayFromPositionScript is Script, Helper {
 
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
-        address borrowToken = ILendingPool(lpAddress).borrowToken();
+        address borrowToken = ILendingPool(ARB_lp).borrowToken();
         uint256 decimals = 10 ** IERC20Metadata(borrowToken).decimals();
         uint256 amountToPay = amount * decimals;
 
-        uint256 debtBefore = ILendingPool(lpAddress).userBorrowShares(yourWallet);
+        uint256 debtBefore = ILendingPool(ARB_lp).userBorrowShares(yourWallet);
         console.log("debtBefore", debtBefore);
         vm.startBroadcast(privateKey);
         // approve
-        uint256 shares = ((amountToPay * ILendingPool(lpAddress).totalBorrowShares()) / ILendingPool(lpAddress).totalBorrowAssets());
-        IERC20(borrowToken).approve(lpAddress, amountToPay + 1e6);
-        ILendingPool(lpAddress).repayWithSelectedToken(shares, address(AVAX_USDC), true);
-        uint256 debtAfter = ILendingPool(lpAddress).userBorrowShares(yourWallet);
+        uint256 shares = ((amountToPay * ILendingPool(ARB_lp).totalBorrowShares()) / ILendingPool(ARB_lp).totalBorrowAssets());
+        IERC20(borrowToken).approve(ARB_lp, amountToPay + 1e6);
+        ILendingPool(ARB_lp).repayWithSelectedToken(shares, address(ARB_USDC), true);
+        uint256 debtAfter = ILendingPool(ARB_lp).userBorrowShares(yourWallet);
         console.log("-------------------------------- repay from position --------------------------------");
         console.log("debtAfter", debtAfter);
         vm.stopBroadcast();
