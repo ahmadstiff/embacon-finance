@@ -6,7 +6,7 @@ import Logo from "./navbar/logo";
 import DesktopNavigation from "./navbar/desktop-navbar";
 import MobileMenuButton from "./navbar/mobile-button";
 import MobileMenu from "./navbar/mobile-menu";
-import { WalletButton } from "@/components/navbar/button-connect-wallet";
+import ButtonConnectWallet from "@/components/navbar/button-connect-wallet";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           <DesktopNavigation />
         </div>
         <div className="z-99 hidden md:flex items-center space-x-6">
-          <WalletButton />
+          <ButtonConnectWallet />
         </div>
 
         <div className="flex md:hidden">

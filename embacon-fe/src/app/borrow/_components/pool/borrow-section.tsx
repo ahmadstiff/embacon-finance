@@ -12,6 +12,8 @@ import { tokens } from "@/constants/token-address";
 import { saveBorrowToHistory } from "@/utils/borrow-history";
 import { defaultChain } from "@/lib/get-default-chain";
 import { Card } from "@/components/ui/card";
+import { useTransactionHistory } from "@/hooks/useTransactionHistory";
+import { useAccount } from "wagmi";
 
 interface BorrowSectionProps {
   onTransactionSuccess?: () => void;
@@ -42,25 +44,49 @@ const BorrowSection = ({
     Number(decimal)
   );
 
+  const { address } = useAccount();
+  const { createTransaction } = useTransactionHistory(address || "");
+
   // Handle successful transaction
   useEffect(() => {
-    if (isSuccess && borrowHash) {
+    if (isSuccess && borrowHash && address) {
       setTxCompleted(true);
 
-      // Save to history
-      saveBorrowToHistory(
-        borrowHash,
-        collateralToken,
-        loanToken,
-        amount,
-        Number(toChain)
-      );
+      // Index ke DB (POST) dengan error handling
+      (async () => {
+        try {
+          const res = await createTransaction({
+            user_address: address,
+            collateral_token: collateralToken,
+            collateral_chain: fromChain.toString(),
+            borrow_token: loanToken,
+            borrow_chain: toChain.toString(),
+            borrow_amount: amount,
+            gas_fee_estimate: "0", // default, ganti jika ada estimasi
+            collateral_price: "0", // default, ganti jika ada harga
+            borrow_price: "0", // default, ganti jika ada harga
+            ltv_ratio: "0", // default, ganti jika ada ltv
+            status: Number(toChain) === defaultChain ? "completed" : "pending",
+            tx_hash: borrowHash,
+            error_message: "",
+          });
+          console.log("[createTransaction] response:", res);
+          if (res && res.id) {
+            toast.success("Transaction indexed to DB!");
+          } else {
+            toast.error("Failed to index transaction to DB");
+          }
+        } catch (err: any) {
+          console.error("[createTransaction] error:", err);
+          toast.error("Error indexing transaction: " + (err?.message || err));
+        }
+      })();
 
       // Show success toast
       if (Number(toChain) === defaultChain) {
         // Onchain success - show success toast
         toast.success(
-          "Transaction successful! Your borrow has been completed on Avalanche Fuji."
+          "Transaction successful! Your borrow has been completed on Arbitrum Sepolia."
         );
       } else if (Number(toChain) === 11155111) {
         // Ethereum - show 1 hour estimation toast
@@ -90,6 +116,9 @@ const BorrowSection = ({
     amount,
     toChain,
     onTransactionSuccess,
+    address,
+    fromChain,
+    createTransaction,
   ]);
 
   let buttonText = `Borrow ${loanToken}`;

@@ -2,7 +2,6 @@ import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseUnits } from "viem";
 import { toast } from "sonner";
 import { poolAbi } from "@/lib/abis/poolAbi";
-import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { chains } from "@/constants/chain-address";
 import { defaultChain } from "@/lib/get-default-chain";

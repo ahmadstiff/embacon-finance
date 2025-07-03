@@ -20,7 +20,7 @@ import BorrowSection from "./borrow-section";
 import { RepaySection } from "./repay-section";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import WithdrawCollateralDialog from "@/components/dialog/withdraw-collateral-dialog";
-import { WalletButton } from "@/components/navbar/button-connect-wallet";
+import ButtonConnectWallet from "@/components/navbar/button-connect-wallet";
 
 interface PoolDialogProps {
   isOpen?: boolean;
@@ -190,7 +190,7 @@ const PoolDialog = ({
             </div>
           ) : (
             <div className="flex justify-center items-center h-full py-10">
-              <WalletButton />
+              <ButtonConnectWallet />
             </div>
           )}
         </motion.div>

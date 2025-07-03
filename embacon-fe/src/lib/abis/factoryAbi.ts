@@ -1,16 +1,13 @@
 export const factoryAbi = [
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_isHealthy",
-        type: "address",
-      },
+      { internalType: "address", name: "_isHealthy", type: "address" },
       {
         internalType: "address",
         name: "_lendingPoolDeployer",
         type: "address",
       },
+      { internalType: "address", name: "_protocol", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -55,12 +52,7 @@ export const factoryAbi = [
         name: "lendingPool",
         type: "address",
       },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "LTV",
-        type: "uint256",
-      },
+      { indexed: false, internalType: "uint256", name: "ltv", type: "uint256" },
     ],
     name: "LendingPoolCreated",
     type: "event",
@@ -86,16 +78,8 @@ export const factoryAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "_chainId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_basicTokenSender",
-        type: "address",
-      },
+      { internalType: "uint256", name: "_chainId", type: "uint256" },
+      { internalType: "address", name: "_basicTokenSender", type: "address" },
     ],
     name: "addBasicTokenSender",
     outputs: [],
@@ -104,16 +88,8 @@ export const factoryAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_token",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_dataStream",
-        type: "address",
-      },
+      { internalType: "address", name: "_token", type: "address" },
+      { internalType: "address", name: "_dataStream", type: "address" },
     ],
     name: "addTokenDataStream",
     outputs: [],
@@ -121,150 +97,73 @@ export const factoryAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "basicTokenSender",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "collateralToken",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "borrowToken",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "LTV",
-        type: "uint256",
-      },
+      { internalType: "address", name: "collateralToken", type: "address" },
+      { internalType: "address", name: "borrowToken", type: "address" },
+      { internalType: "uint256", name: "ltv", type: "uint256" },
     ],
     name: "createLendingPool",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
     name: "isHealthy",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "lendingPoolDeployer",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "poolCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "pools",
     outputs: [
-      {
-        internalType: "address",
-        name: "collateralToken",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "borrowToken",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "lendingPoolAddress",
-        type: "address",
-      },
+      { internalType: "address", name: "collateralToken", type: "address" },
+      { internalType: "address", name: "borrowToken", type: "address" },
+      { internalType: "address", name: "lendingPoolAddress", type: "address" },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [],
+    name: "protocol",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "tokenDataStream",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },

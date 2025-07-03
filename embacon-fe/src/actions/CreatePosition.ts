@@ -4,15 +4,15 @@ import { PrismaClient } from "@prisma/client";
 import { createPublicClient } from "viem";
 import { http } from "wagmi";
 import { poolAbi } from "@/lib/abis/poolAbi";
-import { avalancheFuji } from "viem/chains";
+import { arbitrumSepolia } from "viem/chains";
 const prisma = new PrismaClient();
 
 const publicClient = createPublicClient({
-  chain: avalancheFuji,
+  chain: arbitrumSepolia,
   transport: http(),
 });
 
-const chain_id = avalancheFuji.id;
+const chain_id = arbitrumSepolia.id;
 
 export const createPosition = async (
   collateralToken: string,

@@ -36,9 +36,9 @@ export const chains: Chain[] = [
     color: "bg-purple-600",
     destination: 2,
     contracts: {
-      lendingPool: "0xEb106f667a95b3377fA9C66B3D9c92C665408a01",
-      factory: "0x277AdE182ef847b75383124649b07207DA7c9e09",
-      position: "0x33ce5ffB4Fc0BD5Ddd74FbD1Ef527687EDEc6bC7",
+      lendingPool: "0x19b0b0F7895BFf7D32b0b6f0239EB76787BC4963",
+      factory: "0x0128FA2b8254359A3493AC9782059F7bb3508AA4",
+      position: "0x1D8aF8e5925397a4977734b4CeeA4bA1F526E69C",
       blockExplorer: "https://sepolia.arbiscan.io",
     },
   },
