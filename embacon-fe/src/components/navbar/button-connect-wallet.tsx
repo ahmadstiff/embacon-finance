@@ -20,7 +20,7 @@ export function WalletButton() {
   const connector = connectors[0];
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-3">
+    <div className="z-99 flex flex-col md:flex-row items-center gap-3">
       {isConnected ? (
         <>
           {/* Chain Switcher */}
@@ -47,21 +47,23 @@ export function WalletButton() {
           </DropdownMenu>
 
           {/* Wallet Address Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 px-5 py-2 rounded-xl font-semibold border-2 border-blue-400 bg-background text-foreground shadow-md hover:bg-accent transition-colors backdrop-blur-md">
-              <Wallet className="w-4 h-4 mr-1 text-blue-400" />
-              {formatAddress(address)}
-              <ChevronDown className="w-4 h-4 ml-1" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[150px]">
-              <DropdownMenuItem
-                onClick={() => disconnect()}
-                className="cursor-pointer px-3 py-2 text-red-500 font-semibold hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 rounded-md"
-              >
-                Disconnect
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="relative w-fit">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="z-99 flex items-center gap-1 px-5 py-2 rounded-xl font-semibold border-2 border-blue-400 bg-background text-foreground shadow-md hover:bg-accent transition-colors backdrop-blur-md">
+                <Wallet className="w-4 h-4 mr-1 text-blue-400" />
+                {formatAddress(address)}
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="z-99 w-full rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[12.5rem]">
+                <DropdownMenuItem
+                  onClick={() => disconnect()}
+                  className="cursor-pointer px-3  text-red-500 font-semibold hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 rounded-md"
+                >
+                  Disconnect
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </>
       ) : (
         <Button
