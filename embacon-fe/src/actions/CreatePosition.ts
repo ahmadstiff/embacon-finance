@@ -5,7 +5,7 @@ import { createPublicClient } from "viem";
 import { http } from "wagmi";
 import { poolAbi } from "@/lib/abis/poolAbi";
 import { arbitrumSepolia } from "viem/chains";
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 const publicClient = createPublicClient({
   chain: arbitrumSepolia,
