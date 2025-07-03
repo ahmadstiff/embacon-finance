@@ -21,7 +21,6 @@ export const useTokenCalculator = (
   const tokenInPrice = tokens.find(
     (token) => token.addresses[defaultChain] === tokenIn
   )?.priceFeed[defaultChain] as Address;
-  console.log("tokenInPrice", tokenInPrice);
   const tokenOutPrice = tokens.find(
     (token) => token.addresses[defaultChain] === tokenOut
   )?.priceFeed[defaultChain] as Address;
