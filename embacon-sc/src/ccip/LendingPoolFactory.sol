@@ -17,10 +17,10 @@ contract LendingPoolFactory {
      * @param collateralToken The address of the collateral token
      * @param borrowToken The address of the borrow token
      * @param lendingPool The address of the created lending pool
-     * @param LTV The Loan-to-Value ratio for the pool
+     * @param ltv The Loan-to-Value ratio for the pool
      */
     event LendingPoolCreated(
-        address indexed collateralToken, address indexed borrowToken, address lendingPool, uint256 LTV
+        address indexed collateralToken, address indexed borrowToken, address lendingPool, uint256 ltv
     );
     
     /**
@@ -58,6 +58,9 @@ contract LendingPoolFactory {
     
     /// @notice The address of the lending pool deployer contract
     address public lendingPoolDeployer;
+
+    /// @notice The address of the protocol contract
+    address public protocol;
     
     /// @notice Mapping from chain ID to basic token sender address
     mapping(uint256 => address) public basicTokenSender;
@@ -76,10 +79,11 @@ contract LendingPoolFactory {
      * @param _isHealthy The address of the IsHealthy contract
      * @param _lendingPoolDeployer The address of the lending pool deployer contract
      */
-    constructor(address _isHealthy, address _lendingPoolDeployer) {
+    constructor(address _isHealthy, address _lendingPoolDeployer, address _protocol) {
         owner = msg.sender;
         isHealthy = _isHealthy;
         lendingPoolDeployer = _lendingPoolDeployer;
+        protocol = _protocol;
     }
 
     /**
@@ -94,17 +98,17 @@ contract LendingPoolFactory {
      * @notice Creates a new lending pool with the specified parameters
      * @param collateralToken The address of the collateral token
      * @param borrowToken The address of the borrow token
-     * @param LTV The Loan-to-Value ratio for the pool (in basis points)
+     * @param ltv The Loan-to-Value ratio for the pool (in basis points)
      * @return The address of the newly created lending pool
      * @dev This function deploys a new lending pool using the lending pool deployer
      * and adds it to the pools registry
      */
-    function createLendingPool(address collateralToken, address borrowToken, uint256 LTV) public returns (address) {
-        address lendingPool = ILPDeployer(lendingPoolDeployer).deployLendingPool(collateralToken, borrowToken, address(this), LTV);
+    function createLendingPool(address collateralToken, address borrowToken, uint256 ltv) public returns (address) {
+        address lendingPool = ILPDeployer(lendingPoolDeployer).deployLendingPool(collateralToken, borrowToken, ltv);
 
         pools.push(Pool(collateralToken, borrowToken, address(lendingPool)));
         poolCount++;
-        emit LendingPoolCreated(collateralToken, borrowToken, address(lendingPool), LTV);
+        emit LendingPoolCreated(collateralToken, borrowToken, address(lendingPool), ltv);
         return address(lendingPool);
     }
 

@@ -4,7 +4,7 @@ const path = require('path');
 const graphlib = require('graphlib');
 const match = require('micromatch');
 const { findAll } = require('solidity-ast/utils');
-const { _: artifacts } = require('yargs').argv;
+const { _: artifacts } = require('yargs/yargs')().argv;
 
 // files to skip
 const skipPatterns = ['contracts-exposed/**', 'contracts/mocks/**'];
@@ -31,7 +31,7 @@ for (const artifact of artifacts) {
   }
 
   /// graphlib.alg.findCycles will not find minimal cycles.
-  /// We are only interested int cycles of lengths 2 (needs proof)
+  /// We are only interested in cycles of lengths 2 (needs proof)
   graph.nodes().forEach((x, i, nodes) =>
     nodes
       .slice(i + 1)
