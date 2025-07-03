@@ -11,6 +11,7 @@ import { useReadUserCollateral } from "@/hooks/read/useReadUserCollateral";
 import { useReadPositionBalance } from "@/hooks/read/useReadPositionBalance";
 import { useReadBorrowToken } from "@/hooks/read/useReadBorrowToken";
 import { useReadCollateralToken } from "@/hooks/read/useReadCollateralToken";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface PositionTokenProps {
   name: string | undefined;
@@ -38,11 +39,11 @@ const PositionToken = ({
   );
 
   const borrowTokenName = tokens.find(
-    (token) => token.addresses[43113] === borrowToken
+    (token) => token.addresses[defaultChain] === borrowToken
   )?.name;
 
   const collateralTokenName = tokens.find(
-    (token) => token.addresses[43113] === collateralToken
+    (token) => token.addresses[defaultChain] === collateralToken
   )?.name;
 
   const convertRealAmount = (amount: bigint | undefined, decimal: number) => {

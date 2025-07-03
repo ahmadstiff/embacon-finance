@@ -5,8 +5,7 @@ import { Address } from "viem";
 import { priceAbi } from "@/lib/abis/price-abi";
 import { priceFeed } from "@/constants/addresses";
 import { tokens } from "@/constants/token-address"; // gunakan konstanta tokens
-
-const CURRENT_CHAIN_ID = 43113;
+import { defaultChain } from "@/lib/get-default-chain";
 
 export const useTokenPrice = (
   fromTokenAddress: Address,
@@ -23,9 +22,8 @@ export const useTokenPrice = (
     args: [fromTokenAddress, toTokenAddress],
   });
 
-  // Temukan token yang cocok berdasarkan address di chain 43113
   const token = tokens.find(
-    (t) => t.addresses[CURRENT_CHAIN_ID] === toTokenAddress
+    (t) => t.addresses[defaultChain] === toTokenAddress
   );
 
   const formattedPrice = price
@@ -52,10 +50,10 @@ export const usePriceTrade = (
   });
 
   const fromToken = tokens.find(
-    (t) => t.addresses[CURRENT_CHAIN_ID] === fromTokenAddress
+    (t) => t.addresses[defaultChain] === fromTokenAddress
   );
   const toToken = tokens.find(
-    (t) => t.addresses[CURRENT_CHAIN_ID] === toTokenAddress
+    (t) => t.addresses[defaultChain] === toTokenAddress
   );
 
   const fromPrice =

@@ -8,11 +8,12 @@ import { mockErc20Abi } from "@/lib/abis/mockErc20Abi";
 import { useReadUserBorrowShares } from "../read/useReadUserBorrowShares";
 import { useReadTotalBorrowAssets } from "../read/useReadTotalBorrowAssets";
 import { useReadTotalBorrowShares } from "../read/useReadTotalBorrowShares";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const getTokenAddress = (borrowToken?: string): string | undefined => {
   if (!borrowToken) return undefined;
   const token = tokens.find((t) => t.name === borrowToken);
-  return token?.addresses[43113]; // Using Avalanche testnet address
+  return token?.addresses[defaultChain]; // Using Avalanche testnet address
 };
 
 const getTokenDecimals = (borrowToken?: string): number => {
@@ -78,7 +79,7 @@ export const useRepayWithSelectedToken = (
     const userAmount = Number(amount) * 10 ** Number(decimals);
     const userShares = Math.round(
       (Number(userAmount) * Number(totalBorrowAssets)) /
-        Number(totalBorrowShares) 
+        Number(totalBorrowShares)
     );
 
     try {
@@ -86,11 +87,7 @@ export const useRepayWithSelectedToken = (
         address: lpAddress as `0x${string}`,
         abi: poolAbi,
         functionName: "repayWithSelectedToken",
-        args: [
-          BigInt(userShares),
-          tokenAddress as `0x${string}`,
-          true,
-        ],
+        args: [BigInt(userShares), tokenAddress as `0x${string}`, true],
       });
     } catch (err) {
       const error =

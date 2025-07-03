@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { History, ExternalLink } from "lucide-react";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface BorrowHistoryItem {
   id: string;
@@ -36,32 +37,37 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
     const savedHistory = localStorage.getItem("borrowHistory");
     if (savedHistory) {
       const parsedHistory: BorrowHistoryItem[] = JSON.parse(savedHistory);
-      
+
       // Update status based on chain and timestamp
-      const updatedHistory = parsedHistory.map(item => {
-        // For Avalanche Fuji (43113), keep as completed if already completed
-        if (item.destinationChainId === 43113) {
+      const updatedHistory = parsedHistory.map((item) => {
+        if (item.destinationChainId === defaultChain) {
           return {
             ...item,
-            status: "completed" as const
+            status: "completed" as const,
           };
         }
-        
+
         // For Ethereum (11155111), use 1-hour timer (3600000ms)
         if (item.destinationChainId === 11155111) {
           return {
             ...item,
-            status: (Date.now() - item.timestamp) > 3600000 ? "completed" as const : "pending" as const
+            status:
+              Date.now() - item.timestamp > 3600000
+                ? ("completed" as const)
+                : ("pending" as const),
           };
         }
-        
+
         // For other chains, use 5-minute timer (300000ms)
         return {
           ...item,
-          status: (Date.now() - item.timestamp) > 300000 ? "completed" as const : "pending" as const
+          status:
+            Date.now() - item.timestamp > 300000
+              ? ("completed" as const)
+              : ("pending" as const),
         };
       });
-      
+
       setHistoryItems(updatedHistory.reverse()); // Show newest first
     }
   };
@@ -75,7 +81,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
   // Auto-refresh every 30 seconds to update remaining time
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const interval = setInterval(() => {
       loadHistory();
     }, 30000);
@@ -84,7 +90,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
   }, [isOpen]);
 
   const getExplorerUrl = (transactionHash: string, chainId: number) => {
-    if (chainId === 43113) {
+    if (chainId === defaultChain) {
       return `https://testnet.snowtrace.io/tx/${transactionHash}`;
     }
     return `https://ccip.chain.link/tx/${transactionHash}`;
@@ -95,7 +101,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
   };
 
   const getChainName = (chainId: number) => {
-    if (chainId === 43113) return "Avalanche Fuji";
+    if (chainId === defaultChain) return "Avalanche Fuji";
     if (chainId === 11155111) return "Ethereum";
     if (chainId === 421614) return "Arbitrum";
     if (chainId === 84532) return "Base";
@@ -103,19 +109,22 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
   };
 
   const getEstimationText = (chainId: number) => {
-    if (chainId === 43113) return null; // No estimation for Avalanche Fuji (onchain)
+    if (chainId === defaultChain) return null; // No estimation for Avalanche Fuji (onchain)
     if (chainId === 11155111) return "1 hour"; // Ethereum
     return "5 minutes"; // Other chains (Arbitrum, Base, etc.)
   };
 
   const getRemainingTime = (item: BorrowHistoryItem) => {
-    if (item.status === "completed" || item.destinationChainId === 43113) {
+    if (
+      item.status === "completed" ||
+      item.destinationChainId === defaultChain
+    ) {
       return null;
     }
 
     const elapsed = Date.now() - item.timestamp;
     let totalTime: number;
-    
+
     if (item.destinationChainId === 11155111) {
       totalTime = 3600000; // 1 hour for Ethereum
     } else {
@@ -127,7 +136,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
 
     const minutes = Math.floor(remaining / 60000);
     const seconds = Math.floor((remaining % 60000) / 1000);
-    
+
     if (item.destinationChainId === 11155111) {
       const hours = Math.floor(minutes / 60);
       const remainingMinutes = minutes % 60;
@@ -154,7 +163,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
             Borrow History
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="flex-1 overflow-y-auto">
           {historyItems.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
@@ -181,14 +190,18 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
                     </div>
                     <div className="text-right space-y-1">
                       <Badge
-                        variant={item.status === "completed" ? "default" : "secondary"}
+                        variant={
+                          item.status === "completed" ? "default" : "secondary"
+                        }
                         className={
                           item.status === "completed"
                             ? "bg-green-100 text-green-800"
                             : "bg-yellow-100 text-yellow-800"
                         }
                       >
-                        {item.status === "completed" ? "Completed" : "Processing"}
+                        {item.status === "completed"
+                          ? "Completed"
+                          : "Processing"}
                       </Badge>
                       {/* Chain name */}
                       <div className="text-xs text-gray-500">
@@ -196,24 +209,26 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="text-xs text-gray-500 space-y-1">
                     <div>{formatDate(item.timestamp)}</div>
                     {/* Show estimation for crosschain transactions */}
-                    {item.destinationChainId !== 43113 && (
+                    {item.destinationChainId !== defaultChain && (
                       <div className="flex items-center gap-2">
                         <span className="text-blue-600">
-                          Estimated: {getEstimationText(item.destinationChainId)}
+                          Estimated:{" "}
+                          {getEstimationText(item.destinationChainId)}
                         </span>
-                        {item.status === "pending" && getRemainingTime(item) && (
-                          <span className="text-orange-600 font-medium">
-                            ({getRemainingTime(item)})
-                          </span>
-                        )}
+                        {item.status === "pending" &&
+                          getRemainingTime(item) && (
+                            <span className="text-orange-600 font-medium">
+                              ({getRemainingTime(item)})
+                            </span>
+                          )}
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-gray-600 font-mono truncate flex-1">
                       {item.transactionHash}
@@ -221,7 +236,12 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => openExplorer(item.transactionHash, item.destinationChainId)}
+                      onClick={() =>
+                        openExplorer(
+                          item.transactionHash,
+                          item.destinationChainId
+                        )
+                      }
                       className="h-6 px-2"
                     >
                       <ExternalLink className="w-3 h-3" />

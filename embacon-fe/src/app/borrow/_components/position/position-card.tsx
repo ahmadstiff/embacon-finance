@@ -30,6 +30,7 @@ import { useReadTotalBorrowAssets } from "@/hooks/read/useReadTotalBorrowAssets"
 import { useReadTotalBorrowShares } from "@/hooks/read/useReadTotalBorrowShares";
 import { useReadAddressPosition } from "@/hooks/read/useReadAddressPosition";
 import Link from "next/link";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const PositionCard = () => {
   const [positionAddress, setPositionAddress] = useState<string | undefined>(
@@ -92,7 +93,7 @@ const PositionCard = () => {
   const findNameToken = (address: string | undefined) => {
     if (!address) return undefined;
     const token = tokens.find(
-      (asset) => asset.addresses[43113] === (address as `0x${string}`)
+      (asset) => asset.addresses[defaultChain] === (address as `0x${string}`)
     );
     return token?.name;
   };
@@ -161,7 +162,7 @@ const PositionCard = () => {
     }
   };
   const getDecimal = (address: string) => {
-    const token = tokens.find((asset) => asset.addresses[43113] === address);
+    const token = tokens.find((asset) => asset.addresses[defaultChain] === address);
     return token?.decimals;
   };
 
@@ -342,9 +343,9 @@ const PositionCard = () => {
                       <div className="divide-y divide-blue-400/20">
                         {tokens.map((token) => (
                           <PositionToken
-                            key={token.addresses[43113]}
+                            key={token.addresses[defaultChain]}
                             name={token.name}
-                            address={token.addresses[43113]}
+                            address={token.addresses[defaultChain]}
                             logo={token.logo as string}
                             decimal={token.decimals}
                             addressPosition={addressPosition as `0x${string}`}

@@ -8,11 +8,12 @@ import { mockErc20Abi } from "@/lib/abis/mockErc20Abi";
 import { useReadUserBorrowShares } from "../read/useReadUserBorrowShares";
 import { useReadTotalBorrowAssets } from "../read/useReadTotalBorrowAssets";
 import { useReadTotalBorrowShares } from "../read/useReadTotalBorrowShares";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const getTokenAddress = (borrowToken?: string): string | undefined => {
   if (!borrowToken) return undefined;
   const token = tokens.find((t) => t.name === borrowToken);
-  return token?.addresses[43113]; // Using Avalanche testnet address
+  return token?.addresses[defaultChain]; // Using Avalanche testnet address
 };
 
 const getTokenDecimals = (borrowToken?: string): number => {

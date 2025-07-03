@@ -10,6 +10,7 @@ import BorrowHistoryDialog from "@/components/dialog/borrow/borrow-history-dialo
 import { useBorrow } from "@/hooks/write/useBorrow";
 import { tokens } from "@/constants/token-address";
 import { saveBorrowToHistory } from "@/utils/borrow-history";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface BorrowSectionProps {
   onTransactionSuccess?: () => void;
@@ -24,8 +25,8 @@ const BorrowSection = ({
   loanToken,
   lpAddress,
 }: BorrowSectionProps) => {
-  const [fromChain, setFromChain] = useState<Number>(43113);
-  const [toChain, setToChain] = useState<Number>(43113);
+  const [fromChain, setFromChain] = useState(defaultChain);
+  const [toChain, setToChain] = useState(defaultChain);
   const [amount, setAmount] = useState("");
   const [txCompleted, setTxCompleted] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -60,7 +61,7 @@ const BorrowSection = ({
       );
       
       // Show success toast
-      if (Number(toChain) === 43113) {
+      if (Number(toChain) === defaultChain) {
         // Onchain success - show success toast
         toast.success("Transaction successful! Your borrow has been completed on Avalanche Fuji.");
       } else if (Number(toChain) === 11155111) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import {
   AlertCircle,
   CheckCircle2,
@@ -28,6 +28,7 @@ import { useSupply, useApproveToken } from "@/hooks/write/useSupplyLiquidity";
 import { useBalance } from "@/hooks/useBalance";
 import { tokens } from "@/constants/token-address";
 import { chains } from "@/constants/chain-address";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const DialogSupply = ({
   borrowToken,
@@ -38,11 +39,11 @@ const DialogSupply = ({
   onSuccess?: () => void;
   lpAddress?: string;
 }) => {
-  const CHAIN_ID = 43113;
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
 
   const selectedToken = tokens.find(
-    (t) => t.addresses[CHAIN_ID] === borrowToken
+    (t) => t.addresses[defaultChain] === borrowToken
   );
   const tokenSymbol = selectedToken?.symbol ?? "";
   const decimals = selectedToken?.decimals ?? 18;
@@ -299,7 +300,10 @@ const DialogSupply = ({
                         Supply Amount
                       </h3>
                       {getStepBadge() && (
-                        <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-200">
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-slate-700 text-slate-200"
+                        >
                           {getStepBadge()}
                         </Badge>
                       )}

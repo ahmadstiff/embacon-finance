@@ -21,8 +21,8 @@ import { createPosition } from "@/actions/CreatePosition";
 import { useAccount } from "wagmi";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { X } from 'lucide-react';
 import { toast } from "sonner";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface SupplyCollateralSectionProps {
   collateralToken: string;
@@ -30,8 +30,6 @@ interface SupplyCollateralSectionProps {
   lpAddress: string;
   onSuccess?: () => void;
 }
-
-const CHAIN_ID = 43113;
 
 const SupplyCollateralSection = ({
   collateralToken,
@@ -47,9 +45,9 @@ const SupplyCollateralSection = ({
   const [currentStep, setCurrentStep] = useState<"idle" | "approving" | "supplying" | "success">("idle");
 
   const tokenInfo = tokens.find(
-    (token) => token.name === collateralToken && token.addresses[CHAIN_ID]
+    (token) => token.name === collateralToken && token.addresses[defaultChain]
   );
-  const tokenAddress = tokenInfo?.addresses[CHAIN_ID] as `0x${string}`;
+  const tokenAddress = tokenInfo?.addresses[defaultChain] as `0x${string}`;
   const tokenDecimals = tokenInfo?.decimals ?? 18;
 
   const { address } = useAccount();
@@ -247,7 +245,7 @@ const SupplyCollateralSection = ({
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
         <AlertDescription>
-          Token {collateralToken} is not supported on chain {CHAIN_ID}
+          Token {collateralToken} is not supported on chain {defaultChain}
         </AlertDescription>
       </Alert>
     );

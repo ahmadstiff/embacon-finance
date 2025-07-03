@@ -8,6 +8,7 @@ import { getTokenInfo } from "@/lib/tokenUtils";
 import { useReadSupplyLiquidity } from "@/hooks/read/useReadSupplyLiquidity";
 import { useReadAPY } from "@/hooks/read/useReadAPY";
 import { Address } from "viem";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface RowTableProps {
   lpAddress: string;
@@ -15,16 +16,14 @@ interface RowTableProps {
   collateralToken: string;
 }
 
-// Target chain ID for Avalanche Fuji
-const TARGET_CHAIN_ID = 43113;
 
 const RowTable = ({
   lpAddress,
   borrowToken,
   collateralToken,
 }: RowTableProps) => {
-  const tokenData = getTokenInfo(borrowToken, TARGET_CHAIN_ID);
-  const collateralData = getTokenInfo(collateralToken, TARGET_CHAIN_ID);
+  const tokenData = getTokenInfo(borrowToken, defaultChain);
+  const collateralData = getTokenInfo(collateralToken, defaultChain);
 
   const formatCurrency = (amount: number) => {
     const formattedNumber = new Intl.NumberFormat("en-US", {
@@ -38,7 +37,7 @@ const RowTable = ({
 
   const { supplyLiquidity } = useReadSupplyLiquidity({
     tokenAddress: borrowToken,
-    chainId: TARGET_CHAIN_ID,
+    chainId: defaultChain,
     lpAddress: lpAddress,
   });
 
@@ -47,7 +46,7 @@ const RowTable = ({
 
   if (!tokenData) {
     console.warn(
-      `Token with address ${borrowToken} not found for chain ${TARGET_CHAIN_ID}`
+      `Token with address ${borrowToken} not found for chain ${defaultChain}`
     );
     return null;
   }

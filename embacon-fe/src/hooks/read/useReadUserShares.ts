@@ -2,15 +2,17 @@ import { chains } from "@/constants/chain-address";
 import { tokens } from "@/constants/token-address";
 import { poolAbi } from "@/lib/abis/poolAbi";
 import { formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount, useChainId, useReadContract } from "wagmi";
 import { useEffect } from "react";
+import { defaultChain } from "@/lib/get-default-chain";
 
 export const useReadUserShares = (lpAddress?: string) => {
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
   const currentChain = chains.find((c) => c.id === chainId);
 
   const usdcToken = tokens.find((t) => t.symbol === "USDC");
-  const usdcAddress = usdcToken?.addresses[chainId ?? 43113];
+  const usdcAddress = usdcToken?.addresses[chainId ?? defaultChain];
   const usdcDecimals = usdcToken?.decimals ?? 6;
 
   const {

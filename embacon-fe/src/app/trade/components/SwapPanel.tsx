@@ -33,6 +33,7 @@ import Link from "next/link";
 import { useReadPositionBalance } from "@/hooks/read/useReadPositionBalance";
 import { toast } from "sonner";
 import { useTokenCalculator } from "@/hooks/read/useTokenCalculator";
+import { defaultChain } from "@/lib/get-default-chain";
 
 export default function SwapPanel() {
   const { address } = useAccount();
@@ -54,18 +55,13 @@ export default function SwapPanel() {
   );
   const [selectedCollateralToken, setSelectedCollateralToken] =
     useState<any>(null);
-  // Use our custom hooks
-  // const { balance: fromTokenBalance } = useBalance(
-  //   fromToken.addresses[43113] as Address,
-  //   fromToken.decimals
-  // );
   const { addressPosition } = useReadAddressPosition(lpAddressSelected);
   const { positionBalance: fromTokenBalance } = useReadPositionBalance(
-    fromToken.addresses[43113] as Address,
+    fromToken.addresses[defaultChain] as Address,
     addressPosition as `0x${string}`
   );
   const { positionBalance: toTokenBalance } = useReadPositionBalance(
-    toToken.addresses[43113] as Address,
+    toToken.addresses[defaultChain] as Address,
     addressPosition as `0x${string}`
   );
 
@@ -84,8 +80,8 @@ export default function SwapPanel() {
     isLoading: isLoadingPrice,
     error: errorPrice,
   } = useTokenCalculator(
-    fromToken.addresses[43113] as Address,
-    toToken.addresses[43113] as Address,
+    fromToken.addresses[defaultChain] as Address,
+    toToken.addresses[defaultChain] as Address,
     Number(1),
     addressPosition as Address
   );
@@ -95,20 +91,20 @@ export default function SwapPanel() {
     isLoading: isLoadingPriceReverse,
     error: errorPriceReverse,
   } = useTokenCalculator(
-    fromToken.addresses[43113] as Address,
-    toToken.addresses[43113] as Address,
+    fromToken.addresses[defaultChain] as Address,
+    toToken.addresses[defaultChain] as Address,
     Number(fromAmount),
     addressPosition as Address
   );
 
   const { swapToken, isLoading, error, setError } = useSwapToken({
     fromToken: {
-      address: fromToken.addresses[43113] as Address,
+      address: fromToken.addresses[defaultChain] as Address,
       name: fromToken.name,
       decimals: fromToken.decimals,
     },
     toToken: {
-      address: toToken.addresses[43113] as Address,
+      address: toToken.addresses[defaultChain] as Address,
       name: toToken.name,
       decimals: toToken.decimals,
     },
@@ -282,12 +278,12 @@ export default function SwapPanel() {
   };
 
   const tokenName = (address: string) => {
-    const token = tokens.find((token) => token.addresses[43113] === address);
+    const token = tokens.find((token) => token.addresses[defaultChain] === address);
     return token?.name;
   };
 
   const tokenLogo = (address: string) => {
-    const token = tokens.find((token) => token.addresses[43113] === address);
+    const token = tokens.find((token) => token.addresses[defaultChain] === address);
     return token?.logo;
   };
 
@@ -363,9 +359,9 @@ export default function SwapPanel() {
   return (
     <div className="max-w-md mx-auto w-full px-2 py-2">
       <div className="flex flex-row gap-2 mb-5">
-        <div className="w-full max-w-[50%]">
+        <div className="flex-1 min-w-0">
           <Select onValueChange={(value) => setLpAddressSelected(value)}>
-            <SelectTrigger className="truncate w-full bg-slate-800/50 text-blue-300 border border-blue-400/30 hover:border-blue-400/50 focus:ring-2 focus:ring-blue-400/50 rounded-lg shadow-sm cursor-pointer">
+            <SelectTrigger className="truncate w-full bg-slate-800/50 text-blue-300 border border-blue-400/30 hover:border-blue-400/50 focus:ring-2 focus:ring-blue-400/50 px-4 rounded-lg shadow-sm cursor-pointer">
               <SelectValue placeholder="Select LP Address" />
             </SelectTrigger>
             <SelectContent className="bg-slate-800 border border-blue-400/30 rounded-lg shadow-md max-w-[100%] text-white">
@@ -419,7 +415,7 @@ export default function SwapPanel() {
         </div>
 
         <div
-          className={`w-full max-w-[50%] text-center px-3 py-2 rounded-lg ${
+          className={`flex-1 min-w-0 text-center px-3 py-1 rounded-lg ${
             addressPosition &&
             addressPosition !== "0x0000000000000000000000000000000000000000"
               ? "bg-blue-500/20 hover:bg-blue-500/30 duration-300 border-2 border-blue-400/50 cursor-pointer"
@@ -433,13 +429,13 @@ export default function SwapPanel() {
               href={`https://testnet.snowtrace.io/address/${addressPosition}`}
               target="_blank"
             >
-              <Wallet2 className="size-5" />
+              <Wallet2 className="size-4" />
               View Position
             </Link>
           ) : (
             <div className="text-red-400 text-base text-center flex flex-row gap-2 items-center justify-center">
-              <ShieldAlert className="size-5" />
-              No Position found
+              <ShieldAlert className="size-4" />
+              Please Select Position
             </div>
           )}
         </div>
@@ -474,7 +470,7 @@ export default function SwapPanel() {
               Balance:{" "}
               {formatBalance(
                 fromToken.name,
-                fromToken.addresses[43113],
+                fromToken.addresses[defaultChain],
                 fromToken.decimals,
                 Number(fromTokenBalance ?? 0)
               )}
@@ -496,10 +492,10 @@ export default function SwapPanel() {
               aria-label="Amount to swap"
             />
             <Select
-              value={fromToken.addresses[43113]}
+              value={fromToken.addresses[defaultChain]}
               onValueChange={(value) =>
                 setFromToken(
-                  tokens.find((t) => t.addresses[43113] === value) || tokens[0]
+                  tokens.find((t) => t.addresses[defaultChain] === value) || tokens[0]
                 )
               }
             >
@@ -510,11 +506,11 @@ export default function SwapPanel() {
                 {tokens.map((token, index) => (
                   <SelectItem
                     key={index}
-                    value={token.addresses[43113]}
+                    value={token.addresses[defaultChain]}
                     className="text-gray-100 flex flex-row gap-2 items-center cursor-pointer hover:bg-slate-700/50"
                   >
                     <Image
-                      src={tokenLogo(token.addresses[43113]) ?? ""}
+                      src={tokenLogo(token.addresses[defaultChain]) ?? ""}
                       alt={token.name}
                       className="size-5 rounded-full"
                       width={10}
@@ -559,7 +555,7 @@ export default function SwapPanel() {
               Balance:{" "}
               {formatBalance(
                 toToken.name,
-                toToken.addresses[43113],
+                toToken.addresses[defaultChain],
                 toToken.decimals,
                 Number(toTokenBalance ?? 0)
               )}
@@ -576,10 +572,10 @@ export default function SwapPanel() {
               aria-label="Amount to receive"
             />
             <Select
-              value={toToken.addresses[43113]}
+              value={toToken.addresses[defaultChain]}
               onValueChange={(value) =>
                 setToToken(
-                  tokens.find((t) => t.addresses[43113] === value) || tokens[0]
+                  tokens.find((t) => t.addresses[defaultChain] === value) || tokens[0]
                 )
               }
             >
@@ -590,11 +586,11 @@ export default function SwapPanel() {
                 {tokens.map((token, index) => (
                   <SelectItem
                     key={index}
-                    value={token.addresses[43113]}
+                    value={token.addresses[defaultChain]}
                     className="text-gray-100 flex flex-row gap-2 items-center cursor-pointer hover:bg-slate-700/50"
                   >
                     <Image
-                      src={tokenLogo(token.addresses[43113]) ?? ""}
+                      src={tokenLogo(token.addresses[defaultChain]) ?? ""}
                       alt={token.name}
                       className="size-5 rounded-full"
                       width={10}

@@ -23,7 +23,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import { useReadUserShares } from "@/hooks/read/useReadUserShares";
 import { useWithdrawLiquidity } from "@/hooks/write/useWithdrawLiquidity";
 import { chains } from "@/constants/chain-address";
@@ -35,7 +35,8 @@ export default function DialogWithdraw({
   lpAddress?: string;
   onSuccess?: () => void;
 }) {
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
+  const chainId = useChainId();
   const { userSupplySharesAmountParsed, sharesLoading, sharesError } =
     useReadUserShares(lpAddress);
   const {

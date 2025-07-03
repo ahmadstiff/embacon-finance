@@ -22,6 +22,7 @@ import { useReadTotalBorrowAssets } from "@/hooks/read/useReadTotalBorrowAssets"
 import { useTokenCalculator } from "@/hooks/read/useTokenCalculator";
 import { useRepayWithSelectedToken } from "@/hooks/write/useRepayWithSelectedToken";
 import { useState } from "react";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const AmountInput = ({
   value,
@@ -84,11 +85,11 @@ export const RepaySelectedToken = (props: any) => {
   const [isPending, setIsPending] = useState(false);
 
   const tokenAddress = tokens.find((token) => token.name === props.tokenName)
-    ?.addresses[43113];
+    ?.addresses[defaultChain];
 
   const borrowTokenAddress = tokens.find(
     (token) => token.name === props.borrowToken
-  )?.addresses[43113];
+  )?.addresses[defaultChain];
 
   const borrowTokenDecimal = tokens.find(
     (token) => token.name === props.borrowToken
@@ -96,7 +97,7 @@ export const RepaySelectedToken = (props: any) => {
 
   const collateralTokenAddress = tokens.find(
     (token) => token.name === props.collateralToken
-  )?.addresses[43113];
+  )?.addresses[defaultChain];
 
   const collateralTokenDecimal = tokens.find(
     (token) => token.name === props.collateralToken
@@ -111,11 +112,11 @@ export const RepaySelectedToken = (props: any) => {
   const { collateralToken } = useReadCollateralToken(props.lpAddress);
 
   const borrowTokenName = tokens.find(
-    (token) => token.addresses[43113] === borrowToken
+    (token) => token.addresses[defaultChain] === borrowToken
   )?.name;
 
   const collateralTokenName = tokens.find(
-    (token) => token.addresses[43113] === collateralToken
+    (token) => token.addresses[defaultChain] === collateralToken
   )?.name;
 
   // use repay with selected token

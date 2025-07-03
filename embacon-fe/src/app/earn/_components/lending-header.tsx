@@ -83,7 +83,6 @@ export default function LendingHeader() {
               <div className="flex justify-between items-center">
                 <CardTitle className="text-[#1857ea] text-lg font-medium">
                   Total Borrowed
-                  <WalletButton />
                 </CardTitle>
                 <div className="border border-[#9EC6F3] p-2 rounded-lg text-[#1192FC]">
                   <Wallet className="h-5 w-5" />

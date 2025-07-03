@@ -5,10 +5,11 @@ import { chains } from "@/constants/chain-address";
 import { useReadContract } from "wagmi";
 import { getTokenDecimals } from "@/lib/tokenUtils";
 import { useEffect } from "react";
+import { defaultChain } from "@/lib/get-default-chain";
 
 export const useReadSupplyLiquidity = ({
   tokenAddress,
-  chainId = 43113,
+  chainId = defaultChain,
   lpAddress,
 }: {
   tokenAddress?: string;

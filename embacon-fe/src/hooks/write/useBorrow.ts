@@ -5,6 +5,7 @@ import { poolAbi } from "@/lib/abis/poolAbi";
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { chains } from "@/constants/chain-address";
+import { defaultChain } from "@/lib/get-default-chain";
 
 export function useBorrow(
   destinationChainId: number,
@@ -12,9 +13,6 @@ export function useBorrow(
   lpAddress: string,
   decimal: number
 ) {
-  const { address } = useAccount();
-  const fixedChainId = 43113;
-
   const {
     data: borrowHash,
     isPending: isBorrowPending,
@@ -39,15 +37,16 @@ export function useBorrow(
 
       const parsedAmount = parseUnits(amount, decimal);
 
-      const destination = chains.find((c) => c.id === destinationChainId)?.destination;
+      const destination = chains.find(
+        (c) => c.id === destinationChainId
+      )?.destination;
 
       await borrowTransaction({
         address: lpAddress as `0x${string}`,
         abi: poolAbi,
         functionName: "borrowDebt",
-        args: [parsedAmount, BigInt(fixedChainId), Number(destination)],
+        args: [parsedAmount, BigInt(defaultChain), Number(destination)],
       });
-
     } catch (error: any) {
       toast.error(error?.message || "Borrow transaction failed");
     }

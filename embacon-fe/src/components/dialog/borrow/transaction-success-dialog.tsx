@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, ExternalLink, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface TransactionSuccessDialogProps {
   isOpen: boolean;
@@ -34,9 +35,7 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
   });
   const [isCompleted, setIsCompleted] = useState(false);
 
-  // For Avalanche Fuji (43113), mark as completed immediately since we already have confirmation
-  // For other chains, use timer
-  const isAvalancheFuji = destinationChainId === 43113;
+  const isAvalancheFuji = destinationChainId === defaultChain;
 
   useEffect(() => {
     if (isAvalancheFuji) {
@@ -73,7 +72,7 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
   };
 
   const getExplorerUrl = () => {
-    if (destinationChainId === 43113) {
+    if (destinationChainId === defaultChain) {
       return `https://testnet.snowtrace.io/tx/${transactionHash}`;
     }
     return `https://ccip.chain.link/?search=${transactionHash}`;

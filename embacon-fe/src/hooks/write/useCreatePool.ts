@@ -10,6 +10,7 @@ import { factoryAbi } from "@/lib/abis/factoryAbi";
 import { createLPFactory } from "@/actions/CreateLPFactory";
 import { getSelectedLPFactorybyColBor } from "@/actions/GetLPFactory";
 import { chains } from "@/constants/chain-address";
+import { defaultChain } from "@/lib/get-default-chain";
 
 export type HexAddress = `0x${string}`;
 
@@ -47,8 +48,8 @@ export const useCreatePool = (chainId: number, onSuccess: () => void) => {
       return;
     }
 
-    if (chain.id !== 43113) {
-      toast.error("Create pool is only supported on source chain (43113)");
+    if (chain.id !== defaultChain) {
+      toast.error(`Create pool is only supported on source chain ${defaultChain}`);
       return;
     }
 

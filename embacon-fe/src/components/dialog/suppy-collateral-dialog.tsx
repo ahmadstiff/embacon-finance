@@ -12,14 +12,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Shield, CheckCircle2, AlertCircle, ClipboardCopy, ExternalLink } from "lucide-react";
+import {
+  Loader2,
+  Shield,
+  CheckCircle2,
+  AlertCircle,
+  ClipboardCopy,
+  ExternalLink,
+} from "lucide-react";
 import { tokens } from "@/constants/token-address";
 import { useBalance } from "@/hooks/useBalance";
-import { useSupplyCollateral, useApproveCollateral } from "@/hooks/write/useSupplyCollateral";
+import {
+  useSupplyCollateral,
+  useApproveCollateral,
+} from "@/hooks/write/useSupplyCollateral";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { chains } from "@/constants/chain-address";
-import { useAccount } from "wagmi";
+import { useChainId } from "wagmi";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface SupplyDialogProps {
   token: string | undefined;
@@ -27,21 +38,28 @@ interface SupplyDialogProps {
   onSuccess?: () => void;
 }
 
-export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyDialogProps) {
-  const CHAIN_ID = 43113;
-  const { address, chainId } = useAccount();
+export default function SupplyDialogCol({
+  token,
+  lpAddress,
+  onSuccess,
+}: SupplyDialogProps) {
+  const chainId = useChainId();
 
   const selectedToken = tokens.find(
-    (t) => t.symbol === token && t.addresses[CHAIN_ID]
+    (t) => t.symbol === token && t.addresses[defaultChain]
   );
 
-  const tokenAddress = selectedToken?.addresses[CHAIN_ID] as `0x${string}` | undefined;
+  const tokenAddress = selectedToken?.addresses[defaultChain] as
+    | `0x${string}`
+    | undefined;
   const decimals = selectedToken?.decimals ?? 18;
 
   const [amount, setAmount] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [inputError, setInputError] = useState("");
-  const [currentStep, setCurrentStep] = useState<"idle" | "approving" | "supplying">("idle");
+  const [currentStep, setCurrentStep] = useState<
+    "idle" | "approving" | "supplying"
+  >("idle");
 
   // Approval hook
   const {
@@ -67,10 +85,12 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
 
   const { balance } = useBalance(tokenAddress!, decimals);
 
-  const explorer = chains.find((c) => c.id === chainId)?.contracts.blockExplorer;
+  const explorer = chains.find((c) => c.id === chainId)?.contracts
+    .blockExplorer;
   const maxBalance = Number.parseFloat(balance) || 0;
 
-  const isTransactionPending = isApprovePending || isSupplyPending || isApproveLoading || isSupplyLoading;
+  const isTransactionPending =
+    isApprovePending || isSupplyPending || isApproveLoading || isSupplyLoading;
 
   // Update current step based on hook states
   useEffect(() => {
@@ -119,13 +139,13 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
       setInputError(error);
       toast.error(error, {
         style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
-        }
+          background: "rgba(239, 68, 68, 0.1)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          color: "#fca5a5",
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(239, 68, 68, 0.1)",
+        },
       });
       return;
     }
@@ -152,13 +172,13 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
     navigator.clipboard.writeText(hash);
     toast.success("Transaction hash copied!", {
       style: {
-        background: 'rgba(34, 197, 94, 0.1)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(34, 197, 94, 0.3)',
-        color: '#86efac',
-        borderRadius: '12px',
-        boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
-      }
+        background: "rgba(34, 197, 94, 0.1)",
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(34, 197, 94, 0.3)",
+        color: "#86efac",
+        borderRadius: "12px",
+        boxShadow: "0 8px 32px rgba(34, 197, 94, 0.1)",
+      },
     });
   };
 
@@ -168,13 +188,13 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
       onSuccess?.();
       toast.success("Supply collateral successful!", {
         style: {
-          background: 'rgba(34, 197, 94, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(34, 197, 94, 0.3)',
-          color: '#86efac',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
-        }
+          background: "rgba(34, 197, 94, 0.1)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(34, 197, 94, 0.3)",
+          color: "#86efac",
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(34, 197, 94, 0.1)",
+        },
       });
     }
   }, [isSupplySuccess, onSuccess]);
@@ -190,7 +210,9 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
         return isApprovePending ? "Confirm Approval..." : "Approving Token...";
       }
       if (currentStep === "supplying") {
-        return isSupplyPending ? "Confirm Supply..." : "Supplying Collateral...";
+        return isSupplyPending
+          ? "Confirm Supply..."
+          : "Supplying Collateral...";
       }
       return "Processing Transaction...";
     }
@@ -251,16 +273,15 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
               </div>
             </div>
             <p className="text-slate-600">
-              Your {amount} {token} has been supplied as collateral successfully.
+              Your {amount} {token} has been supplied as collateral
+              successfully.
             </p>
 
             {supplyHash && (
               <Card className="border border-slate-200 bg-white shadow-sm">
                 <CardContent className="p-3">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-500">
-                      Supply Transaction:
-                    </span>
+                    <span className="text-slate-500">Supply Transaction:</span>
                     <div className="flex items-center gap-2">
                       <a
                         href={`${explorer}/tx/${supplyHash}`}
@@ -329,7 +350,9 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
                       className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium"
                     />
                     <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
-                      <span className="font-semibold text-slate-700">{token}</span>
+                      <span className="font-semibold text-slate-700">
+                        {token}
+                      </span>
                     </div>
                   </div>
 
@@ -365,7 +388,8 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
                     <div className="flex items-center gap-2 text-sm text-green-600">
                       <CheckCircle2 className="h-4 w-4" />
                       <span>
-                        Token approval successful! You can now supply your {token} as collateral.
+                        Token approval successful! You can now supply your{" "}
+                        {token} as collateral.
                       </span>
                     </div>
                   </CardContent>
@@ -401,7 +425,8 @@ export default function SupplyDialogCol({ token, lpAddress, onSuccess }: SupplyD
                           rel="noopener noreferrer"
                           className="text-blue-500 hover:underline flex items-center gap-1"
                         >
-                          {currentTxHash.slice(0, 6)}...{currentTxHash.slice(-4)}
+                          {currentTxHash.slice(0, 6)}...
+                          {currentTxHash.slice(-4)}
                           <ExternalLink className="h-3 w-3" />
                         </a>
                         <Button

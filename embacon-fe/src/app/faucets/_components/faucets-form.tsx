@@ -15,14 +15,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useFaucet } from "@/hooks/write/useClaimFaucet";
 import { Loader2, ExternalLink, Copy, Wallet } from "lucide-react";
 import { toast } from "sonner";
-import { useAccount } from "wagmi";
+import { useChainId } from "wagmi";
 import Image from "next/image";
+import { defaultChain } from "@/lib/get-default-chain";
 
 const FaucetsCardForm = () => {
-  const currentChainId = 43113;
-
-  //fetch chain id from wallet
-  const { chainId } = useAccount();
+  const chainId = useChainId();
 
   const {
     selectedTokenAddress,
@@ -38,7 +36,7 @@ const FaucetsCardForm = () => {
     addTokenToWallet,
     isSuccess,
     isError,
-  } = useFaucet(currentChainId);
+  } = useFaucet(defaultChain);
 
   // Amount change handler
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +62,7 @@ const FaucetsCardForm = () => {
   };
 
   const execAddTokenToWallet = () => {
-    if (Number(chainId) == currentChainId) {
+    if (Number(chainId) == defaultChain) {
       addTokenToWallet();
     } else {
       toast.error("Please switch to the Avalanche Fuji network");
@@ -72,7 +70,7 @@ const FaucetsCardForm = () => {
   };
 
   const execCopyTokenAddress = () => {
-    if (Number(chainId) == currentChainId) {
+    if (Number(chainId) == defaultChain) {
       copyTokenAddress();
     } else {
       toast.error("Please switch to the Avalanche Fuji network");

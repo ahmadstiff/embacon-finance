@@ -10,8 +10,9 @@ import { mockErc20Abi } from "@/lib/abis/mockErc20Abi";
 import { tokens } from "@/constants/token-address";
 import { Token } from "@/types/type";
 import { addTokenToWallet } from "@/lib/walletUtils";
+import { defaultChain } from "@/lib/get-default-chain";
 
-export const useFaucet = (chainId: number = 43113) => {
+export const useFaucet = (chainId: number = defaultChain) => {
   const { address } = useAccount();
   const [selectedTokenAddress, setSelectedTokenAddress] = useState<string>("");
   const [amount, setAmount] = useState<string>("");

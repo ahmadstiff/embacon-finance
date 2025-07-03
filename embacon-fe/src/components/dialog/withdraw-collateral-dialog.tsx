@@ -1,32 +1,33 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useMemo } from "react"
-import { Wallet, ArrowUpRight, Loader2, X } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { DialogFooter } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
-import { formatUnits } from "viem"
-import { useChainId } from "wagmi"
-import { useReadUserCollateral } from "@/hooks/read/useReadUserCollateral"
-import { useWithdrawCollateral } from "@/hooks/write/useWithdrawCollateral"
-import { getTokenDecimals } from "@/lib/tokenUtils"
-import { tokens } from "@/constants/token-address"
+import { useState, useMemo } from "react";
+import { Wallet, ArrowUpRight, Loader2, X } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { formatUnits } from "viem";
+import { useChainId } from "wagmi";
+import { useReadUserCollateral } from "@/hooks/read/useReadUserCollateral";
+import { useWithdrawCollateral } from "@/hooks/write/useWithdrawCollateral";
+import { getTokenDecimals } from "@/lib/tokenUtils";
+import { tokens } from "@/constants/token-address";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface AmountInputProps {
-  value: string
-  onChange: (val: string) => void
-  token: string
-  label: string
-  disabled: boolean
-  lpAddress: string
-  userCollateral?: bigint
-  collateralLoading: boolean
-  collateralError: any
+  value: string;
+  onChange: (val: string) => void;
+  token: string;
+  label: string;
+  disabled: boolean;
+  lpAddress: string;
+  userCollateral?: bigint;
+  collateralLoading: boolean;
+  collateralError: any;
 }
 
 const AmountInput = ({
@@ -41,42 +42,46 @@ const AmountInput = ({
   collateralError,
 }: AmountInputProps) => {
   const getDisplayValue = () => {
-    if (collateralLoading) return "Loading..."
-    if (collateralError) return "Error"
+    if (collateralLoading) return "Loading...";
+    if (collateralError) return "Error";
     if (userCollateral) {
-      const etherValue = Number(userCollateral) / 1e18
-      return etherValue.toFixed(2)
+      const etherValue = Number(userCollateral) / 1e18;
+      return etherValue.toFixed(2);
     }
-    return "0.00"
-  }
+    return "0.00";
+  };
 
   const handleMaxClick = () => {
     if (userCollateral && !collateralLoading && !collateralError) {
-      const etherValue = Number(userCollateral) / 1e18
-      onChange(etherValue.toFixed(2))
+      const etherValue = Number(userCollateral) / 1e18;
+      onChange(etherValue.toFixed(2));
     }
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
+    const val = e.target.value;
     if (
       val === "" ||
       val === "0" ||
       (val.startsWith("0.") && /^\d*\.?\d*$/.test(val)) ||
       (!val.startsWith("0") && /^\d*\.?\d*$/.test(val))
     ) {
-      onChange(val)
+      onChange(val);
     }
-  }
+  };
 
-  const isMaxDisabled = disabled || collateralLoading || !!collateralError || !userCollateral
+  const isMaxDisabled =
+    disabled || collateralLoading || !!collateralError || !userCollateral;
 
   return (
     <Card className="border border-slate-200 bg-white shadow-sm">
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-sm font-medium text-slate-700">{label}</h3>
-          <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+          <Badge
+            variant="outline"
+            className="bg-purple-50 text-purple-700 border-purple-200"
+          >
             Withdraw
           </Badge>
         </div>
@@ -93,7 +98,9 @@ const AmountInput = ({
           />
           <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
             <Wallet className="h-4 w-4 text-slate-700" />
-            <span className="font-semibold text-slate-700">{token.toUpperCase()}</span>
+            <span className="font-semibold text-slate-700">
+              {token.toUpperCase()}
+            </span>
           </div>
         </div>
 
@@ -114,53 +121,73 @@ const AmountInput = ({
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 interface WithdrawCollateralProps {
-  collateralToken: string
-  lpAddress: string
-  onSuccess?: () => void
+  collateralToken: string;
+  lpAddress: string;
+  onSuccess?: () => void;
 }
 
-const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: WithdrawCollateralProps) => {
-  const [amountInput, setAmountInput] = useState("")
-  const [showSuccessState, setShowSuccessState] = useState(false)
+const WithdrawCollateralDialog = ({
+  collateralToken,
+  lpAddress,
+  onSuccess,
+}: WithdrawCollateralProps) => {
+  const [amountInput, setAmountInput] = useState("");
+  const [showSuccessState, setShowSuccessState] = useState(false);
 
-  const chainId = useChainId()
+  const chainId = useChainId();
 
-  // Get collateral token address for chain 43113 (Avalanche Fuji)
-  const collateralTokenAddress = tokens.find((t) => t.symbol === collateralToken)?.addresses[43113]
+  const collateralTokenAddress = tokens.find(
+    (t) => t.symbol === collateralToken
+  )?.addresses[defaultChain];
 
-  const { userPostitionAddress, userCollateral, positionLoading, collateralLoading, positionError, collateralError } =
-    useReadUserCollateral(collateralTokenAddress as string, lpAddress)
+  const {
+    userPostitionAddress,
+    userCollateral,
+    positionLoading,
+    collateralLoading,
+    positionError,
+    collateralError,
+  } = useReadUserCollateral(collateralTokenAddress as string, lpAddress);
 
-  const { withdraw, isWritePending, isReceiptLoading, isReceiptSuccess, txHash } = useWithdrawCollateral(lpAddress)
+  const {
+    withdraw,
+    isWritePending,
+    isReceiptLoading,
+    isReceiptSuccess,
+    txHash,
+  } = useWithdrawCollateral(lpAddress);
 
-  const tokenDecimals = useMemo(() => getTokenDecimals(collateralToken, chainId) ?? 18, [collateralToken, chainId])
+  const tokenDecimals = useMemo(
+    () => getTokenDecimals(collateralToken, chainId) ?? 18,
+    [collateralToken, chainId]
+  );
 
   const formattedBalance = useMemo(
     () => (userCollateral ? formatUnits(userCollateral, tokenDecimals) : null),
-    [userCollateral, tokenDecimals],
-  )
+    [userCollateral, tokenDecimals]
+  );
 
   const collateralBalanceNumber = useMemo(() => {
-    const num = Number(formattedBalance)
-    return isNaN(num) ? 0 : num
-  }, [formattedBalance])
+    const num = Number(formattedBalance);
+    return isNaN(num) ? 0 : num;
+  }, [formattedBalance]);
 
   // Consolidated display value function
   const getDisplayValue = () => {
-    if (collateralLoading) return "Loading..."
-    if (collateralError) return "Error"
+    if (collateralLoading) return "Loading...";
+    if (collateralError) return "Error";
     if (userCollateral) {
-      return (Number(userCollateral) / 1e18).toFixed(2)
+      return (Number(userCollateral) / 1e18).toFixed(2);
     }
-    return "0.00"
-  }
+    return "0.00";
+  };
 
-  const isDataLoading = positionLoading || collateralLoading
-  const hasDataError = positionError || collateralError
+  const isDataLoading = positionLoading || collateralLoading;
+  const hasDataError = positionError || collateralError;
 
   const isWithdrawDisabled =
     isWritePending ||
@@ -171,80 +198,83 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
     !amountInput ||
     Number.parseFloat(amountInput) <= 0 ||
     Number.parseFloat(amountInput) > collateralBalanceNumber ||
-    collateralBalanceNumber <= 0
+    collateralBalanceNumber <= 0;
 
   const handleWithdraw = () => {
-    const parsed = Number.parseFloat(amountInput)
+    const parsed = Number.parseFloat(amountInput);
 
     if (parsed <= 0) {
       return toast.error("Amount must be greater than zero", {
         style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
-        }
-      })
+          background: "rgba(239, 68, 68, 0.1)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          color: "#fca5a5",
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(239, 68, 68, 0.1)",
+        },
+      });
     }
 
     if (parsed > collateralBalanceNumber) {
       return toast.error("Amount exceeds available collateral", {
         style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
-        }
-      })
+          background: "rgba(239, 68, 68, 0.1)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          color: "#fca5a5",
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(239, 68, 68, 0.1)",
+        },
+      });
     }
 
     if (!userPostitionAddress) {
-      return toast.error("Position not found. Please create a position first.", {
-        style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+      return toast.error(
+        "Position not found. Please create a position first.",
+        {
+          style: {
+            background: "rgba(239, 68, 68, 0.1)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(239, 68, 68, 0.3)",
+            color: "#fca5a5",
+            borderRadius: "12px",
+            boxShadow: "0 8px 32px rgba(239, 68, 68, 0.1)",
+          },
         }
-      })
+      );
     }
 
     if (!lpAddress) {
       return toast.error("Lending pool address not available", {
         style: {
-          background: 'rgba(239, 68, 68, 0.1)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
-        }
-      })
+          background: "rgba(239, 68, 68, 0.1)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          color: "#fca5a5",
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(239, 68, 68, 0.1)",
+        },
+      });
     }
 
-    const amount = BigInt(Math.floor(parsed * 10 ** tokenDecimals))
+    const amount = BigInt(Math.floor(parsed * 10 ** tokenDecimals));
 
     withdraw({
       amount,
       onBroadcast: () => {
-        setAmountInput("")
-        setShowSuccessState(true)
+        setAmountInput("");
+        setShowSuccessState(true);
       },
-    })
-  }
+    });
+  };
 
-  const handleClose = () => onSuccess?.()
+  const handleClose = () => onSuccess?.();
 
   const handleNewWithdrawal = () => {
-    setShowSuccessState(false)
-    setAmountInput("")
-  }
+    setShowSuccessState(false);
+    setAmountInput("");
+  };
 
   const getButtonContent = () => {
     if (isWritePending || isReceiptLoading || isDataLoading) {
@@ -253,20 +283,21 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
           {isWritePending ? "Pending in wallet..." : "Withdrawing..."}
         </>
-      )
+      );
     }
 
-    if (!userPostitionAddress) return "Create Position First"
-    if (collateralBalanceNumber <= 0) return "No Collateral Available"
-    if (!amountInput || Number.parseFloat(amountInput) <= 0) return "Enter Amount"
+    if (!userPostitionAddress) return "Create Position First";
+    if (collateralBalanceNumber <= 0) return "No Collateral Available";
+    if (!amountInput || Number.parseFloat(amountInput) <= 0)
+      return "Enter Amount";
 
     return (
       <>
         <ArrowUpRight className="mr-2 h-5 w-5" />
         Withdraw {collateralToken}
       </>
-    )
-  }
+    );
+  };
 
   // Success State UI
   if (showSuccessState && isReceiptSuccess) {
@@ -277,7 +308,9 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
             <div className="bg-green-100 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Wallet className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold text-green-800 mb-2">Withdrawal Successful!</h3>
+            <h3 className="text-lg font-semibold text-green-800 mb-2">
+              Withdrawal Successful!
+            </h3>
             <p className="text-sm text-green-700 mb-4">
               Your {collateralToken} withdrawal has been confirmed on‑chain.
             </p>
@@ -314,7 +347,7 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
           </Button>
         </DialogFooter>
       </>
-    )
+    );
   }
 
   // Main Withdrawal UI
@@ -339,19 +372,23 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
               <Wallet className="h-4 w-4 text-purple-600" />
             </div>
             <div className="w-full">
-              <h4 className="text-sm font-medium text-purple-700 mb-3">Withdrawal Information</h4>
+              <h4 className="text-sm font-medium text-purple-700 mb-3">
+                Withdrawal Information
+              </h4>
 
               {!isDataLoading && !hasDataError && (
                 <div className="pt-2 border-t border-purple-200">
                   {collateralBalanceNumber <= 0 ? (
                     <p className="text-xs text-purple-600">
-                      ⚠️ No collateral available to withdraw. Please supply collateral first.
+                      ⚠️ No collateral available to withdraw. Please supply
+                      collateral first.
                     </p>
                   ) : (
                     <>
                       <p className="text-xs text-purple-600 mb-2">
-                        ⚠️ Withdrawing collateral may reduce your borrowing capacity. Make sure your position stays
-                        healthy to avoid liquidation.
+                        ⚠️ Withdrawing collateral may reduce your borrowing
+                        capacity. Make sure your position stays healthy to avoid
+                        liquidation.
                       </p>
                       <p className="text-xs text-purple-600">
                         Available Collateral:{" "}
@@ -396,7 +433,7 @@ const WithdrawCollateralDialog = ({ collateralToken, lpAddress, onSuccess }: Wit
         </Button>
       </DialogFooter>
     </>
-  )
-}
+  );
+};
 
-export default WithdrawCollateralDialog
+export default WithdrawCollateralDialog;

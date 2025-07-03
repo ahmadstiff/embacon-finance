@@ -14,6 +14,7 @@ import { CircleDollarSign } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { getTokenInfo } from "@/lib/tokenUtils";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface LpData {
   id: string;
@@ -28,15 +29,11 @@ interface CollateralSectionProps {
   lpData: LpData[];
 }
 
-// Default chain ID (ubah jika multi-chain)
-const CHAIN_ID = 43113;
-
 const CollateralSection = ({
   lpAddress,
   setLpAddress,
   lpData,
 }: CollateralSectionProps) => {
-
   const handleLpChange = (value: string) => {
     setLpAddress(value);
   };
@@ -60,9 +57,9 @@ const CollateralSection = ({
                   {lpData.map((lp) => {
                     const collateral = getTokenInfo(
                       lp.collateralToken,
-                      CHAIN_ID
+                      defaultChain
                     );
-                    const borrow = getTokenInfo(lp.borrowToken, CHAIN_ID);
+                    const borrow = getTokenInfo(lp.borrowToken, defaultChain);
 
                     return (
                       <SelectItem

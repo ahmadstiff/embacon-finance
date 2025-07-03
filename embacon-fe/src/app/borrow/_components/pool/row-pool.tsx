@@ -7,6 +7,7 @@ import React from "react";
 import { toast } from "sonner";
 import { useReadRate } from "@/hooks/read/useReadRate";
 import { Address } from "viem";
+import { defaultChain } from "@/lib/get-default-chain";
 
 interface RowPoolProps {
   collateralToken: string;
@@ -26,9 +27,6 @@ interface RowPoolProps {
   }) => void;
 }
 
-// Target chain ID, bisa kamu ubah kalau multi-chain
-const TARGET_CHAIN_ID = 43113;
-
 const RowPool = ({
   collateralToken,
   borrowToken,
@@ -38,12 +36,12 @@ const RowPool = ({
   borrowAddress,
   handleRowClick,
 }: RowPoolProps) => {
-  const collateralInfo = getTokenInfo(collateralToken, TARGET_CHAIN_ID);
-  const borrowInfo = getTokenInfo(borrowToken, TARGET_CHAIN_ID);
+  const collateralInfo = getTokenInfo(collateralToken, defaultChain);
+  const borrowInfo = getTokenInfo(borrowToken, defaultChain);
 
   const { supplyLiquidity } = useReadSupplyLiquidity({
     tokenAddress: borrowToken,
-    chainId: TARGET_CHAIN_ID,
+    chainId: defaultChain,
     lpAddress: lpAddress,
   });
 
