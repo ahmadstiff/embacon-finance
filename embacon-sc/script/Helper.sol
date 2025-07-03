@@ -17,7 +17,7 @@ contract Helper is Script {
     address public ARB_USDT = 0x02d811A7959994e4861781bC65c58813D4678949;
 
     address public ARB_factory = 0x0128FA2b8254359A3493AC9782059F7bb3508AA4;
-    address public ARB_lp =  0x19b0b0F7895BFf7D32b0b6f0239EB76787BC4963;
+    address public ARB_lp =  0x594F56D83224534789755FC93a6AF5C90577Cf43;
 
     address public claimAddress = vm.envAddress("ADDRESS");
 

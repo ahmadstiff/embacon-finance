@@ -31,6 +31,7 @@ contract LPSupplyLiquidityScript is Script, Helper {
         uint256 decimal = IERC20Metadata(borrowToken).decimals();
 
         vm.startBroadcast(privateKey);
+        amount = decimal >= 6 ? 3 : amount;
         uint256 amountSupplyLiquidity = amount * (10 ** decimal);
 
         uint256 balance = IERC20(borrowToken).balanceOf(yourWallet);

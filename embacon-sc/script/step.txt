@@ -1,0 +1,11 @@
+0. (Faucets ^optional) forge script FaucetsScript -vvv --broadcast
+1. (Create LP) forge script CreateLPScript -vvv --broadcast
+2. (Supply Liquidity) forge script LPSupplyLiquidityScript -vvv --broadcast
+3. (Supply Collateral) forge script LPSupplyCollateralScript -vvv --broadcast
+4. (Borrow) forge script LPBorrowScript -vvv --broadcast
+
+forge script FaucetsScript -vvv --broadcast
+forge script CreateLPScript -vvv --broadcast
+forge script LPSupplyLiquidityScript -vvv --broadcast
+forge script LPSupplyCollateralScript -vvv --broadcast
+forge script LPBorrowScript -vvv --broadcast

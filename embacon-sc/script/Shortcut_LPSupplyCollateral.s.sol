@@ -31,6 +31,7 @@ contract LPSupplyCollateralScript is Script, Helper {
         uint256 decimal = IERC20Metadata(collateralToken).decimals();
 
         vm.startBroadcast(privateKey);
+        amount = decimal >= 6 ? 3 : amount;
         uint256 amountSupplyCollateral = amount * (10 ** decimal);
 
         uint256 balance = IERC20(collateralToken).balanceOf(yourWallet);
