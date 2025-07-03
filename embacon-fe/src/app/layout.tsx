@@ -23,11 +23,10 @@ export const metadata: Metadata = {
   description: "Cross-chain borrowing platform",
   icons: {
     icon: [
-      { url: "./caer.png", type: "image/png" },
-      { url: "/caer.png", type: "image/png" },
-      { url: "/logo.ico", type: "image/x-icon" },
+      { url: "./embaconlogo.png", type: "image/png" },
+      { url: "/embaconlogo.png", type: "image/png" },
     ],
-    apple: [{ url: "/caer.png", type: "image/png" }],
+    apple: [{ url: "/embaconlogo.png", type: "image/png" }],
   },
 };
 

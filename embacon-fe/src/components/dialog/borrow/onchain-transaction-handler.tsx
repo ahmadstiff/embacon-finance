@@ -306,7 +306,7 @@ export default function useOnChainTransactionHandler({
       <TransactionProgressModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        title="CAER Finance On-Chain Borrow Progress"
+        title="Embacon Finance On-Chain Borrow Progress"
         steps={transactionSteps}
         fromChain={fromChain.name}
         toChain={toChain.name}
