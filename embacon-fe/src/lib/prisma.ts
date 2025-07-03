@@ -1,9 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 export const prisma =
   globalForPrisma.prisma ||
-  new PrismaClient();
+  new PrismaClient({
+    // Disable prepared statements for better compatibility with PgBouncer
+    // See: https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#pgbouncer
+    log: ['error', 'warn'],
+  });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (typeof window === 'undefined') {
+  globalForPrisma.prisma = prisma;
+}
