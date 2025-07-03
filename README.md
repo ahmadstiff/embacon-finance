@@ -1,4 +1,4 @@
-# Caér Finance
+# Embacon Finance
 
 ## Project Demo
 [Go to site](https://caerfi.vercel.app/)
