@@ -9,7 +9,7 @@ import { useBalance } from "@/hooks/useBalance";
 import { useSwapToken } from "@/hooks/useSwapToken";
 import { useTokenPrice } from "@/hooks/useTokenPrice";
 import { useReadLendingData } from "@/hooks/read/useReadLendingData";
-import { ArrowDownUp, ShieldAlert, Wallet2, MoveRight, History  } from "lucide-react";
+import { ArrowDownUp, ShieldAlert, Wallet2, MoveRight, History, ArrowRight } from "lucide-react";
 import SelectPosition from "@/app/borrow/_components/position/selectPosition";
 import {
   getAllLPFactoryData,
@@ -281,17 +281,44 @@ export default function SwapPanel() {
         : Number(fromTokenBalance) * 10 ** fromToken.decimals;
     
     if (!address) {
-      setError("Please connect your wallet");
+      toast.error("Please connect your wallet", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
     if (!fromAmountReal || fromAmountReal <= 0) {
-      setError("Please enter a valid amount");
+      toast.error("Please enter a valid amount", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
     if (fromAmountReal > Number(fromTokenBalanceReal)) {
-      setError("Insufficient balance");
+      toast.error("Insufficient balance", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
       return;
     }
 
@@ -299,7 +326,16 @@ export default function SwapPanel() {
       await swapToken();
     } catch (err) {
       console.error("Swap error:", err);
-      // Error handling is done in useEffect
+      toast.error("Swap failed. Please try again.", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
     }
   };
 
@@ -415,7 +451,7 @@ export default function SwapPanel() {
                     <SelectItem
                       key={lp.id}
                       value={lp.lpAddress}
-                      className="py-2 px-0 text-sm text-gray-100 hover:bg-slate-700/50 transition-colors"
+                      className="py-2 px-8 text-sm text-gray-100 hover:bg-slate-700/50 transition-colors"
                     >
                       <div className="flex flex-row gap-2 items-center justify-between">
                         <div className="flex items-center gap-2 truncate px-3">
@@ -427,7 +463,7 @@ export default function SwapPanel() {
                             height={10}
                           />
                           <span className="truncate">
-                            {tokenName(lp.collateralToken)}
+                            <ArrowRight className="size-4 mx-4 inline-block" />
                           </span>
                         </div>
                         <div className="flex items-center gap-2 truncate">
@@ -439,7 +475,7 @@ export default function SwapPanel() {
                             height={10}
                           />
                           <span className="truncate">
-                            {tokenName(lp.borrowToken)}
+                            
                           </span>
                         </div>
                       </div>
@@ -467,7 +503,7 @@ export default function SwapPanel() {
           addressPosition !== "0x0000000000000000000000000000000000000000" ? (
             <Link
               className="flex flex-row gap-2 items-center justify-center text-blue-300 text-base text-center mt-0"
-              href={`https://testnet.snowtrace.io/address/${addressPosition}`}
+              href={`https://testnet.snowtrace.io/address/${address}`}
               target="_blank"
             >
               <History className="size-4" />
