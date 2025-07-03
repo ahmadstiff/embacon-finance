@@ -451,22 +451,20 @@ export default function SwapPanel() {
                     <SelectItem
                       key={lp.id}
                       value={lp.lpAddress}
-                      className="py-2 px-8 text-sm text-gray-100 hover:bg-slate-700/50 transition-colors"
+                      className="py-2 px-0 text-sm text-gray-100 hover:bg-slate-700/50 transition-colors"
                     >
-                      <div className="flex flex-row gap-2 items-center justify-between">
-                        <div className="flex items-center gap-2 truncate px-3">
+                      <div className="flex flex-row gap-8 items-between justify-between ml-8 w-full">
+                        <div className="flex items-center">
                           <Image
                             src={tokenLogo(lp.collateralToken) ?? ""}
                             alt={tokenName(lp.collateralToken) ?? ""}
-                            className="size-5 rounded-full text"
+                            className="size-5 rounded-full"
                             width={10}
                             height={10}
                           />
-                          <span className="truncate">
-                            <ArrowRight className="size-4 mx-4 inline-block" />
-                          </span>
                         </div>
-                        <div className="flex items-center gap-2 truncate">
+                        <ArrowRight className="size-4 mx-" />
+                        <div className="flex items-center">
                           <Image
                             src={tokenLogo(lp.borrowToken) ?? ""}
                             alt={tokenName(lp.borrowToken) ?? ""}
@@ -474,9 +472,6 @@ export default function SwapPanel() {
                             width={10}
                             height={10}
                           />
-                          <span className="truncate">
-                            
-                          </span>
                         </div>
                       </div>
                     </SelectItem>
