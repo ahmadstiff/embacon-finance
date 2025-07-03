@@ -100,10 +100,8 @@ const SupplyCollateralSection = ({
   ]);
 
   const validateAmount = (value: string): string => {
-    if (!value || value === "0") return "Amount is required";
     const numValue = Number.parseFloat(value);
-    if (isNaN(numValue) || numValue <= 0) return "Invalid amount";
-    if (numValue > maxBalance) return "Insufficient balance";
+    if (isNaN(numValue) || numValue <= 0) return "";
     return "";
   };
 
@@ -256,8 +254,8 @@ const SupplyCollateralSection = ({
     return (
       <>
         <div className="space-y-6 py-4">
-          <div className="bg-green-50 p-6 rounded-lg border border-green-200 text-center">
-            <div className="bg-green-100 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <div className="p-6 rounded-lg text-center">
+            <div className="p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
             <h3 className="text-lg font-semibold text-green-800 mb-2">
@@ -270,25 +268,9 @@ const SupplyCollateralSection = ({
 
             {/* Transaction Hashes */}
             <div className="space-y-3">
-              {approveHash && (
-                <div className="p-3 rounded border border-green-200 text-white">
-                  <p className="text-xs text-green-600 mb-1">
-                    Approval Transaction:
-                  </p>
-                  <a
-                    href={`https://testnet.snowtrace.io/tx/${approveHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center justify-center gap-1"
-                  >
-                    {approveHash}
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-              )}
 
               {supplyHash && (
-                <div className="p-3 rounded border border-green-200 text-white">
+                <div className="p-3 rounded-md border border-blue-500 text-white">
                   <p className="text-xs text-green-600 mb-1">
                     Supply Transaction:
                   </p>
@@ -299,7 +281,6 @@ const SupplyCollateralSection = ({
                     className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center justify-center gap-1"
                   >
                     {supplyHash}
-                    <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
               )}
@@ -330,16 +311,16 @@ const SupplyCollateralSection = ({
   return (
     <>
       <div className="space-y-6 py-4">
-        <Card className="border border-slate-200 shadow-sm">
+        <Card className="border shadow-xs">
           <CardContent className="p-4">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-slate-700">
+              <h3 className="text-sm font-medium text-gray-300">
                 Supply Amount
               </h3>
               <div className="flex items-center gap-2">
                 <Badge
                   variant="outline"
-                  className="bg-purple-50 text-purple-700 border-purple-200"
+                  className="text-gray-300"
                 >
                   Collateral
                 </Badge>
@@ -351,16 +332,16 @@ const SupplyCollateralSection = ({
               </div>
             </div>
 
-            <div className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+            <div className="flex items-center space-x-2">
               <Input
-                placeholder={`Enter amount of ${collateralToken} to supply`}
+                placeholder={`Enter amount of ${collateralToken}`}
                 value={amount}
                 onChange={(e) => handleAmountChange(e.target.value)}
                 disabled={isTransactionPending}
                 type="number"
                 min="0"
                 step="0.01"
-                className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium"
+                className="border text-sm bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 font-normal"
               />
               <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
                 <span className="font-semibold text-slate-700">{collateralToken}</span>
@@ -374,7 +355,7 @@ const SupplyCollateralSection = ({
               </div>
             )}
 
-            <div className="mt-3 text-xs text-slate-500 flex justify-between items-center">
+            <div className="mt-3 text-xs text-gray-200 flex justify-between items-center">
               <span className="mr-1">Your Balance:</span>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-700 mx-2">
@@ -383,7 +364,7 @@ const SupplyCollateralSection = ({
                 <button
                   onClick={handleMaxClick}
                   disabled={maxBalance === 0 || isTransactionPending}
-                  className="text-xs p-0.5 border border-purple-500 rounded-md text-purple-500 hover:bg-purple-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-xs p-0.5 border rounded-sm hover:bg-blue-500 hover:text-gray-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Max
                 </button>

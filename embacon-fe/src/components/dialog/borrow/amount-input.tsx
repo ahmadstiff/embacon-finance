@@ -26,7 +26,7 @@ export default function AmountInput({
         <p className="text-sm text-gray-600">Amount</p>
       </div>
       <div className="flex gap-4">
-        <div className="w-1/2 border border-gray-200 rounded-lg p-1 bg-gray-50 flex">
+        <div className="w-1/2 border rounded-lg p-1 flex">
           <div className="flex items-center gap-2 ml-1">
             <img src={tokenImage} alt={token} className="size-5" />
           </div>
@@ -34,7 +34,7 @@ export default function AmountInput({
             <span className="font-medium ml-2">{token}</span>
           </div>
         </div>
-        <div className="w-1/2 border border-gray-200 rounded-lg bg-gray-50">
+        <div className="w-1/2 border rounded-lg">
           <div>
             <Input
               type="text"
@@ -42,7 +42,7 @@ export default function AmountInput({
               value={value}
               onChange={(e) => {
                 const numericValue = e.target.value.replace(/[^\d.]/g, '');
-                // Ensure only one decimal point
+            
                 const parts = numericValue.split('.');
                 const formattedValue = parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : numericValue;
                 onChange(formattedValue);

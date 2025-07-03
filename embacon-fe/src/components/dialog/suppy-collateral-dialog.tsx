@@ -338,7 +338,7 @@ export default function SupplyDialogCol({
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  <div className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border">
                     <Input
                       placeholder={`Enter amount of ${token} to supply`}
                       value={amount}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -53,6 +53,16 @@ const PoolDialog = ({
     lpAddress as `0x${string}`
   );
 
+  // Add ref and state for trigger width
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [triggerWidth, setTriggerWidth] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (triggerRef.current) {
+      setTriggerWidth(triggerRef.current.offsetWidth);
+    }
+  }, [isOpen]);
+
   const getTokenLogo = (name: string) => {
     return (
       tokens.find((token) => token.name === name)?.logo ?? "/placeholder.png"
@@ -76,7 +86,7 @@ const PoolDialog = ({
       <DialogDescription className="hidden">
         ini desc
       </DialogDescription>
-      <DialogContent className="sm:max-w-md bg-gradient-to-b from-white to-slate-50 border-0 shadow-xl rounded-xl backdrop-blur-md">
+      <DialogContent className="sm:max-w-md shadow-xl rounded-xl backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -99,8 +109,9 @@ const PoolDialog = ({
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
+                    ref={triggerRef}
                     variant="outline"
-                    className="w-full justify-between cursor-pointer"
+                    className="min-w-full justify-between cursor-pointer"
                   >
                     {tabLabelMap[tab]}
                     <ChevronDown />
@@ -109,7 +120,11 @@ const PoolDialog = ({
 
                 {/* Animated Dropdown */}
                 <AnimatePresence>
-                  <DropdownMenuContent asChild className="w-100 mt-1">
+                  <DropdownMenuContent
+                    asChild
+                    className="bg-black p-0"
+                    style={triggerWidth ? { width: triggerWidth } : {}}
+                  >
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -118,7 +133,7 @@ const PoolDialog = ({
                     >
                       {Object.entries(tabLabelMap).map(([key, label]) => (
                         <DropdownMenuItem
-                          className="cursor-pointer hover:bg-green-100"
+                          className="cursor-pointer hover:bg-slate-900 lg:min-w-100"
                           key={key}
                           onClick={() => setTab(key)}
                         >

@@ -74,37 +74,37 @@ const AmountInput = ({
     disabled || collateralLoading || !!collateralError || !userCollateral;
 
   return (
-    <Card className="border border-slate-200 bg-white shadow-sm">
+    <Card className="border  shadow-sm">
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-sm font-medium text-slate-700">{label}</h3>
+          <h3 className="text-sm font-medium text-gray-200">{label}</h3>
           <Badge
             variant="outline"
-            className="bg-purple-50 text-purple-700 border-purple-200"
+            className=" text-blue-600 border"
           >
             Withdraw
           </Badge>
         </div>
 
-        <div className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+        <div className="flex items-center space-x-2 py-2 rounded-lg ">
           <Input
             value={value}
             onChange={handleInputChange}
             type="text"
             inputMode="decimal"
-            className="border-0 bg-transparent focus-visible:ring-0 text-lg font-medium"
+            className="bg-transparent focus-visible:ring-0 text-lg font-medium"
             placeholder="0.00"
             disabled={disabled}
           />
-          <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
-            <Wallet className="h-4 w-4 text-slate-700" />
-            <span className="font-semibold text-slate-700">
+          <div className="flex items-center gap-1 bg-blue-600 px-3 py-1 rounded-md">
+            <Wallet className="h-4 w-4 text-gray-200" />
+            <span className="font-semibold text-gray-200">
               {token.toUpperCase()}
             </span>
           </div>
         </div>
 
-        <div className="mt-3 text-xs text-slate-500 flex items-center justify-between">
+        <div className="mt-3 text-xs text-slate-300 flex items-center justify-between">
           <div>
             <span>Your Collateral: </span>
             <span className="font-medium">
@@ -112,7 +112,7 @@ const AmountInput = ({
             </span>
           </div>
           <button
-            className="text-xs p-1 text-purple-700 border border-purple-700 rounded-md hover:bg-purple-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="text-xs p-1 text-blue-700 border border-blue-700 rounded-md hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             onClick={handleMaxClick}
             disabled={isMaxDisabled}
           >
@@ -366,31 +366,26 @@ const WithdrawCollateralDialog = ({
           collateralError={collateralError}
         />
 
-        <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
+        <div className="bg-gray-80 p-4 rounded-lg border">
           <div className="flex items-start">
-            <div className="bg-purple-100 p-1 rounded-full mr-3 shrink-0">
-              <Wallet className="h-4 w-4 text-purple-600" />
+            <div className="bg-gray-100 p-1 rounded-full mr-3 shrink-0">
+              <Wallet className="h-4 w-4 text-blue-600" />
             </div>
             <div className="w-full">
-              <h4 className="text-sm font-medium text-purple-700 mb-3">
+              <h4 className="text-sm font-medium text-blue-700 mb-3">
                 Withdrawal Information
               </h4>
 
               {!isDataLoading && !hasDataError && (
-                <div className="pt-2 border-t border-purple-200">
+                <div className="pt-2 border-t border-gray-200">
                   {collateralBalanceNumber <= 0 ? (
-                    <p className="text-xs text-purple-600">
+                    <p className="text-xs text-blue-600">
                       ⚠️ No collateral available to withdraw. Please supply
                       collateral first.
                     </p>
                   ) : (
-                    <>
-                      <p className="text-xs text-purple-600 mb-2">
-                        ⚠️ Withdrawing collateral may reduce your borrowing
-                        capacity. Make sure your position stays healthy to avoid
-                        liquidation.
-                      </p>
-                      <p className="text-xs text-purple-600">
+                    <>  
+                      <p className="text-xs text-gray-300">
                         Available Collateral:{" "}
                         <span className="font-medium">
                           {getDisplayValue()} {collateralToken.toUpperCase()}

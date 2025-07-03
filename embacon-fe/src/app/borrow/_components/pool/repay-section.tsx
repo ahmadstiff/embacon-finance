@@ -39,43 +39,40 @@ const AmountInput = ({
   const debtAmount = Number(userDebt) / 10 ** Number(tokenDecimal || 6);
 
   return (
-    <Card className="border border-slate-200 bg-white shadow-sm">
+    <Card className="border shadow-sm">
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-sm font-medium text-slate-700">{label}</h3>
-          <Badge
-            variant="outline"
-            className="bg-blue-50 text-blue-700 border-blue-200"
-          >
+          <h3 className="text-sm font-medium text-gray-200">{label}</h3>
+          <Badge variant="outline" className="border text-blue-700">
             Repay
           </Badge>
         </div>
 
-        <div className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+        <div className="flex items-center space-x-2 py-2 rounded-lg ">
           <Input
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={disabled}
-            className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium"
+            className=" focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium"
             placeholder="0.00"
             type="number"
             min="0"
             step="0.01"
           />
-          <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 rounded-md">
-            <DollarSign className="h-4 w-4 text-slate-700" />
-            <span className="font-semibold text-slate-700">{token}</span>
+          <div className="flex items-center gap-1 bg-blue-600 px-3 py-1 cursor-not-allowed rounded-md">
+            <DollarSign className="h-4 w-4 text-gray-200" />
+            <span className="font-semibold text-gray-200">{token}</span>
           </div>
         </div>
 
         <div className="mt-3 text-xs text-slate-500 flex items-center justify-between">
-          <span className="text-sm text-blue-700">Debt :</span>
+          <span className="text-sm text-gray-300">Debt :</span>
           <div className="flex items-center text-xs gap-2">
             <span>
               {debtAmount.toFixed(5)} ${token}
             </span>
             <button
-              className="text-xs px-2 py-0.5 text-blue-500 border border-blue-500 rounded-md hover:bg-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="text-xs px-2 py-0.5 text-blue-600 border border-blue-500 cursor-pointer rounded-md hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => onChange(debtAmount.toString())}
               disabled={disabled}
             >
@@ -185,16 +182,13 @@ export const RepaySection = ({
   ]);
 
   const validateAmount = (value: string): string => {
-    if (!value || value === "0") return "Amount is required";
     const numValue = Number.parseFloat(value);
-    if (isNaN(numValue) || numValue <= 0) return "Invalid amount";
 
-    // Check if amount exceeds debt
     const userDebt =
       (Number(userBorrowShares) * Number(totalBorrowAssets)) /
       Number(totalBorrowShares);
     const debtAmount = Number(userDebt) / 10 ** Number(tokenDecimal || 6);
-    if (numValue > debtAmount) return "Amount exceeds debt";
+    if (numValue > debtAmount) return "";
 
     return "";
   };
@@ -306,8 +300,8 @@ export const RepaySection = ({
     return (
       <>
         <div className="space-y-6 py-4">
-          <div className="bg-green-50 p-6 rounded-lg border border-green-200 text-center">
-            <div className="bg-green-100 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <div className=" p-6 rounded-lg border text-center">
+            <div className=" p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
             <h3 className="text-lg font-semibold text-green-800 mb-2">
@@ -320,24 +314,24 @@ export const RepaySection = ({
             {/* Transaction Hashes */}
             <div className="space-y-3">
               {approveHash && (
-                <div className="bg-white p-3 rounded border border-green-200">
+                <div className="p-3 rounded-md border  ">
                   <p className="text-xs text-green-600 mb-1">
                     Approval Transaction:
                   </p>
-                  <a
-                    href={`https://testnet.snowtrace.io/tx/${approveHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center justify-center gap-1"
-                  >
-                    {approveHash}
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
+                    <a
+                      href={`https://testnet.snowtrace.io/tx/${approveHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-stretch justify-center gap-1"
+                    >
+                      {approveHash}
+                      <ExternalLink className="h-5 w-5" />
+                    </a>
                 </div>
               )}
 
               {repayHash && (
-                <div className="bg-white p-3 rounded border border-green-200">
+                <div className=" p-3 rounded-md border">
                   <p className="text-xs text-green-600 mb-1">
                     Repayment Transaction:
                   </p>
@@ -345,10 +339,10 @@ export const RepaySection = ({
                     href={`https://testnet.snowtrace.io/tx/${repayHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center justify-center gap-1"
+                    className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-stretch justify-center gap-1"
                   >
                     {repayHash}
-                    <ExternalLink className="h-3 w-3" />
+                    <ExternalLink className="h-5 w-5" />
                   </a>
                 </div>
               )}
@@ -366,7 +360,7 @@ export const RepaySection = ({
           </Button>
           <Button
             onClick={handleClose}
-            className="flex-1 h-12 text-base font-medium rounded-lg bg-gradient-to-r from-[#01ECBE] to-[#141beb] hover:from-[#141beb] hover:to-[#01ECBE] text-white shadow-md hover:shadow-lg transition-colors duration-300"
+            className="flex-1 h-12 text-base font-medium rounded-lg bg-blue-700 hover:bg-blue-600 text-white shadow-md hover:shadow-lg transition-colors duration-300"
           >
             Close
           </Button>
@@ -403,16 +397,16 @@ export const RepaySection = ({
           </div>
         )}
 
-        <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+        <div className=" p-3 rounded-lg border">
           <div className="flex items-start">
-            <div className="bg-blue-100 p-1 rounded-full mr-2">
+            <div className="bg-gray-200 p-1 rounded-full mr-2">
               <CreditCard className="h-4 w-4 text-blue-600" />
             </div>
             <div>
-              <h4 className="text-xs font-medium text-blue-700 mb-1">
+              <h4 className="text-xs font-medium text-gray-300 mb-1">
                 Repayment Information
               </h4>
-              <p className="text-xs text-blue-600">
+              <p className="text-xs text-gray-300">
                 Debt: {equalsToToken()} {borrowToken}
               </p>
             </div>
@@ -421,7 +415,7 @@ export const RepaySection = ({
 
         {/* Approval Success Message */}
         {isApproveSuccess && !isRepaySuccess && (
-          <Card className="border border-green-200 bg-green-50 shadow-sm">
+          <Card className="border  shadow-sm">
             <CardContent className="p-3">
               <div className="flex items-center gap-2 text-sm text-green-600">
                 <CheckCircle className="h-4 w-4" />
@@ -436,7 +430,7 @@ export const RepaySection = ({
 
         {/* Error Display */}
         {(approveError || repayError) && (
-          <Card className="border border-red-200 bg-red-50 shadow-sm">
+          <Card className="border shadow-sm">
             <CardContent className="p-3">
               <div className="flex items-center gap-2 text-sm text-red-600">
                 <AlertCircle className="h-4 w-4" />

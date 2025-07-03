@@ -156,7 +156,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg max-h-[80vh] overflow-hidden flex flex-col">
+      <DialogContent className="sm:max-w-lg max-h-full overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <History className="w-5 h-5" />
@@ -175,7 +175,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
               {historyItems.map((item) => (
                 <div
                   key={item.id}
-                  className="border rounded-lg p-4 space-y-3 hover:bg-gray-50 transition-colors"
+                  className="border rounded-lg p-4 space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
@@ -229,8 +229,8 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-600 font-mono truncate flex-1">
+                  <div className="flex items-center gap-2 cursor-pointer">
+                    <span className="text-xs text-gray-600 font-mono hover:text-blue-600 truncate flex-1">
                       {item.transactionHash}
                     </span>
                     <Button
@@ -244,7 +244,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
                       }
                       className="h-6 px-2"
                     >
-                      <ExternalLink className="w-3 h-3" />
+                      <ExternalLink className="w-3 h-3 hover:text-blue-600" />
                     </Button>
                   </div>
                 </div>

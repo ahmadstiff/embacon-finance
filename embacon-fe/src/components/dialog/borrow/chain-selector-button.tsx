@@ -58,8 +58,8 @@ export default function ChainSelectorButton({
     <>
       <div className="grid grid-cols-7 items-center justify-between gap-2">
         <div className="w-full col-span-3">
-          <p className="text-sm text-gray-600 mb-">From</p>
-          <div className="w-full flex items-center rounded-lg p-3 bg-white border border-gray-200">
+          <p className="text-sm text-gray-200 mb-">From</p>
+          <div className="w-full flex items-center rounded-lg p-3 border ">
             <Image
               src={fromChainDetail?.logo || "/placeholder.svg"}
               alt={fromChainDetail?.name || "Chain"}
@@ -74,21 +74,21 @@ export default function ChainSelectorButton({
         </div>
         <div className="flex items-center justify-center">
           <div
-            className="bg-gray-100 p-2 mt-6 rounded-full transition-colors flex items-center justify-center"
+            className="p-2 border mt-6 rounded-full transition-colors flex items-center justify-center"
             onClick={handleSwapChains}
             aria-label="Swap chains"
           >
-            <ArrowRight className="size-5 text-gray-600" />
+            <ArrowRight className="size-5  text-gray-200" />
           </div>
         </div>
         <div className="w-full col-span-3">
-          <p className="text-sm text-gray-600">To</p>
+          <p className="text-sm text-gray-200">To</p>
           <Select
             onValueChange={handleChainSelect}
             defaultValue={toChain.toString()}
           >
-            <SelectTrigger className="py-6 border border-gray-200 cursor-pointer min-w-full">
-              <SelectValue placeholder="Select a chain">
+            <SelectTrigger className="py-6 bg-black border cursor-pointer w-full ">
+              <SelectValue placeholder="Select a chain" className="bg-black text-gray-200">
                 {toChainDetail && (
                   <div className="flex items-center">
                     <Image
@@ -105,9 +105,9 @@ export default function ChainSelectorButton({
                 )}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-black text-gray-200">
               {chains.map((chain) => (
-                <SelectItem key={chain.id} value={chain.id.toString()}>
+                <SelectItem key={chain.id} value={chain.id.toString()} className="hover:bg-gray-800 data-[state=checked]:bg-gray-800 text-gray-300">
                   <div className="flex items-center">
                     <Image
                       src={chain.logo || "/placeholder.svg"}

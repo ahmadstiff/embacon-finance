@@ -160,6 +160,20 @@ const RowPool = ({
               </div>
             </div>
           </div>
+
+          {/* Utilization Rate for mobile */}
+          <div className="mt-4">
+            <Progress value={utilizationRate} className="w-full" />
+            {isLoadingTotalSupplyAssets || isLoadingTotalBorrowAssets ? (
+              <p className="text-xs text-left opacity-50">
+                Utilization Rate ...
+              </p>
+            ) : (
+              <p className="text-xs text-left opacity-50">
+                Utilization Rate {utilizationRate.toFixed(2)}%
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
