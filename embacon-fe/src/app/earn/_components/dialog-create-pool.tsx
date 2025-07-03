@@ -72,11 +72,11 @@ const DialogCreatePool: React.FC<DialogCreatePoolProps> = ({ onRefetch }) => {
           Create Pool
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-gradient-to-b from-white to-slate-50 border-0 shadow-xl rounded-xl">
-        <DialogHeader className="pb-2 border-b border-slate-100">
+      <DialogContent className=" border shadow-xl rounded-xl">
+        <DialogHeader className="pb-2 border-b ">
           <div className="flex items-center gap-2">
             <CreditCard className="h-6 w-6 text-blue-500" />
-            <DialogTitle className="text-xl font-bold text-slate-800">
+            <DialogTitle className="text-xl font-bold text-gray-200">
               Create Pool
             </DialogTitle>
             <DialogDescription className="hidden">
@@ -86,15 +86,15 @@ const DialogCreatePool: React.FC<DialogCreatePoolProps> = ({ onRefetch }) => {
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          <Card className="border border-slate-200 shadow-sm">
+          <Card className="border shadow-sm">
             <CardContent className="px-4">
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-sm font-medium text-slate-700">
+                  <h3 className="text-sm font-medium text-slate-300">
                     Collateral Token
                   </h3>
                 </div>
-                <div className="flex items-center space-x-2 p-2 rounded-lg border border-slate-200">
+                <div className="flex items-center space-x-2 p-2 rounded-lg ">
                   <Select
                     value={collateralToken}
                     onValueChange={(value) => setCollateralToken(value as `0x${string}`)}
@@ -121,11 +121,11 @@ const DialogCreatePool: React.FC<DialogCreatePoolProps> = ({ onRefetch }) => {
               </div>
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-sm font-medium text-slate-700">
+                  <h3 className="text-sm font-medium text-slate-600">
                     Borrow Token
                   </h3>
                 </div>
-                <div className="flex items-center space-x-2 p-2 rounded-lg border border-slate-200">
+                <div className="flex items-center space-x-2 p-2 rounded-lg ">
                   <Select value={borrowToken} onValueChange={(value) => setBorrowToken(value as `0x${string}`)}>
                     <SelectTrigger className="w-full border-0 focus-visible:ring-0 focus-visible:ring-offset-0 cursor-pointer">
                       <SelectValue placeholder="Select Borrow Token" />
@@ -151,7 +151,7 @@ const DialogCreatePool: React.FC<DialogCreatePoolProps> = ({ onRefetch }) => {
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-sm font-medium text-slate-700">LTV</h3>
                 </div>
-                <div className="flex items-center space-x-2 p-2 rounded-lg border border-slate-200">
+                <div className="flex items-center space-x-2 p-2 rounded-lg">
                   <Input
                     placeholder="Enter LTV"
                     value={ltv}
@@ -162,7 +162,7 @@ const DialogCreatePool: React.FC<DialogCreatePoolProps> = ({ onRefetch }) => {
                       }
                     }}
                     disabled={isCreating}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium placeholder:text-slate-400"
+                    className="border bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium placeholder:text-slate-400"
                   />
                 </div>
               </div>

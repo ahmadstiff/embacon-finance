@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { WalletButton } from "@/components/navbar/button-connect-wallet";
+import ButtonConnectWallet from "@/components/navbar/button-connect-wallet";
 
 export default function LendingHeader() {
   return (

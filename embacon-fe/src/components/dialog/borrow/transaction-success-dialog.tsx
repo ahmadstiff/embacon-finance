@@ -35,10 +35,10 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
   });
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const isAvalancheFuji = destinationChainId === defaultChain;
+  const isArbitrumSepolia = destinationChainId === defaultChain;
 
   useEffect(() => {
-    if (isAvalancheFuji) {
+    if (isArbitrumSepolia) {
       setIsCompleted(true);
       return;
     }
@@ -57,7 +57,7 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isOpen, isAvalancheFuji]);
+  }, [isOpen, isArbitrumSepolia]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -147,13 +147,13 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
               <div className="text-sm font-medium">
                 {isCompleted ? "Transaction Completed" : "Processing..."}
               </div>
-              {!isCompleted && !isAvalancheFuji && (
+              {!isCompleted && !isArbitrumSepolia && (
                 <div className="text-xs text-gray-600">
                   Estimated time: {formatTime(timeRemaining)}
                   {destinationChainId === 11155111 && " (Ethereum processing)"}
                 </div>
               )}
-              {isAvalancheFuji && (
+              {isArbitrumSepolia && (
                 <div className="text-xs text-gray-600">
                   Transaction confirmed on Avalanche Fuji
                 </div>

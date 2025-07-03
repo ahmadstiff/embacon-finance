@@ -1,91 +1,29 @@
 export const poolAbi = [
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_collateralToken",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_borrowToken",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_factory",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_ltv",
-        type: "uint256",
-      },
+      { internalType: "address", name: "_collateralToken", type: "address" },
+      { internalType: "address", name: "_borrowToken", type: "address" },
+      { internalType: "address", name: "_factory", type: "address" },
+      { internalType: "uint256", name: "_ltv", type: "uint256" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
+  { inputs: [], name: "InsufficientBorrowShares", type: "error" },
+  { inputs: [], name: "InsufficientCollateral", type: "error" },
+  { inputs: [], name: "InsufficientLiquidity", type: "error" },
+  { inputs: [], name: "InsufficientShares", type: "error" },
+  { inputs: [], name: "LTVExceedMaxAmount", type: "error" },
+  { inputs: [], name: "PositionAlreadyCreated", type: "error" },
+  { inputs: [], name: "ReentrancyGuardReentrantCall", type: "error" },
   {
-    inputs: [],
-    name: "InsufficientBorrowShares",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "InsufficientCollateral",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "InsufficientLiquidity",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "InsufficientShares",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "LTVExceedMaxAmount",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "PositionAlreadyCreated",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuardReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "token", type: "address" }],
     name: "SafeERC20FailedOperation",
     type: "error",
   },
-  {
-    inputs: [],
-    name: "TokenNotAvailable",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZeroAmount",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "amountSharesInvalid",
-    type: "error",
-  },
+  { inputs: [], name: "TokenNotAvailable", type: "error" },
+  { inputs: [], name: "ZeroAmount", type: "error" },
+  { inputs: [], name: "amountSharesInvalid", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -237,36 +175,23 @@ export const poolAbi = [
     type: "event",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [],
+    name: "accrueInterest",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "addressPositions",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_chainId",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "_chainId", type: "uint256" },
       {
         internalType: "enum Helper.SupportedNetworks",
         name: "destination",
@@ -281,26 +206,14 @@ export const poolAbi = [
   {
     inputs: [],
     name: "borrowToken",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "collateralToken",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -314,39 +227,21 @@ export const poolAbi = [
   {
     inputs: [],
     name: "factory",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "lastAccrued",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "ltv",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -360,32 +255,16 @@ export const poolAbi = [
     ],
     name: "networks",
     outputs: [
-      {
-        internalType: "string",
-        name: "humanReadableName",
-        type: "string",
-      },
+      { internalType: "string", name: "humanReadableName", type: "string" },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "shares",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_token",
-        type: "address",
-      },
-      {
-        internalType: "bool",
-        name: "_fromPosition",
-        type: "bool",
-      },
+      { internalType: "uint256", name: "shares", type: "uint256" },
+      { internalType: "address", name: "_token", type: "address" },
+      { internalType: "bool", name: "_fromPosition", type: "bool" },
     ],
     name: "repayWithSelectedToken",
     outputs: [],
@@ -393,26 +272,14 @@ export const poolAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
     name: "supplyCollateral",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
     name: "supplyLiquidity",
     outputs: [],
     stateMutability: "nonpayable",
@@ -420,144 +287,66 @@ export const poolAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_tokenFrom",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenTo",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amountIn",
-        type: "uint256",
-      },
+      { internalType: "address", name: "_tokenFrom", type: "address" },
+      { internalType: "address", name: "_tokenTo", type: "address" },
+      { internalType: "uint256", name: "amountIn", type: "uint256" },
     ],
     name: "swapTokenByPosition",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "amountOut",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "amountOut", type: "uint256" }],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
     name: "totalBorrowAssets",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "totalBorrowShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "totalSupplyAssets",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "totalSupplyShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "userBorrowShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "userSupplyShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
     name: "withdrawCollateral",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shares",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "_shares", type: "uint256" }],
     name: "withdrawLiquidity",
     outputs: [],
     stateMutability: "nonpayable",

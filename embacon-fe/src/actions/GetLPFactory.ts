@@ -3,8 +3,7 @@
 import { chains } from "@/constants/chain-address";
 import { defaultChain } from "@/lib/get-default-chain";
 import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 
 export const getAllLPFactoryData = async () => {

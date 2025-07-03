@@ -7,6 +7,7 @@ import { config } from "@/lib/wagmi";
 import Providers from "./providers";
 import { Toaster } from "sonner";
 import Navbar from "@/components/navbar";
+import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 export default function ClientProviders({
   children,
@@ -18,13 +19,23 @@ export default function ClientProviders({
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <div className="relative z-99">
-          <Navbar />
-        </div>
-        <div className="mt-5 relative z-10">
-          <Providers>{children}</Providers>
-        </div>
-        <Toaster />
+        <RainbowKitProvider
+          theme={lightTheme({
+            accentColor: "#141beb",
+            accentColorForeground: "white",
+            borderRadius: "medium",
+            fontStack: "system",
+            overlayBlur: "small",
+          })}
+        >
+          <div className="relative z-99">
+            <Navbar />
+          </div>
+          <div className="mt-5 relative z-10">
+            <Providers>{children}</Providers>
+          </div>
+          <Toaster />
+        </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

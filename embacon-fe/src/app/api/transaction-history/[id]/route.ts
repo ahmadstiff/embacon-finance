@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma';
 
 // UPDATE transaction by id
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {

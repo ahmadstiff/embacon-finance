@@ -1,8 +1,8 @@
 import { createPublicClient } from "viem";
 import { http } from "wagmi";
-import { avalancheFuji } from "viem/chains";
+import { arbitrumSepolia } from "viem/chains";
 
 export const publicClient = createPublicClient({
-  chain: avalancheFuji,
+  chain: arbitrumSepolia,
   transport: http(),
 });

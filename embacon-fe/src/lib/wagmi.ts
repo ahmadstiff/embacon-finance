@@ -1,11 +1,11 @@
-import { createConfig, http } from "wagmi";
-import { arbitrumSepolia, avalancheFuji } from "viem/chains";
-import { metaMask } from "wagmi/connectors";
+import { http } from "wagmi";
+import { getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { arbitrumSepolia } from "viem/chains";
 
-export const config = createConfig({
-  ssr: true, // Make sure to enable this for server-side rendering (SSR) applications.
+export const config = getDefaultConfig({
+  appName: "MyDApp",
+  projectId: "YOUR_PROJECT_ID",
   chains: [arbitrumSepolia],
-  connectors: [metaMask()],
   transports: {
     [arbitrumSepolia.id]: http(),
   },

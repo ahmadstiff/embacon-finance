@@ -4,8 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { factoryAbi } from "@/lib/abis/factoryAbi";
 import { publicClient } from "@/lib/viem";
 import { chains } from "@/constants/chain-address";
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export const createLPFactory = async (
   _sender: string,

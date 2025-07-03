@@ -18,7 +18,7 @@ export const saveBorrowToHistory = (
   amount: string,
   destinationChainId: number
 ) => {
-  const isAvalancheFuji = destinationChainId === defaultChain;
+  const isArbitrumSepolia = destinationChainId === defaultChain;
 
   const historyItem: BorrowHistoryItem = {
     id: `${transactionHash}-${Date.now()}`,
@@ -28,7 +28,7 @@ export const saveBorrowToHistory = (
     amount,
     timestamp: Date.now(),
     destinationChainId,
-    status: isAvalancheFuji ? "completed" : "pending",
+    status: isArbitrumSepolia ? "completed" : "pending",
   };
 
   const existingHistory = localStorage.getItem("borrowHistory");
