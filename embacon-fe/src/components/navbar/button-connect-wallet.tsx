@@ -1,105 +1,74 @@
 "use client";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { ChevronDown, ExternalLink } from "lucide-react";
-import { BackgroundGradient } from "../ui/background-gradient";
 
-const ButtonConnectWallet = () => {
+import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { formatAddress } from "@/lib/format-address";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export function WalletButton() {
+  const { address, isConnected, chain } = useAccount();
+  const { connect, connectors } = useConnect();
+  const { disconnect } = useDisconnect();
+  const { switchChain, chains } = useSwitchChain();
+
+  const connector = connectors[0];
+
   return (
-    <ConnectButton.Custom>
-      {({
-        account,
-        chain,
-        openChainModal,
-        openConnectModal,
-        openAccountModal,
-        authenticationStatus,
-        mounted,
-      }) => {
-        const ready = mounted && authenticationStatus !== "loading";
+    <div className="flex flex-col md:flex-row items-center gap-3">
+      {isConnected ? (
+        <>
+          {/* Chain Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 rounded-xl font-semibold border border-border bg-background text-foreground shadow-sm hover:bg-accent transition-colors">
+              {chain?.name.split(" ").slice(0, 2).join(" ")}
+              <ChevronDown className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[150px]">
+              {chains.map(
+                (c) =>
+                  c.id !== chain?.id && (
+                    <DropdownMenuItem
+                      key={c.id}
+                      onClick={() => switchChain({ chainId: c.id })}
+                      className="cursor-pointer px-3 py-2 rounded-md font-medium hover:bg-accent hover:text-accent-foreground"
+                    >
+                      {c.name}
+                    </DropdownMenuItem>
+                  )
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        if (!ready) {
-          return (
-            <div
-              aria-hidden={true}
-              className="opacity-0 pointer-events-none select-none"
-            />
-          );
-        }
-
-        if (!account || !chain) {
-          return (
-            <div className="relative group">
-              <BackgroundGradient className="rounded-3xl p-[2px] shadow-lg">
-                <button
-                  onClick={openConnectModal}
-                  type="button"
-                  className="flex items-center justify-center space-x-1.5 px-6 py-1.5 rounded-3xl bg-white text-[#07094d] font-medium transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] w-full"
-                >
-                  <span>Connect Wallet</span>
-                </button>
-              </BackgroundGradient>
-            </div>
-          );
-        }
-
-        if (chain.unsupported) {
-          return (
-            <div className="relative group">
-              <BackgroundGradient className="rounded-3xl p-[2px] shadow-lg">
-                <button
-                  onClick={openChainModal}
-                  type="button"
-                  className="flex items-center justify-center space-x-2 px-6 py-1.5 rounded-3xl bg-white text-red-500 font-medium transition-all hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] w-full"
-                >
-                  <span>Wrong Network</span>
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-              </BackgroundGradient>
-            </div>
-          );
-        }
-        return (
-          <div className="flex items-center gap-3">
-
-            <div className="relative group">
-              <BackgroundGradient className="rounded-3xl p-[2px] shadow-lg">
-                <button
-                  onClick={openChainModal}
-                  type="button"
-                  className="flex items-center justify-center space-x-1 px-3 py-1.5 rounded-3xl bg-white text-[#07094d] hover:opacity-90 font-medium transition-all"
-                >
-                  {chain.hasIcon && chain.iconUrl && (
-                    <img
-                      src={chain.iconUrl || "/placeholder.svg"}
-                      alt={chain.name || "Chain icon"}
-                      className="w-4 h-4 rounded-full mr-1"
-                      style={{ background: chain.iconBackground }}
-                    />
-                  )}
-                  <span>{chain.name}</span>
-                  <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
-                </button>
-              </BackgroundGradient>
-            </div>
-
-            <div className="relative group">
-              <BackgroundGradient className="rounded-3xl p-[2px] shadow-lg">
-                <button
-                  onClick={openAccountModal}
-                  type="button"
-                  className="flex items-center justify-center space-x-1 px-3 py-1.5 rounded-3xl bg-white text-[#07094d] hover:opacity-90 font-medium transition-al"
-                >
-                  <span className="truncate max-w-[120px]">
-                    {account.displayName}
-                  </span>
-                </button>
-              </BackgroundGradient>
-            </div>
-          </div>
-        );
-      }}
-    </ConnectButton.Custom>
+          {/* Wallet Address Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 px-5 py-2 rounded-xl font-semibold border border-border bg-background text-foreground shadow-sm hover:bg-accent transition-colors">
+              {formatAddress(address)}
+              <ChevronDown className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="rounded-xl bg-popover text-popover-foreground shadow-lg p-2 min-w-[150px]">
+              <DropdownMenuItem
+                onClick={() => disconnect()}
+                className="cursor-pointer px-3 py-2 text-red-500 font-semibold hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 rounded-md"
+              >
+                Disconnect
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
+      ) : (
+        <Button
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl px-6 py-2 shadow-lg transition-all"
+          onClick={() => connect({ connector })}
+        >
+          Connect Wallet
+        </Button>
+      )}
+    </div>
   );
-};
-
-export default ButtonConnectWallet;
+}

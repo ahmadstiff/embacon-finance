@@ -7,7 +7,7 @@ import { config } from "@/lib/wagmi";
 import Providers from "./providers";
 import { Toaster } from "sonner";
 import Navbar from "@/components/navbar";
-import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { MetaMaskProvider } from "@metamask/sdk-react";
 
 export default function ClientProviders({
   children,
@@ -18,16 +18,16 @@ export default function ClientProviders({
 
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider
-          theme={lightTheme({
-            accentColor: "#141beb",
-            accentColorForeground: "white",
-            borderRadius: "medium",
-            fontStack: "system",
-            overlayBlur: "small",
-          })}
-        >
+      <MetaMaskProvider
+        debug={false}
+        sdkOptions={{
+          dappMetadata: {
+            name: "Embacon Finance",
+            url: window.location.href,
+          },
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
           <div className="relative z-99">
             <Navbar />
           </div>
@@ -35,8 +35,8 @@ export default function ClientProviders({
             <Providers>{children}</Providers>
           </div>
           <Toaster />
-        </RainbowKitProvider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </MetaMaskProvider>
     </WagmiProvider>
   );
 }
