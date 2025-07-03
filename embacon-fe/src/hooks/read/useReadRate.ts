@@ -23,11 +23,12 @@ export const useReadRate = (lpAddress: Address) => {
     functionName: "totalBorrowAssets",
   });
 
-  const rate =
+  const rateDefault =
     totalBorrowAssets && totalBorrowShares
-      ? (100 - (Number(totalBorrowShares) / Number(totalBorrowAssets)) * 100) *
-        365
+      ? (100 - (Number(totalBorrowShares) / Number(totalBorrowAssets)) * 100)
       : 0;
+
+  const rate = rateDefault;
 
   return {
     totalBorrowShares,

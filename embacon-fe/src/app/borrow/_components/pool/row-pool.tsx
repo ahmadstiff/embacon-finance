@@ -7,6 +7,9 @@ import { toast } from "sonner";
 import { useReadRate } from "@/hooks/read/useReadRate";
 import type { Address } from "viem";
 import { defaultChain } from "@/lib/get-default-chain";
+import { Progress } from "@/components/ui/progress";
+import { useReadTotalSupplyAssets } from "@/hooks/read/useReadTotalSupplyAssets";
+import { useReadTotalBorrowAssets } from "@/hooks/read/useReadTotalBorrowAssets";
 
 // Note: Table headers should be hidden on screens < 640px (sm) to avoid ambiguity with card layout
 // Use: className="hidden sm:block" on your table header component
@@ -66,9 +69,11 @@ const RowPool = ({
   const { rate, isLoading: isLoadingRate } = useReadRate(lpAddress as Address);
 
   const formatRate = (rate: number) => {
-    const percentage = 120 / 100;
-    return (rate * percentage).toFixed(2);
+    return (rate).toFixed(2);
   };
+  const { data: totalSupplyAssets, isLoading: isLoadingTotalSupplyAssets } = useReadTotalSupplyAssets(lpAddress as Address);
+  const { totalBorrowAssets, isLoadingTotalBorrowAssets } = useReadTotalBorrowAssets(lpAddress as Address);
+  const utilizationRate = totalSupplyAssets && totalBorrowAssets ? (Number(totalBorrowAssets) / Number(totalSupplyAssets)) * 100 : 0;
 
   return (
     <button
@@ -202,8 +207,22 @@ const RowPool = ({
 
           {/* Liquidity Column */}
           <div className="text-center">
-            <div className="font-medium text-gray-100 truncate text-sm lg:text-base">
-              {liquidityFormatted} ${borrowInfo?.name ?? ""}
+            <div className="font-medium text-gray-100 truncate text-sm lg:text-base flex flex-col gap-3">
+              <div>
+                {liquidityFormatted} ${borrowInfo?.name ?? ""}
+              </div>
+              <div>
+                <Progress value={utilizationRate} className="w-full" />
+                {isLoadingTotalSupplyAssets || isLoadingTotalBorrowAssets ? (
+                  <p className="text-xs text-left opacity-50">
+                    Utilization Rate ...
+                  </p>
+                ) : (
+                  <p className="text-xs text-left opacity-50">
+                    Utilization Rate {utilizationRate.toFixed(2)}%
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
