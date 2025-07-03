@@ -28,8 +28,8 @@ export const useReadRate = (lpAddress: Address) => {
       ? (100 - (Number(totalBorrowShares) / Number(totalBorrowAssets)) * 100)
       : 0;
 
-  const rate = rateDefault;
-
+  // const rate = rateDefault;
+  const rate = 3;
   return {
     totalBorrowShares,
     totalBorrowAssets,
