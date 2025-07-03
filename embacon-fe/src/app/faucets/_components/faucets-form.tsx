@@ -65,7 +65,16 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == defaultChain) {
       addTokenToWallet();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
     }
   };
 
@@ -73,7 +82,16 @@ const FaucetsCardForm = () => {
     if (Number(chainId) == defaultChain) {
       copyTokenAddress();
     } else {
-      toast.error("Please switch to the Avalanche Fuji network");
+      toast.error("Please switch to the Avalanche Fuji network", {
+        style: {
+          background: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(239, 68, 68, 0.1)'
+        }
+      });
     }
   };
 
@@ -103,7 +121,7 @@ const FaucetsCardForm = () => {
                   transition={{ duration: 0.2, delay: index * 0.1 }}
                 >
                   <SelectItem
-                    className="transition-colors duration-100 cursor-pointer text-white hover:bg-[#01ECBE]/20 focus:bg-[#01ECBE]/20"
+                    className="transition-colors duration-100 cursor-pointer text-white hover:bg-[#2986cc]/20 focus:bg-[#2986cc]/20"
                     value={token.address}
                   >
                     <div className="flex items-center gap-2">
@@ -129,7 +147,7 @@ const FaucetsCardForm = () => {
           value={amount}
           onChange={handleAmountChange}
           disabled={isClaiming || isConfirming}
-          className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#01ECBE]/50 focus:border-[#01ECBE] disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-slate-400"
+          className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#2986cc]/50 focus:border-[#265287] disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-slate-400"
           placeholder="Enter amount (e.g., 100)"
           type="text"
           style={{
@@ -201,7 +219,16 @@ const FaucetsCardForm = () => {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(txHash);
-                  toast.success("Transaction hash copied!");
+                  toast.success("Transaction hash copied!", {
+                    style: {
+                      background: 'rgba(34, 197, 94, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(34, 197, 94, 0.3)',
+                      color: '#86efac',
+                      borderRadius: '12px',
+                      boxShadow: '0 8px 32px rgba(34, 197, 94, 0.1)'
+                    }
+                  });
                 }}
                 className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors"
               >
