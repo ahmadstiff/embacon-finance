@@ -20,17 +20,18 @@ export const useTokenCalculator = (
   const amountInBigInt = BigInt(amountIn * 10 ** (decimalsIn ?? 0));
   const tokenInPrice = tokens.find(
     (token) => token.addresses[defaultChain] === tokenIn
-  )?.priceFeed as Address;
+  )?.priceFeed[defaultChain] as Address;
+  console.log("tokenInPrice", tokenInPrice);
   const tokenOutPrice = tokens.find(
     (token) => token.addresses[defaultChain] === tokenOut
-  )?.priceFeed as Address;
+  )?.priceFeed[defaultChain] as Address;
 
   const {
     data: price,
     isLoading,
     error,
   } = useReadContract({
-    address: chains[1].contracts.position as Address,
+    address: chains[2].contracts.position as Address,
     abi: positionAbi,
     functionName: "tokenCalculator",
     args: [tokenIn, tokenOut, amountInBigInt, tokenInPrice, tokenOutPrice],

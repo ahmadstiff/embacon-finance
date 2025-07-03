@@ -1,61 +1,23 @@
 export const positionAbi = [
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_collateral",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_borrow",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_lpAddress",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_factory",
-        type: "address",
-      },
+      { internalType: "address", name: "_collateral", type: "address" },
+      { internalType: "address", name: "_borrow", type: "address" },
+      { internalType: "address", name: "_lpAddress", type: "address" },
+      { internalType: "address", name: "_factory", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
+  { inputs: [], name: "InsufficientBalance", type: "error" },
+  { inputs: [], name: "NotForWithdraw", type: "error" },
+  { inputs: [], name: "ReentrancyGuardReentrantCall", type: "error" },
   {
-    inputs: [],
-    name: "InsufficientBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "NotForWithdraw",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuardReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "token", type: "address" }],
     name: "SafeERC20FailedOperation",
     type: "error",
   },
-  {
-    inputs: [],
-    name: "ZeroAmount",
-    type: "error",
-  },
+  { inputs: [], name: "ZeroAmount", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -134,12 +96,7 @@ export const positionAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "user", type: "address" },
       {
         indexed: false,
         internalType: "uint256",
@@ -153,93 +110,49 @@ export const positionAbi = [
   {
     inputs: [],
     name: "borrowAssets",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "collateralAssets",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "counter",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "factory",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "lpAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_token",
-        type: "address",
-      },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "address", name: "_token", type: "address" },
     ],
     name: "repayWithSelectedToken",
     outputs: [],
@@ -248,141 +161,53 @@ export const positionAbi = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_tokenIn",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenOut",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amountIn",
-        type: "uint256",
-      },
+      { internalType: "address", name: "_tokenIn", type: "address" },
+      { internalType: "address", name: "_tokenOut", type: "address" },
+      { internalType: "uint256", name: "amountIn", type: "uint256" },
     ],
     name: "swapTokenByPosition",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "amountOut",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "amountOut", type: "uint256" }],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_tokenIn",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenOut",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amountIn",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_tokenInPrice",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_tokenOutPrice",
-        type: "address",
-      },
+      { internalType: "address", name: "_tokenIn", type: "address" },
+      { internalType: "address", name: "_tokenOut", type: "address" },
+      { internalType: "uint256", name: "_amountIn", type: "uint256" },
+      { internalType: "address", name: "_tokenInPrice", type: "address" },
+      { internalType: "address", name: "_tokenOutPrice", type: "address" },
     ],
     name: "tokenCalculator",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "tokenLists",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "tokenListsId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-    ],
+    inputs: [{ internalType: "address", name: "token", type: "address" }],
     name: "tokenValue",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_user",
-        type: "address",
-      },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "address", name: "_user", type: "address" },
     ],
     name: "withdrawCollateral",
     outputs: [],
