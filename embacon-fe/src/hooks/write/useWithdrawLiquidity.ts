@@ -13,8 +13,7 @@ interface WithdrawArgs {
   onBroadcast?: (txHash: Hash) => void;
 }
 
-export function useWithdrawLiquidity(lpAddress?: string) {
-
+export function useWithdrawLiquidity(borrowToken?: string, lpAddress?: string) {
   const [txHash, setTxHash] = useState<Hash | undefined>();
 
   const {

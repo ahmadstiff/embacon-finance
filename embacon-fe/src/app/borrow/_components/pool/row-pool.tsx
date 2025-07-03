@@ -3,18 +3,19 @@
 import { getTokenInfo } from "@/lib/tokenUtils";
 import { useReadSupplyLiquidity } from "@/hooks/read/useReadSupplyLiquidity";
 import Image from "next/image";
-import React from "react";
 import { toast } from "sonner";
 import { useReadRate } from "@/hooks/read/useReadRate";
-import { Address } from "viem";
+import type { Address } from "viem";
 import { defaultChain } from "@/lib/get-default-chain";
+
+// Note: Table headers should be hidden on screens < 640px (sm) to avoid ambiguity with card layout
+// Use: className="hidden sm:block" on your table header component
 
 interface RowPoolProps {
   collateralToken: string;
   borrowToken: string;
   ltv: string;
   lpAddress: string;
-  
   borrowAddress: string;
   handleRowClick: (pool: {
     collateralToken: string;
@@ -32,7 +33,6 @@ const RowPool = ({
   borrowToken,
   ltv,
   lpAddress,
-  
   borrowAddress,
   handleRowClick,
 }: RowPoolProps) => {
@@ -51,7 +51,7 @@ const RowPool = ({
   };
 
   const formatCurrency = (amount: number) => {
-    const formattedNumber = new Intl.NumberFormat('en-US', {
+    const formattedNumber = new Intl.NumberFormat("en-US", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 5,
     }).format(amount);
@@ -72,7 +72,7 @@ const RowPool = ({
 
   return (
     <button
-      className="w-full px-6 py-4 hover:bg-slate-700/50 transition-colors cursor-pointer text-left"
+      className="w-full p-3 sm:p-4 lg:px-6 lg:py-4 hover:bg-slate-700/50 transition-colors cursor-pointer text-left border-b border-blue-400/20"
       onClick={() =>
         liquidityFormatted !== "70.00"
           ? handleRowClick({
@@ -87,46 +87,133 @@ const RowPool = ({
           : toast.error("There is no liquidity in this pool")
       }
     >
-      <div className="grid grid-cols-5 gap-4 items-center justify-center text-center">
-        {/* Collateral */}
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center">
-            <Image
-              src={collateralInfo?.logo ?? "/placeholder.png"}
-              alt={collateralInfo?.name ?? "Unknown"}
-              width={24}
-              height={24}
-            />
+      {/* Card Layout for Mobile (< 640px) */}
+      <div className="block sm:hidden">
+        <div className="bg-slate-800/30 rounded-lg p-4 border border-blue-400/20">
+          {/* Header with token pair */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+                <Image
+                  src={collateralInfo?.logo ?? "/placeholder.png"}
+                  alt={collateralInfo?.name ?? "Unknown"}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-100">
+                  {collateralInfo?.name ?? "Unknown"}
+                </div>
+                <div className="text-xs text-gray-400">Collateral</div>
+              </div>
+            </div>
+
+            <div className="text-gray-400 text-sm">→</div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+                <Image
+                  src={borrowInfo?.logo ?? "/placeholder.png"}
+                  alt={borrowInfo?.name ?? "Unknown"}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                />
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-100">
+                  {borrowInfo?.name ?? "Unknown"}
+                </div>
+                <div className="text-xs text-gray-400">Borrow</div>
+              </div>
+            </div>
           </div>
-          <div className="font-medium text-gray-100">
-            {collateralInfo?.name ?? "Unknown"}
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">LTV</div>
+              <div className="text-lg font-semibold text-emerald-400">
+                {convertLtv(ltv)}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">Liquidity</div>
+              <div className="text-sm font-medium text-gray-100">
+                <div className="truncate">{liquidityFormatted}</div>
+                <div className="text-xs text-gray-400">
+                  {borrowInfo?.name ?? ""}
+                </div>
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">Rate</div>
+              <div className="text-lg font-semibold text-blue-600">
+                {isLoadingRate ? "..." : `${formatRate(rate)}%`}
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Borrow */}
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center">
-            <Image
-              src={borrowInfo?.logo ?? "/placeholder.png"}
-              alt={borrowInfo?.name ?? "Unknown"}
-              width={24}
-              height={24}
-            />
+      {/* Table Layout for SM and above (>= 640px) */}
+      <div className="hidden sm:block">
+        <div className="grid grid-cols-5 gap-4 items-center">
+          {/* Collateral Column */}
+          <div className="flex items-center justify-start gap-2 min-w-0 lg:ml-8">
+            <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+              <Image
+                src={collateralInfo?.logo ?? "/placeholder.png"}
+                alt={collateralInfo?.name ?? "Unknown"}
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+            </div>
+            <div className="font-medium text-gray-100 truncate text-sm lg:text-base">
+              {collateralInfo?.name ?? "Unknown"}
+            </div>
           </div>
-          <div className="font-medium text-gray-100">
-            {borrowInfo?.name ?? "Unknown"}
+
+          {/* Borrow Column */}
+          <div className="flex items-center justify-center gap-2 min-w-0">
+            <div className="w-8 h-8 rounded-full border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+              <Image
+                src={borrowInfo?.logo ?? "/placeholder.png"}
+                alt={borrowInfo?.name ?? "Unknown"}
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+            </div>
+            <div className="font-medium text-gray-100 truncate text-sm lg:text-base">
+              {borrowInfo?.name ?? "Unknown"}
+            </div>
+          </div>
+
+          {/* LTV Column */}
+          <div className="text-center">
+            <div className="font-medium text-emerald-400 text-sm lg:text-base">
+              {convertLtv(ltv)}
+            </div>
+          </div>
+
+          {/* Liquidity Column */}
+          <div className="text-center">
+            <div className="font-medium text-gray-100 truncate text-sm lg:text-base">
+              {liquidityFormatted} ${borrowInfo?.name ?? ""}
+            </div>
+          </div>
+
+          {/* Rate Column */}
+          <div className="text-center">
+            <div className="font-medium text-blue-600 text-sm lg:text-base">
+              {isLoadingRate ? "Loading..." : `${formatRate(rate)}%`}
+            </div>
           </div>
         </div>
-
-        {/* LTV */}
-        <div className="text-emerald-400">{convertLtv(ltv)}</div>
-
-        {/* Liquidity */}
-        <div className="text-gray-100">
-          {liquidityFormatted} ${borrowInfo?.name ?? ""}
-        </div>
-
-        <div className="text-blue-600">{isLoadingRate ? "Loading..." : formatRate(rate)}%</div>
       </div>
     </button>
   );

@@ -16,7 +16,6 @@ interface RowTableProps {
   collateralToken: string;
 }
 
-
 const RowTable = ({
   lpAddress,
   borrowToken,
@@ -53,50 +52,57 @@ const RowTable = ({
 
   const formatAPY = (apy: number) => {
     const percentage = 150 / 100;
-    return ((apy * percentage) + 3).toFixed(2);
+    return (apy * percentage + 3).toFixed(2);
   };
 
   return (
     <tr className="border-b border-[#9EC6F3]">
-      <td className="px-4 text-left">
-        <div className="flex items-center justify-center space-x-1">
+      {/* Token Column */}
+      <td className="px-4 py-3 text-center">
+        <div className="flex items-center justify-center space-x-2">
           <Image
-            src={tokenData.logo}
+            src={tokenData.logo || "/placeholder.svg"}
             alt={tokenData.name}
-            width={100}
-            height={100}
+            width={28}
+            height={28}
             className="w-7 h-7 rounded-full"
           />
           <div className="font-medium text-gray-200">${tokenData.name}</div>
         </div>
       </td>
 
-      <td className="p-4 text-gray-200">
+      {/* Supply Liquidity Column */}
+      <td className="px-4 py-3 text-gray-200">
         <div className="font-medium max-w-[300px] truncate">
           {formatCurrency(Number(supplyLiquidity))} ${tokenData.name}
         </div>
       </td>
 
-      <td className="p-4">
-        <div className="flex items-center gap-3 text-gray-200">
+      {/* Collateral Column */}
+      <td className="px-4 py-3">
+        <div className="flex items-center gap-2 text-gray-200">
           <Image
             src={collateralData?.logo ?? "/placeholder.svg"}
             alt={collateralData?.name ?? "Unknown"}
-            width={100}
-            height={100}
+            width={28}
+            height={28}
             className="w-7 h-7 rounded-full"
           />
-          <div>${collateralData?.name ?? "Unknown"}</div>
+          <div className="font-medium">
+            ${collateralData?.name ?? "Unknown"}
+          </div>
         </div>
       </td>
 
-      <td className="p-4 text-left">
+      {/* APY Column */}
+      <td className="px-4 py-3 text-left">
         <div className="font-medium text-green-500">
-          {isLoadingAPY ? "Loading..." : formatAPY(apy)}%
+          {isLoadingAPY ? "Loading..." : `${formatAPY(apy)}%`}
         </div>
       </td>
 
-      <td className="p-4 text-center">
+      {/* Actions Column */}
+      <td className="px-4 py-3 text-center">
         <div className="flex items-center justify-center gap-2">
           <DialogSupply
             borrowToken={borrowToken}
@@ -106,6 +112,7 @@ const RowTable = ({
           <DialogWithdraw
             lpAddress={lpAddress}
             onSuccess={handleWithdrawSuccess}
+            borrowToken={borrowToken}
           />
         </div>
       </td>

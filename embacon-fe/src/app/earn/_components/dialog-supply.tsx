@@ -111,9 +111,7 @@ const DialogSupply = ({
   ]);
 
   const validateAmount = (value: string): string => {
-    if (!value || value === "0") return "Amount is required";
     const numValue = Number.parseFloat(value);
-    if (isNaN(numValue) || numValue <= 0) return "Invalid amount";
     if (numValue > maxBalance) return "Insufficient balance";
     return "";
   };
@@ -309,13 +307,15 @@ const DialogSupply = ({
                       )}
                     </div>
 
-                    <div className="flex items-center space-x-2 p-2 rounded-lg border border-slate-700 bg-slate-900">
+                    <div className="flex items-center space-x-2 p-2 rounded-md border border-slate-700 bg-slate-900">
                       <Input
                         placeholder={`Enter amount of ${tokenSymbol}`}
                         value={amount}
                         onChange={(e) => handleAmountChange(e.target.value)}
                         disabled={isTransactionPending}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium text-slate-100 placeholder:text-slate-500"
+                        className={`border ${
+                          amount ? "border-blue-500" : "border-slate-200"
+                        } bg-transparent rounded-sm focus-visible:ring-0 focus-visible:ring-offset-0 text-lg font-medium`}
                       />
                       <div className="flex items-center gap-1 bg-slate-700 px-3 py-1 rounded-md">
                         <DollarSign className="h-4 w-4 text-slate-200" />
@@ -339,7 +339,7 @@ const DialogSupply = ({
                         <button
                           onClick={handleMaxClick}
                           disabled={maxBalance === 0 || isTransactionPending}
-                          className="text-xs px-2 p-0.5 border border-blue-400 rounded-md text-blue-400 hover:bg-blue-900 cursor-pointer duration-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="text-xs px-2 p-0.5 border border-blue-400 rounded-sm text-blue-400 hover:bg-blue-900 cursor-pointer duration-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           Max
                         </button>
