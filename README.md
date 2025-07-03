@@ -131,7 +131,7 @@ Each swap transaction incurs a small liquidity fee, which is distributed among a
 
 ---
 
-Chainlink Integrations in Caér Finance
+Chainlink Integrations in Embacon Finance
 Embacon Finance leverages industry-leading oracle infrastructure from Chainlink to enable secure, real-time, and trust-minimized cross-chain lending. Two core Chainlink services, CCIP (Cross-Chain Interoperability Protocol) and Data Streams, form the foundation of Embacon’s decentralized architecture.
 1. Chainlink CCIP: Secure Cross-Chain Messaging
 To support native cross-chain lending and borrowing, Embacon integrates Chainlink CCIP, a generalized interoperability protocol that enables smart contracts on different chains to securely communicate and transfer data
