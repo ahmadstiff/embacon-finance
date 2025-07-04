@@ -468,7 +468,7 @@ export default function imateBackground() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   <a
-                    href="https://caer-finance-ccip.gitbook.io/caer-finance-docs/"
+                    href="https://github.com/ahmadstiff/embacon-finance/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-4 glass text-cyan-300 rounded-xl font-semibold border border-cyan-400/30 hover:border-cyan-400/50 transition-all duration-300 hover-lift cursor-pointer flex items-center gap-2"
