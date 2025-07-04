@@ -275,7 +275,7 @@ const SupplyCollateralSection = ({
                     Supply Transaction:
                   </p>
                   <a
-                    href={`https://testnet.snowtrace.io/tx/${supplyHash}`}
+                    href={`https://sepolia.arbiscan.io/tx/${supplyHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center justify-center gap-1"
@@ -426,7 +426,7 @@ const SupplyCollateralSection = ({
               </span>
             </div>
             <a
-              href={`https://testnet.snowtrace.io/tx/${currentStep === "approving" ? approveHash : supplyHash}`}
+              href={`https://sepolia.arbiscan.io/tx/${currentStep === "approving" ? approveHash : supplyHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center gap-1"

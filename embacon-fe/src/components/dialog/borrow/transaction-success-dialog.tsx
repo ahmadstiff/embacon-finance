@@ -73,9 +73,9 @@ const TransactionSuccessDialog: React.FC<TransactionSuccessDialogProps> = ({
 
   const getExplorerUrl = () => {
     if (destinationChainId === defaultChain) {
-      return `https://testnet.snowtrace.io/tx/${transactionHash}`;
+      return `https://sepolia.arbiscan.io/tx/${transactionHash}`;
     }
-    return `https://ccip.chain.link/?search=${transactionHash}`;
+    return `https://ccip.chain.link/tx/${transactionHash}`;
   };
 
   const copyToClipboard = () => {

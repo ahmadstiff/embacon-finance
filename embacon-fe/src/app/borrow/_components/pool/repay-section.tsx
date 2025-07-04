@@ -319,7 +319,7 @@ export const RepaySection = ({
                     Approval Transaction:
                   </p>
                     <a
-                      href={`https://testnet.snowtrace.io/tx/${approveHash}`}
+                      href={`https://sepolia.arbiscan.io/tx/${approveHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-stretch justify-center gap-1"
@@ -336,7 +336,7 @@ export const RepaySection = ({
                     Repayment Transaction:
                   </p>
                   <a
-                    href={`https://testnet.snowtrace.io/tx/${repayHash}`}
+                    href={`https://sepolia.arbiscan.io/tx/${repayHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-stretch justify-center gap-1"
@@ -472,7 +472,7 @@ export const RepaySection = ({
               </span>
             </div>
             <a
-              href={`https://testnet.snowtrace.io/tx/${approveHash}`}
+              href={`https://sepolia.arbiscan.io/tx/${approveHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all flex items-center gap-1"

@@ -236,7 +236,7 @@ const FaucetsCardForm = () => {
                 <Copy className="w-3 h-3" />
               </button>
               <a
-                href={`https://testnet.snowtrace.io/tx/${txHash}`}
+                href={`https://sepolia.arbiscan.io/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#01ECBE] hover:text-[#01ECBE]/80 transition-colors"

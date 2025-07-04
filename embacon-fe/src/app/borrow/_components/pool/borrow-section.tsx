@@ -71,14 +71,8 @@ const BorrowSection = ({
             error_message: "",
           });
           console.log("[createTransaction] response:", res);
-          if (res && res.id) {
-            toast.success("Transaction indexed to DB!");
-          } else {
-            toast.error("Failed to index transaction to DB");
-          }
         } catch (err: any) {
           console.error("[createTransaction] error:", err);
-          toast.error("Error indexing transaction: " + (err?.message || err));
         }
       })();
 

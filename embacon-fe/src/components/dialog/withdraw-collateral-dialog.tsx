@@ -318,7 +318,7 @@ const WithdrawCollateralDialog = ({
               <div className="bg-white p-3 rounded border border-green-200">
                 <p className="text-xs text-green-600 mb-1">Transaction Hash:</p>
                 <a
-                  href={`https://testnet.snowtrace.io/tx/${txHash}`}
+                  href={`https://sepolia.arbiscan.io/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-mono text-blue-600 hover:text-blue-800 underline break-all"
@@ -398,7 +398,7 @@ const WithdrawCollateralDialog = ({
                     <p className="text-xs mt-2">
                       Tx Hash:{" "}
                       <a
-                        href={`https://testnet.snowtrace.io/tx/${txHash}`}
+                        href={`https://sepolia.arbiscan.io/tx/${txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline hover:text-purple-800"

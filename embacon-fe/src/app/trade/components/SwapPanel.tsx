@@ -498,7 +498,7 @@ export default function SwapPanel() {
           addressPosition !== "0x0000000000000000000000000000000000000000" ? (
             <Link
               className="flex flex-row gap-2 items-center justify-center text-blue-300 text-base text-center mt-0"
-              href={`https://testnet.snowtrace.io/address/${address}`}
+              href={`https://sepolia.arbiscan.io/address/${address}`}
               target="_blank"
             >
               <History className="size-4" />

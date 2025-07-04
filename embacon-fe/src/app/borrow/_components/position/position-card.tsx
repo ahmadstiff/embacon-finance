@@ -195,7 +195,7 @@ const PositionCard = () => {
         </div>
         <div className="min-w-0 flex-1">
           <Link
-            href={`https://testnet.snowtrace.io/address/${addressPosition}`}
+            href={`https://sepolia.arbiscan.io/address/${addressPosition}`}
             className="text-sm sm:text-base lg:text-lg text-gray-500 flex items-center gap-1 hover:text-blue-400 duration-300 break-all"
             target="_blank"
           >

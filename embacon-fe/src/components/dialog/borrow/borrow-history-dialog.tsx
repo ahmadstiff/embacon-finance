@@ -113,7 +113,7 @@ const BorrowHistoryDialog: React.FC<BorrowHistoryDialogProps> = ({
 
   const getExplorerUrl = (transactionHash: string, chainId: number) => {
     if (chainId === defaultChain) {
-      return `https://testnet.snowtrace.io/tx/${transactionHash}`;
+      return `https://sepolia.arbiscan.io/tx/${transactionHash}`;
     }
     return `https://ccip.chain.link/tx/${transactionHash}`;
   };
