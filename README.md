@@ -10,64 +10,87 @@
 
 ## Introduction to Embacon Finance
 
-Welcome to Embacon Finance, a permissionless cross-chain lending and borrowing protocol seamlessly integrated with Chainlink CCIP and Chainlink Data Streams.
+Welcome to Embacon Finance, a permissionless cross-chain lending and borrowing protocol seamlessly integrated with Chainlink CCIP, Chainlink Data Streams, and the MetaMask SDK. Embacon is built to address one of DeFi’s fundamental challenges: fragmented liquidity across blockchains. By leveraging Chainlink’s secure and reliable cross-chain infrastructure, Embacon allows users to deposit collateral on one chain and borrow assets on another without the need for centralized bridges, wrapped tokens, or custodial intermediaries.
 
-Embacon Finance addresses a key limitation in DeFi by enabling users to deposit collateral on one blockchain and borrow assets on another, leveraging Chainlink’s secure cross-chain infrastructure.michael This approach eliminates the need for centralized bridges or custodial intermediaries.
+At the core of Embacon’s cross-chain functionality is the Chainlink Cross-Chain Interoperability Protocol (CCIP), which enables secure and atomic messaging and token transfers between disparate blockchains using a burn-and-mint model. This architecture ensures consistency in asset supply across networks, minimizes trust assumptions, and unlocks capital efficiency across ecosystems.
+
+In parallel, Chainlink Data Streams deliver sub-second, real-time price updates from aggregated and decentralized sources. This empowers Embacon to maintain accurate and dynamic collateral valuations, support real-time loan-to-value (LTV) tracking, and lay the foundation for future risk management features such as automated alerts, position health monitoring, and liquidation mechanisms.
+
+To make these capabilities more accessible, Embacon integrates the MetaMask SDK, which enables seamless wallet connectivity across web, desktop, and mobile environments. Through this integration, users benefit from simplified wallet onboarding via MetaMask Extension, persistent and secure dApp sessions, and automated network switching that streamlines cross-chain interactions. Acting as a trusted gateway between users and Embacon’s smart contracts, the MetaMask SDK ensures that every cross-chain and collateral operation is executed in a secure, intuitive, and user-friendly environment.
+
+## What Is Embacon Finance?
+
+Embacon Finance is a permissionless cross-chain lending protocol designed to enable users to lend, borrow, and manage collateral seamlessly across multiple blockchain networks. It introduces a novel approach to decentralized finance by removing the constraints of single-chain operations and enabling interoperable financial interactions.
+
+The core mechanism behind Embacon is powered by Chainlink CCIP, which facilitates secure cross-chain communication using a burn-and-mint model. When a user deposits collateral on one chain and wishes to borrow on another, CCIP ensures that the transaction is executed atomically and trustlessly, without relying on centralized bridges or synthetic wrapped assets.
+
+To support real-time valuation of collateral and borrowing positions, Embacon integrates Chainlink Data Streams, which deliver sub-second, high-frequency price data directly on-chain. This ensures that users always interact with up-to-date information when assessing their borrowing capacity or adjusting their collateral positions.
+
+To further enhance accessibility and improve user experience across platforms, Embacon also integrates the MetaMask SDK. This integration enables:
+- Seamless wallet connectivity
+- Unified session management for persistent, secure dApp interactions
+- Cross-network detection and switching, simplifying complex cross-chain user flows
+
+By using MetaMask SDK, Embacon ensures that users can easily sign transactions, approve collateral operations, and track their positions. All from the familiar MetaMask interface on any device.
+
+In addition to its cross-chain capabilities, Embacon features a built-in collateral swap mechanism, allowing users to modify their collateral composition within the protocol without needing to exit or unwind their positions. This functionality provides enhanced flexibility in adapting to market conditions. To ensure accurate and up-to-date valuations during the swap process, Embacon again leverages Chainlink Data Streams, which deliver real-time pricing data from decentralized and aggregated sources. This integration helps preserve protocol integrity and ensures that collateral swaps are executed based on fair market values.
+
+Embacon combines these elements into a unified, modular architecture that prioritizes security, precision, capital efficiency, and accessibility. Positioning it as a next-generation lending layer for the evolving multichain DeFi ecosystem.
 
 ## Key Features
 
 ### Permissionless Cross-Chain Lending & Borrowing
 
-Embacon Finance allows decentralized lending and borrowing across multiple blockchain networks without intermediaries. Users can supply collateral on one chain and borrow assets on another, promoting financial inclusion and maintaining full custody over assets.
+Embacon Finance facilitates decentralized lending and borrowing across multiple blockchain networks without the need for centralized intermediaries or permissions. Users are able to supply collateral on one chain and borrow assets on another, enabling efficient cross-chain capital utilization. This open-access model promotes financial inclusion while maintaining full user custody and sovereignty over assets. Through the integration of MetaMask SDK, users benefit from a seamless and secure wallet connection experience across platforms. This allows for persistent sessions and frictionless signing of lending and borrowing transactions, simplifying user interaction with multi-chain DeFi operations.
 
 ### Secure Cross-Chain Messaging Powered by Chainlink CCIP
 
-Utilizing Chainlink Cross-Chain Interoperability Protocol (CCIP), Embacon ensures secure and atomic cross-chain transactions through a burn-and-mint model. This mechanism guarantees supply consistency and reduces systemic risk across blockchain environments.
+Embacon Finance leverages the Chainlink Cross-Chain Interoperability Protocol (CCIP) to securely transmit data and token instructions across disparate blockchain environments using a burn-and-mint mechanism that ensures atomicity, supply consistency, and eliminates reliance on custodial bridges. This approach reduces systemic risk and enables a composable DeFi infrastructure across chains. Enhancing this flow, the integration of the MetaMask SDK automates wallet-network interaction handling, allowing users to interact with multiple blockchains seamlessly without manual network switching, while maintaining an intuitive and consistent experience when signing cross-chain intents.
 
 ### Real-Time Collateral Valuation via Chainlink Data Streams
 
-Integrating Chainlink Data Streams provides Embacon with real-time price updates, enabling accurate loan-to-value (LTV) assessments and transparent risk management. These data feeds enhance user transparency and support future risk-based features.
+To support precise risk management and informed borrowing decisions, Embacon integrates Chainlink Data Streams, delivering real-time, high-frequency pricing data from aggregated sources to enable accurate and dynamic loan-to-value (LTV) assessments, enhance user transparency, and lay the groundwork for future implementations of automated risk controls and liquidation mechanisms. Combined with the session persistence provided by the MetaMask SDK, Embacon ensures that users can continuously monitor their LTV positions and access up-to-date valuations without the need to repeatedly reauthorize or reconnect their wallets, resulting in a seamless and reliable DeFi experience.
 
 ### Native Collateral Swap Mechanism
 
-Embacon includes a native collateral swap feature, allowing users to adjust collateral compositions without closing positions. Integrated with Chainlink Data Streams, this feature ensures swaps are executed at fair market values based on current pricing data.
+Embacon Finance includes a native collateral swap feature that allows users to adjust their collateral within the protocol without closing existing positions, providing flexibility in managing market exposure and responding to price movements. To ensure accurate and fair execution, this swap mechanism integrates Chainlink Data Streams, which deliver real-time and reliable price data that reflect current market conditions. Enhanced by the MetaMask SDK, the collateral swap process becomes a streamlined and user-friendly workflow, where approvals, confirmations, and execution are synchronized within a consistent interface—minimizing friction and delivering a smooth DeFi experience.
 
 ## Join Us
 
-Embacon Finance is built on Chainlink’s robust infrastructure, leveraging CCIP for secure cross-chain interoperability and Data Streams for real-time market data. Join us in building the future of cross-chain DeFi—where liquidity, security, and usability transcend single-chain limitations.
+Embacon Finance is a next-generation cross-chain lending protocol built with a focus on seamless user experience, accessibility, and secure interoperability. At the core of this experience is the MetaMask SDK, which empowers developers and users alike to interact with Embacon’s multi-chain features through persistent, secure wallet sessions and intuitive connection flows across platforms. By eliminating unnecessary friction in onboarding, transaction signing, and network switching, Embacon makes cross-chain DeFi interactions feel as seamless as single-chain ones.
 
-Explore how Embacon can empower developers and users alike to unlock cross-chain capital efficiency in a permissionless ecosystem. Let’s build a more connected DeFi together.
+We believe the future of DeFi lies in simplicity, accessibility, and open collaboration. With MetaMask SDK enabling effortless access and reliable wallet connectivity, Embacon provides a solid foundation for developers to build secure, user-friendly cross-chain financial applications.
 
-Powered by Chainlink.
+We invite builders, contributors, and curious minds to collaborate with us. Whether you're integrating Embacon into your dApp, extending functionality, or helping shape the future of interoperable DeFi. Let’s create a world where capital flows freely across chains and users stay in full control, no matter where they are.
 
 ---
 # Problems and Solutions
 
-In building a permissionless cross-chain lending protocol, we identified the most pressing challenges in multichain DeFi and designed focused solutions through our integration with Chainlink’s decentralized infrastructure.
+In building a permissionless cross-chain lending protocol, we identified the most pressing challenges in multichain DeFi and designed focused solutions through integrations that prioritize security, real-time data, and user accessibility, including with the MetaMask SDK.
 
 ## Fragmented Liquidity Across Chains
 
 **Problem**: DeFi users are often constrained by isolated liquidity pools on individual blockchains, limiting access to optimal borrowing or lending opportunities.
 
-**Embacon Finance's Solution**: Embacon Finance solves this through secure cross-chain functionality powered by Chainlink CCIP, enabling users to deposit collateral on one chain and borrow on another without relying on centralized bridges or wrapped assets. This unlocks multichain capital access and improves capital efficiency across ecosystems.
+**Embacon Finance's Solution**: Embacon Finance solves this through secure cross-chain functionality powered by atomic messaging protocols, enabling users to deposit collateral on one chain and borrow on another without relying on centralized bridges or wrapped assets. This unlocks multichain capital access and improves capital efficiency across ecosystems. With the integration of the MetaMask SDK, users can interact with cross-chain features through a seamless and persistent wallet connection, removing the friction of managing multiple chains manually.
 
 ## Delayed Price Feeds
 
 **Problem**: Traditional oracles often suffer from latency or low update frequency, resulting in outdated collateral pricing, miscalculated LTV ratios, and increased exposure to market volatility.
 
-**Embacon Finance's Solution**: By integrating Chainlink Data Streams, Embacon accesses sub-second, real-time price data on-chain. This ensures up-to-date collateral valuations and dynamic loan tracking, empowering users with accurate, real-time position insights.
+**Embacon Finance's Solution**: By integrating real-time price data feeds, Embacon ensures up-to-date collateral valuations and dynamic loan tracking, empowering users with accurate, real-time position insights. Combined with MetaMask SDK's session persistence, users receive these updates without needing to constantly reauthorize wallet access, maintaining a consistent and uninterrupted view of their loan health and exposure.
 
 ## Closed and Restrictive Protocols Hinder Broader Participation
 
 **Problem**: A significant number of lending platforms operate within closed ecosystems, relying on mechanisms such as whitelisting, centralized governance, or limited collateral support. These restrictions reduce accessibility, limit user autonomy, and compromise the principles of transparency and decentralization.
 
-**Embacon Finance's Solution**: Embacon Finance is designed as a fully permissionless protocol, enabling any user to engage in lending or borrowing activities without the need for prior approval or reliance on centralized intermediaries. This open-access architecture fosters inclusivity, enhances transparency, and aligns with the core ethos of decentralized finance by supporting unrestricted global participation.
+**Embacon Finance's Solution**: Embacon Finance is designed as a fully permissionless protocol, enabling any user to engage in lending or borrowing activities without the need for prior approval or reliance on centralized intermediaries. This open-access architecture fosters inclusivity, enhances transparency, and aligns with the core ethos of decentralized finance by supporting unrestricted global participation. MetaMask SDK integration reinforces this open design by allowing any user to connect instantly from supported platforms, without requiring complex configurations or centralized access control.
 
 ## Collateral Management is Inflexible
 
 **Problem**: Other lending protocols require users to exit positions to adjust their collateral, incurring costs and friction during portfolio adjustments.
 
-**Embacon Finance's Solution**: Embacon introduces a native in-protocol collateral swap mechanism, allowing users to seamlessly change their collateral type without closing positions. This feature is supported by Chainlink Data Streams, ensuring accurate pricing during swaps and enabling more agile, responsive portfolio management.
+**Embacon Finance's Solution**: Embacon introduces a native in-protocol collateral swap mechanism, allowing users to seamlessly change their collateral type without closing positions. This feature is backed by real-time pricing infrastructure to ensure accurate valuations during the swap process. The experience is further streamlined through MetaMask SDK, which enables users to execute swaps, approvals, and confirmations through a unified interface, reducing friction and maintaining a smooth, responsive interaction flow.
 
 ---
 
@@ -77,19 +100,19 @@ In building a permissionless cross-chain lending protocol, we identified the mos
 
 ### Secure Cross-Chain Messaging Without Centralization
 
-**Challenge**: Implementing cross-chain functionality in DeFi often relies on custodial bridges or wrapped assets, which introduce significant security risks and systemic vulnerabilities. Embacon’s challenge was to deliver secure and verifiable cross-chain communication without compromising decentralization. By integrating Chainlink CCIP, Embacon had to ensure not only the integrity of cross-chain token transfers but also the safe orchestration of protocol logic across multiple blockchain environments. This required careful handling of message validation, failure recovery, and trust minimization throughout the system.
+**Challenge**: Implementing cross-chain functionality in DeFi often relies on custodial bridges or wrapped assets, which introduce significant security risks and systemic vulnerabilities. Embacon’s challenge was to deliver secure and verifiable cross-chain communication without compromising decentralization. While building on top of atomic messaging frameworks, Embacon had to ensure not only the integrity of token transfers but also the safe orchestration of protocol logic across multiple blockchain environments. This required careful handling of message validation, failure recovery, and trust minimization throughout the system. Additionally, ensuring that users could interact with these complex cross-chain operations securely and intuitively led to the integration of the MetaMask SDK, which played a key role in abstracting away the technical overhead of multi-network interaction, allowing users to focus on their intent rather than the underlying infrastructure.
 
 ### Real-Time Price Delivery and On-Chain Integration
 
-**Challenge**: Other lending protocols can function with delayed price updates, but in a cross-chain setting, real-time valuation is essential. Embacon’s integration of Chainlink Data Streams introduces technical challenges related to on-chain data consumption, synchronization across chains, and oracle update frequency. Ensuring that these real-time data feeds are efficiently integrated, cost-effective, and robust against volatility or rapid price swings is critical to maintaining accurate collateral tracking and user confidence in borrowing limits.
+**Challenge**: Other lending protocols may function with delayed price updates, but in a cross-chain setting, real-time valuation is essential. Embacon’s integration of real-time data infrastructure introduces challenges related to on-chain data consumption, synchronization across networks, and ensuring consistency during periods of volatility. These data feeds must be integrated in a way that balances responsiveness with gas efficiency. Moreover, to ensure that users can act on real-time information without interruption, Embacon relies on the MetaMask SDK to maintain persistent wallet sessions. Enabling seamless access to up-to-date borrowing limits and collateral health metrics, without forcing users to repeatedly reconnect or approve interactions across different networks.
 
 ### Maintaining Protocol Resilience Against Oracle Manipulation
 
-**Challenge**: Relying on a single source of truth can expose lending protocols to manipulation or failure. Even with Chainlink’s decentralized architecture, integrating Data Streams into core protocol operations requires rigorous safeguards, such as deviation thresholds, update throttling, and fallback pricing logic. Embacon must ensure that its reliance on external data sources does not introduce fragility or open attack vectors, especially when these prices are used for critical operations like collateral adjustment or eligibility verification.
+**Challenge**: Relying on a single source of truth can expose lending protocols to manipulation or failure. Even when leveraging decentralized data aggregation, integrating real-time feeds into core protocol operations requires safeguards such as deviation thresholds, update throttling, and fallback logic. Embacon must ensure that external data, especially when used for critical functions like collateral evaluation or eligibility enforcement, does not become a vector for systemic failure. This challenge also extends to how users interact with sensitive data-driven processes. Through the MetaMask SDK, Embacon enhances user-facing reliability by reducing signature prompts and streamlining the UX around price-triggered events. Making data-heavy operations feel smoother and more transparent to end users.
 
 ### Operational Coordination Across Multiple Chain Environments
 
-**Challenge**: Running a protocol that operates across chains using CCIP introduces operational and infrastructure complexity. Embacon must account for chain-specific behavior, gas costs, execution timing, and differences in token standards. Coordinating token burns, message confirmations, and mints across heterogeneous networks while maintaining consistent user experience requires both technical precision and robust testing frameworks. Leveraging Chainlink CCIP’s capabilities demands rigorous adherence to cross-chain standards and careful monitoring of interchain message flow to ensure system integrity.
+**Challenge**: Running a lending protocol across chains introduces significant operational complexity. Embacon must account for chain-specific behaviors, execution timing, token standards, and fluctuating gas costs. Managing processes like token burning, message confirmation, and minting across heterogeneous environments requires precise coordination and extensive testing. Furthermore, maintaining a consistent user experience across chains is nontrivial. By leveraging the MetaMask SDK, Embacon ensures that users don’t have to manually switch networks or troubleshoot connection issues across environments. This abstraction enables the protocol to focus on cross-chain logic while the SDK handles network detection, session management, and secure access. All contributing to a more unified and frictionless user journey.
 
 # How We Achieve Cross-Chain Capability
 ![Flowchart Screenshot](https://caer-finance-ccip.gitbook.io/caer-finance-docs/~gitbook/image?url=https%3A%2F%2F172083510-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FVsNKiGOr7l1Swz9iRDmK%252Fuploads%252FCwxTYAcXnpfSbezsGmvh%252Fcaernewlendbor.gif%3Falt%3Dmedia%26token%3D4efab80d-3125-4a66-b8c8-39f1c2d9cd0b&width=768&dpr=4&quality=100&sign=e1cb7b1b&sv=2)
@@ -97,13 +120,13 @@ Embacon Finance achieves secure and verifiable cross-chain lending by leveraging
 
 In our current architecture, as illustrated:
 
-- On the **Source Chain (Avalanche Fuji)**, users deposit collateral (e.g., MockWAVAX) into the Embacon Liquidity Pool. The deposited tokens are handled by `BasicTokenSender.sol`, which interacts with the Chainlink CCIP Router. This Router prepares a cross-chain message, processes transaction fees (in LINK or AVAX), and initiates a burn operation of the deposited tokens, removing them from circulation and preventing supply duplication.
+- On the **Source Chain (Arbitrum Sepolia)**, users deposit collateral (e.g., MockWETH) into the Embacon Liquidity Pool. The deposited tokens are handled by `BasicTokenSender.sol`, which interacts with the Chainlink CCIP Router. This Router prepares a cross-chain message, processes transaction fees (in LINK or Native Gas Token), and initiates a burn operation of the deposited tokens, removing them from circulation and preventing supply duplication.
 
 - The burn-and-mint method, native to Chainlink CCIP’s token pool mechanism, ensures that tokens exist on only one chain at any time. The burn event is cryptographically verified and transmitted by Chainlink’s decentralized oracle network (DON), forming a secure proof of collateral transfer.
 
-- Once received on the **Destination Chain (Arbitrum Sepolia)**, the corresponding CCIP Router invokes the `LendingPool.sol` contract. This contract verifies the message and proof, and accordingly credits the user with the right to borrow stablecoins (e.g., MockUSDC), which are minted or released from liquidity on the destination chain.
+- Once received on the **Destination Chain (Base Sepolia)**, the corresponding CCIP Router invokes the `LendingPool.sol` contract. This contract verifies the message and proof, and accordingly credits the user with the right to borrow stablecoins (e.g., MockUSDC), which are minted or released from liquidity on the destination chain.
 
-- Both MockWAVAX and MockUSDC are continuously priced using Chainlink Data Streams, a low-latency oracle feed that ensures accurate and high-frequency pricing. These feeds are crucial for determining borrowing capacity, monitoring risk exposure, and enabling dynamic collateral swap logic within the protocol.
+- Both MockWETH and MockUSDC are continuously priced using Chainlink Data Streams, a low-latency oracle feed that ensures accurate and high-frequency pricing. These feeds are crucial for determining borrowing capacity, monitoring risk exposure, and enabling dynamic collateral swap logic within the protocol.
 
 By combining CCIP and Data Streams, Embacon Finance unlocks native cross-chain borrowing with high levels of security, precision, and capital efficiency without relying on wrapped tokens or centralized liquidity hubs. This positions Embacon as a modular, interoperable DeFi primitive ready to scale across blockchain ecosystems.
 
