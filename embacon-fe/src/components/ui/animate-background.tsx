@@ -438,10 +438,10 @@ export default function imateBackground() {
             />
           </div>
           {/* Fixed height container untuk buttons agar posisi typewriter tidak bergeser */}
-          <div className="h-20 flex items-center justify-center">
+          <div className="h-20 flex items-center justify-center relative z-20 pointer-events-auto">
             {showButtons && (
               <motion.div 
-                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+                className="flex flex-col sm:flex-row gap-6 justify-center items-center pointer-events-auto"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ 
@@ -454,9 +454,10 @@ export default function imateBackground() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.3, delay: 0 }}
+                  className="pointer-events-auto"
                 >
                   <Link href="/earn">
-                    <button className="btn-futuristic px-8 py-4 text-white rounded-xl font-semibold transition-all duration-300 hover-lift flex items-center gap-2">
+                    <button className="btn-futuristic px-8 py-4 text-white rounded-xl font-semibold transition-all duration-300 hover-lift flex items-center gap-2 cursor-pointer pointer-events-auto">
                       Get Started
                       <ExternalLink className="w-4 h-4" />
                     </button>
@@ -466,12 +467,13 @@ export default function imateBackground() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
+                  className="pointer-events-auto"
                 >
                   <a
                     href="https://github.com/ahmadstiff/embacon-finance/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-8 py-4 glass text-cyan-300 rounded-xl font-semibold border border-cyan-400/30 hover:border-cyan-400/50 transition-all duration-300 hover-lift cursor-pointer flex items-center gap-2"
+                    className="px-8 py-4 glass text-cyan-300 rounded-xl font-semibold border border-cyan-400/30 hover:border-cyan-400/50 transition-all duration-300 hover-lift cursor-pointer flex items-center gap-2 pointer-events-auto"
                   >
                     <BookOpen className="w-4 h-4" />
                     Documentation
