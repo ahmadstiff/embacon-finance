@@ -1,9 +1,9 @@
 # Embacon Finance
 
 ## Project Demo
-[Go to site](https://caerfi.vercel.app/)
+[Go to site](https://embacon-fnance.vercel.app/)
 
-![Project Screenshot](https://github.com/ghozzza/caer/blob/main/caer-fe/public/caercciphomegif.gif)
+![Project Screenshot](https://github.com/ahmadstiff/embacon-finance/blob/master/embacon-fe/public/home.png)
 
 ---
 # Overview
@@ -115,7 +115,7 @@ In building a permissionless cross-chain lending protocol, we identified the mos
 **Challenge**: Running a lending protocol across chains introduces significant operational complexity. Embacon must account for chain-specific behaviors, execution timing, token standards, and fluctuating gas costs. Managing processes like token burning, message confirmation, and minting across heterogeneous environments requires precise coordination and extensive testing. Furthermore, maintaining a consistent user experience across chains is nontrivial. By leveraging the MetaMask SDK, Embacon ensures that users don’t have to manually switch networks or troubleshoot connection issues across environments. This abstraction enables the protocol to focus on cross-chain logic while the SDK handles network detection, session management, and secure access. All contributing to a more unified and frictionless user journey.
 
 # How We Achieve Cross-Chain Capability
-![Flowchart Screenshot](https://caer-finance-ccip.gitbook.io/caer-finance-docs/~gitbook/image?url=https%3A%2F%2F172083510-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FVsNKiGOr7l1Swz9iRDmK%252Fuploads%252FCwxTYAcXnpfSbezsGmvh%252Fcaernewlendbor.gif%3Falt%3Dmedia%26token%3D4efab80d-3125-4a66-b8c8-39f1c2d9cd0b&width=768&dpr=4&quality=100&sign=e1cb7b1b&sv=2)
+![Flowchart Screenshot](https://github.com/ahmadstiff/embacon-finance/blob/master/embacon-fe/public/embaconhowcross.gif)
 Embacon Finance achieves secure and verifiable cross-chain lending by leveraging Chainlink’s Cross-Chain Interoperability Protocol (CCIP) to facilitate communication and token transfer between blockchain networks. The protocol enables users to deposit collateral on one chain and borrow stablecoins on another without relying on centralized bridges or wrapped assets by utilizing a secure burn-and-mint mechanism.
 
 In our current architecture, as illustrated:
@@ -133,7 +133,7 @@ By combining CCIP and Data Streams, Embacon Finance unlocks native cross-chain b
 ---
 
 ## Swap
-![Swap Screenshot](https://caer-finance-ccip.gitbook.io/caer-finance-docs/~gitbook/image?url=https%3A%2F%2F172083510-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FVsNKiGOr7l1Swz9iRDmK%252Fuploads%252F7iRgTFqsZUbxsYM7110s%252Fswapcolcaer.png%3Falt%3Dmedia%26token%3Da1503862-6024-4f1a-9c09-1b716d8f2e7f&width=768&dpr=4&quality=100&sign=51a3ea27&sv=2)
+![Swap Screenshot](https://github.com/ahmadstiff/embacon-finance/blob/master/embacon-fe/public/embaconswap.png)
 Embacon Finance incorporates a purpose-built collateral swap mechanism that enables users to modify their collateral composition directly within the protocol without exiting lending or borrowing positions. Inspired by the architecture of Automated Market Makers (AMM), the system is tightly integrated into the Embacon Pool to facilitate real-time, on-chain token exchange with minimal friction.
 
 ## 1. Liquidity Provision and Pool Structure
