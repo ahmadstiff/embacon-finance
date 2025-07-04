@@ -282,8 +282,7 @@ These tokens are used for cross-chain lending, borrowing, and collateral swaps o
 
 - 🌐 Website: [https://embacon-fnance.vercel.app/](https://embacon-fnance.vercel.app/)
 - 🏢 Organization: [https://github.com/ahmadstiff/embacon-finance](https://github.com/ahmadstiff/embacon-finance)
-- Demo Video [https://www.youtube.com](https://www.youtube.com
-- Presentation [prentation-slide](https://www.canva.com/)
+- Demo Video [https://www.youtube.com](https://www.youtube.com/watch?v=YN4QYPe-Uxg)
 
 ---
 
