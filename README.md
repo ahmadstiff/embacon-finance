@@ -232,11 +232,10 @@ These tokens are used for cross-chain lending, borrowing, and collateral swaps o
 
 ## 🔗 Links
 
-- 🌐 Website: [https://caerfi.vercel.app](https://caerfi.vercel.app/)
-- 📚 Documentation: [https://caer-finance-ccip.gitbook.io/](https://caer-finance-ccip.gitbook.io/)
-- 🏢 Organization: [https://github.com/ghozzza/caer](https://github.com/ghozzza/caer)
-- Demo Video [https://www.youtube.com/watch?v=NI6Idm1UshY](https://www.youtube.com/watch?v=NI6Idm1UshY)
-- Presentation [prentation-slide](https://www.canva.com/design/DAGrMZrSlpk/H4G6irD6k-M8E3JTG7TYtw/edit?utm_content=DAGrMZrSlpk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- 🌐 Website: [https://embacon-fnance.vercel.app/](https://embacon-fnance.vercel.app/)
+- 🏢 Organization: [https://github.com/ahmadstiff/embacon-finance](https://github.com/ahmadstiff/embacon-finance)
+- Demo Video [https://www.youtube.com](https://www.youtube.com
+- Presentation [prentation-slide](https://www.canva.com/)
 
 ---
 
