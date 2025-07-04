@@ -174,7 +174,16 @@ By combining CCIP and Data Streams, Embacon achieves a robust and composable inf
 ---
 
 # Embacon Finance Contract Token Configuration
-## Lending Pools
+## Supported Chains
+
+- **Ethereum Sepolia**
+  - **Chain ID**: 11155111
+  - **Contracts**:
+    - Lending Pool: (Not yet deployed)
+    - Factory: (Not yet deployed)
+    - Position: (Not yet deployed)
+    - Block Explorer: `https://sepolia.etherscan.io`
+  - **Destination ID**: 0
 
 - **Avalanche Fuji**
   - **Chain ID**: 43113
@@ -185,46 +194,85 @@ By combining CCIP and Data Streams, Embacon achieves a robust and composable inf
     - Block Explorer: `https://testnet.snowtrace.io`
   - **Destination ID**: 1
 
-## Token configuration
+- **Arbitrum Sepolia**
+  - **Chain ID**: 421614
+  - **Contracts**:
+    - Lending Pool: `0x19b0b0F7895BFf7D32b0b6f0239EB76787BC4963`
+    - Factory: `0x0128FA2b8254359A3493AC9782059F7bb3508AA4`
+    - Position: `0x1D8aF8e5925397a4977734b4CeeA4bA1F526E69C`
+    - Block Explorer: `https://sepolia.arbiscan.io`
+  - **Destination ID**: 2
+
+- **Base Sepolia**
+  - **Chain ID**: 84532
+  - **Contracts**:
+    - Lending Pool: (Not yet deployed)
+    - Factory: (Not yet deployed)
+    - Position: (Not yet deployed)
+    - Block Explorer: `https://sepolia.basescan.org`
+  - **Destination ID**: 3
+
+## Supported Tokens
+
 - **WETH**
   - **Addresses**:
     - Ethereum Sepolia (11155111): `0x89d3acb10fc9f9bee444c05e1363e514e8a748da`
     - Avalanche Fuji (43113): `0x63CFd5c58332c38d89B231feDB5922f5817DF180`
-    - Arbitrum Sepolia (421614): `0x07b1f448c3697d7379cd5fb1e57c898b5cef97cc`
+    - Arbitrum Sepolia (421614): `0xCC1A31502Bd096d7AAdEBE25670ebe634671aD31`
     - Base Sepolia (84532): `0x2769a1ce97cc2d21e3723ee986b29173de3fe4ac`
-  - **Data Streams**: `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+  - **Price Feeds**:
+    - Ethereum Sepolia (11155111): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Avalanche Fuji (43113): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Arbitrum Sepolia (421614): `0xd30e2101a97dcbAeBCBC04F14C3f624E67A35165`
+    - Base Sepolia (84532): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
 
 - **WBTC**
   - **Addresses**:
     - Ethereum Sepolia (11155111): `0xbe4d4858eb0849b038a0b5ecd38a7599d73bd923`
     - Avalanche Fuji (43113): `0xa7A93C5F0691a5582BAB12C0dE7081C499aECE7f`
-    - Arbitrum Sepolia (421614): `0xc0f3bbe559e78f2bcebbb588bb561c3030a00eeb`
+    - Arbitrum Sepolia (421614): `0x773D46F1Ad10110459D84535A664B59Ae98CAC7E`
     - Base Sepolia (84532): `0x548c22d340eb79915316f01e45b4133203a24e90`
-  - **Data Streams**: `0x31CF013A08c6Ac228C94551d535d5BAfE19c602a`
+  - **Price Feeds**:
+    - Ethereum Sepolia (11155111): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Avalanche Fuji (43113): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Arbitrum Sepolia (421614): `0x56a43EB56Da12C0dc1D972ACb089c06a5dEF8e69`
+    - Base Sepolia (84532): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
 
 - **WAVAX**
   - **Addresses**:
     - Ethereum Sepolia (11155111): `0x4314bb3ad93206ee8f7f18dbcc49943366503bbf`
     - Avalanche Fuji (43113): `0xA61Eb0D33B5d69DC0D0CE25058785796296b1FBd`
-    - Arbitrum Sepolia (421614): `0x0fe5fa3fb5e8815e66eeb50758f7a74d732445d9`
+    - Arbitrum Sepolia (421614): `0x9b9d709ACAB5c4C784a7ADce5530ce8b98FcD662`
     - Base Sepolia (84532): `0x322b3326b5f7de4abd7554f6a32217825770fd41`
-  - **Data Streams**: `0x5498BB86BC934c8D34FDA08E81D444153d0D06aD`
+  - **Price Feeds**:
+    - Ethereum Sepolia (11155111): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Avalanche Fuji (43113): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Arbitrum Sepolia (421614): `0xe27498c9Cc8541033F265E63c8C29A97CfF9aC6D`
+    - Base Sepolia (84532): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
 
 - **USDC**
   - **Addresses**:
     - Ethereum Sepolia (11155111): `0xab0c196dba12297e4c5b9a414013230a527b4a4b`
     - Avalanche Fuji (43113): `0xC014F158EbADce5a8e31f634c0eb062Ce8CDaeFe`
-    - Arbitrum Sepolia (421614): `0x5df6ed08eec2fd5e41914d291c0cf48cd3564421`
+    - Arbitrum Sepolia (421614): `0xEB7262b444F450178D25A5690F49bE8E2Fe5A178`
     - Base Sepolia (84532): `0xcba01c75d035ca98ffc7710dae710435ca53c03c`
-  - **Data Streams**: `0x97FE42a7E96640D932bbc0e1580c73E705A8EB73`
+  - **Price Feeds**:
+    - Ethereum Sepolia (11155111): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Avalanche Fuji (43113): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Arbitrum Sepolia (421614): `0x0153002d20B96532C639313c2d54c3dA09109309`
+    - Base Sepolia (84532): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
 
 - **USDT**
   - **Addresses**:
     - Ethereum Sepolia (11155111): `0xe8add858b8a2f6e41d67008a58058010b9c0ba04`
     - Avalanche Fuji (43113): `0x1E713E704336094585c3e8228d5A8d82684e4Fb0`
-    - Arbitrum Sepolia (421614): `0x716bdb0129ad528162477e2f426ba061adb41621`
+    - Arbitrum Sepolia (421614): `0x02d811A7959994e4861781bC65c58813D4678949`
     - Base Sepolia (84532): `0x49f82b20894e6a1e66238fb50278ac60b57676ee`
-  - **Data Streams**: `0x7898AcCC83587C3C55116c5230C17a6Cd9C71bad`
+  - **Price Feeds**:
+    - Ethereum Sepolia (11155111): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Avalanche Fuji (43113): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
+    - Arbitrum Sepolia (421614): `0x80EDee6f667eCc9f63a0a6f55578F870651f06A4`
+    - Base Sepolia (84532): `0x86d67c3D38D2bCeE722E601025C25a575021c6EA`
 
 ## Integration with Embacon Finance
 
